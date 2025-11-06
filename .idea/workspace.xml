@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d98624e-87f6-44cc-a254-790982cb3687" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Donjon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Exterieur.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Marche.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Spawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Salles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Salles.java" afterDir="false" />
-    </list>
+    <list default="true" id="2d98624e-87f6-44cc-a254-790982cb3687" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -118,7 +108,7 @@
       <workItem from="1762353275556" duration="1044000" />
       <workItem from="1762354937873" duration="679000" />
       <workItem from="1762356158276" duration="4213000" />
-      <workItem from="1762418535058" duration="1427000" />
+      <workItem from="1762418535058" duration="1734000" />
     </task>
     <servers />
   </component>
