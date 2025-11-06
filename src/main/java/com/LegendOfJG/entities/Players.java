@@ -15,11 +15,10 @@ abstract class Players implements Actions{
     protected boolean killable;
     protected List<String> soundPaths = new ArrayList<>();
     protected List<String> spritesPaths = new ArrayList<>();
-    static int id;
 
 
-    public Players(String name, int damage, List<Integer> position, int range, int hp, float speed, boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritesPaths ) {
-        id = id++;
+
+    public Players(String name, int damage, List<Integer> position, int range, int hp, float speed,boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritesPaths ) {
         this.name = name;
         this.damage = damage;
         this.position = position;
@@ -34,9 +33,7 @@ abstract class Players implements Actions{
 
     }
 
-    public int getId() {
-        return id;
-    }
+
 
     public String getName() {
         return this.name;
