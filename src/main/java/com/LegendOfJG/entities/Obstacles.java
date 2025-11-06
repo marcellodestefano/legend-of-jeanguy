@@ -12,7 +12,7 @@ abstract class Obstacles{
         this.spritePath = spritePath;
         this.IsMovable = IsMovable;
 
-        this.id = id++;
+        id = id++;
     }
 
     public boolean getTraversable(){
