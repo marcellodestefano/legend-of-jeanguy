@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d98624e-87f6-44cc-a254-790982cb3687" name="Changes" comment="" />
+    <list default="true" id="2d98624e-87f6-44cc-a254-790982cb3687" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Caillou.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Caillou.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Eau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Eau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Flamme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Flamme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Foret.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Foret.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Obstacles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/LegendOfJG/entities/Obstacles.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,9 +36,10 @@
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "obstacles",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/marcello/Desktop/Epitech/piscine-java/LegOfJeanGuy",
+    "last_opened_file_path": "/home/arthur-ronald/Downloads/PRe-MSC/Java/ProjetJava/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,6 +83,7 @@
       <workItem from="1762350423147" duration="2842000" />
       <workItem from="1762353275556" duration="1044000" />
       <workItem from="1762354937873" duration="679000" />
+      <workItem from="1762358925827" duration="7144000" />
     </task>
     <servers />
   </component>
