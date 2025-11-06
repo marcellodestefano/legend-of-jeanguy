@@ -6,11 +6,11 @@ abstract class Obstacles{
     private String spritePath;
     private boolean IsMoovable;
 
-    public Obstacles(boolean traversable, String spritePath, boolean IsMoovable){
+    public Obstacles(boolean traversable, String spritePath, boolean IsMovable){
 
         this.traversable = traversable;
         this.spritePath = spritePath;
-        this.IsMoovable = IsMoovable;
+        this.IsMovable = IsMovable;
 
         this.id = id++;
     }
@@ -27,7 +27,7 @@ abstract class Obstacles{
         return spritePath;
     }
 
-    public boolean isMoovable(){
-        return IsMoovable;
+    public boolean isMovable(){
+        return IsMovable;
     }
 }
