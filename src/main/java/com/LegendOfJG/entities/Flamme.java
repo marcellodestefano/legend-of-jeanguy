@@ -1,3 +1,5 @@
+package main.java.com.LegendOfJG.entities;
+
 public class Flamme extends Obstacles{
 
     protected int range;

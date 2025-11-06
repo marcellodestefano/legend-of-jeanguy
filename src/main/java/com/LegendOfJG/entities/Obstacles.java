@@ -1,3 +1,5 @@
+package main.java.com.LegendOfJG.entities;
+
 abstract class Obstacles{
     private boolean traversable;
     private static int id = 0;
