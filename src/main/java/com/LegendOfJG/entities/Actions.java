@@ -1,19 +1,21 @@
 package main.java.com.LegendOfJG.entities;
 import java.util.*;
 
+
 interface Actions{
     String getName();
     int getDamage();
     List<Integer> getPosition();
-    boolean moveR(Salles);
-    boolean moveU(Salles);
-    boolean moveL(Salles);
-    boolean moveD(Salles);
+    boolean moveR();
+    boolean moveU();
+    boolean moveL();
+    boolean moveD();
     int getHp();
-    boolean attack(NonPlayable);
-    boolean defend();
-    String getSoundPath();
-    boolean move(Obstacles);
+    boolean attack(Players cible);
+    //boolean defend();
+    List<String> getSoundPaths();
+    List<String> getSpritePaths();
     float getSpeed();
+    void receiveDamage(int damage);
 
 }
