@@ -1,4 +1,4 @@
-package com.LegendOfJG.entities;
+package entities;
 
 import java.util.*;
 
@@ -22,4 +22,4 @@ public class Clefs{
     public int getCount(){
         return count;
     }
-}etCount());
+}
