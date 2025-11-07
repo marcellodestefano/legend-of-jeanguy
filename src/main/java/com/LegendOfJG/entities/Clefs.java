@@ -22,4 +22,4 @@ public class Clefs{
     public int getCount(){
         return count;
     }
-}
+}etCount());
