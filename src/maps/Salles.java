@@ -1,5 +1,6 @@
 package maps;
 import java.util.*;
+import entities.players.NonPlayable;
 
 abstract class Salles{
     protected static int id;
@@ -25,8 +26,8 @@ abstract class Salles{
         return elements;
     }
 
-    public List<NonPlayable> getMonstres{
-        return monstres;
+    public List<NonPlayable> getMonstres(){
+        return this.monstres;
     }
 
     public String getSound() {
