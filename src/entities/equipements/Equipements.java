@@ -1,7 +1,7 @@
 package entities.equipements;
 import java.util.*;
 
-abstract class Equipements {
+public abstract class Equipements {
     protected static int id;
     protected boolean drop;
     protected String name;

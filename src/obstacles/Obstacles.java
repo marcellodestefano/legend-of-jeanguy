@@ -1,16 +1,16 @@
 package obstacles;
 
-abstract class Obstacles{
+public abstract class Obstacles{
     private boolean traversable;
     private static int id = 0;
     private String spritePath;
-    private boolean IsMoovable;
+    private boolean isMoovable;
 
-    public Obstacles(boolean traversable, String spritePath, boolean IsMovable){
+    public Obstacles(boolean traversable, String spritePath, boolean isMovable){
 
         this.traversable = traversable;
         this.spritePath = spritePath;
-        this.IsMovable = IsMovable;
+        this.isMoovable = isMovable;
 
         id = id++;
     }
@@ -28,6 +28,6 @@ abstract class Obstacles{
     }
 
     public boolean isMovable(){
-        return IsMovable;
+        return isMoovable;
     }
 }

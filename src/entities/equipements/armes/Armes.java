@@ -2,7 +2,7 @@ package entities.equipements.armes;
 import java.util.List;
 import entities.equipements.Equipements;
 
-abstract class Armes extends Equipements{
+public abstract class Armes extends Equipements{
     protected boolean isMelee;
     protected int range;
 
