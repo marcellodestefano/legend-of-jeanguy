@@ -26,27 +26,30 @@ public abstract class NonPlayable extends Players{
 
     public void update() {
         String dir = AlgorithmMovement.movements(this, cible);
-        System.out.println(dir);
-        if (dir == "up") {
+
+
+        if (dir == "up" ) {
             direction = "up";
             spriteCounter++;
-            position.set(1, position.get(1) - speed);
+            position.set(1, Math.max(0,position.get(1) - speed));
         }
         if (dir == "down") {
             direction = "down";
             spriteCounter++;
-            position.set(1, position.get(1) + speed);
+            position.set(1, Math.min(gamePanel.getHeight()- gamePanel.tileSize,position.get(1) + speed));
         }
         if (dir == "left") {
             direction = "left";
             spriteCounter++;
-            position.set(0, position.get(0) - speed);
+            position.set(0, Math.max(0,position.get(0) - speed));
         }
         if (dir == "right") {
             direction = "right";
             spriteCounter++;
-            position.set(0, position.get(0) + speed);
+            position.set(0, Math.min(gamePanel.getWidth()- gamePanel.tileSize,position.get(0) + speed));
         }
+
+
 
 
         if (spriteCounter > 12) {

@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
-    protected ArrayList<NonPlayable> enemies = new ArrayList<>();
+    protected ArrayList<Players> personnages = new ArrayList<>();
     final int FPS = 55;
 
     KeyHandler keyHandler = new KeyHandler();
@@ -39,13 +39,17 @@ public class GamePanel extends JPanel implements Runnable {
     public void prepareGame() {
 
 
-        enemies.add(maskGuy);
-        enemies.add(maskGuy2);
+        personnages.add(maskGuy);
+        personnages.add(maskGuy2);
+        personnages.add(jeanGuy);
 
-        for(NonPlayable np : enemies){
-            np.cible(jeanGuy);
 
+        for(Players np : personnages){
+            if (np instanceof NonPlayable enemy){
+                enemy.cible(jeanGuy);
+            }
         }
+
     }
 
     public void startGameThread() {
@@ -71,10 +75,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update() {
-        jeanGuy.update();
-        maskGuy.update();
-
-        maskGuy2.update();
+        for (Players p : personnages) {
+            p.update();
+        }
 
 
         }
