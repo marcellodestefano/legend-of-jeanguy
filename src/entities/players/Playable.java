@@ -4,7 +4,7 @@ import java.util.List;
 import entities.equipements.armes.*;
 import main.GamePanel;
 
-abstract class Playable extends Players{
+public abstract class Playable extends Players{
     protected Armes arme;
     protected int argent;
 

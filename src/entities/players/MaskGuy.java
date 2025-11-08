@@ -14,6 +14,20 @@ import java.util.Arrays;
  */
 public class MaskGuy extends NonPlayable{
     public MaskGuy(GamePanel panel) {
-        super(panel,"MaskGuy", 5, new ArrayList<Integer>(Arrays.asList(3,3,0)), 1, 30,2,false,true,1,true, Arrays.asList("",""),Arrays.asList("",""));
+        super(panel,"MaskGuy", 5, new ArrayList<Integer>(Arrays.asList(0,0,0)), 1, 30,2,
+                false,true,1,true, Arrays.asList("",""),Arrays.asList("/assets/ennemies/maskass/Haut1.png",
+                        "/assets/ennemies/maskass/Haut2.png","/assets/ennemies/maskass/Bas1.png","/assets/ennemies/maskass/Bas2.png",
+                        "/assets/ennemies/maskass/Gauche1.png", "/assets/ennemies/maskass/Gauche2.png","/assets/ennemies/maskass/Droite1.png",
+                        "/assets/ennemies/maskass/Droite2.png"));
+        this.startPosition();
     }
+
+    public void startPosition(){
+        this.position.set(0, 400);
+        this.position.set(1, 50+this.id*100);
+    }
+
+
+
+
 }
