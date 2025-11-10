@@ -39,8 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void prepareGame() {
 
 
-        personnages.add(maskGuy);
-        personnages.add(maskGuy2);
+
         personnages.add(jeanGuy);
 
 
@@ -86,9 +85,9 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
-        jeanGuy.draw(g2);
-        maskGuy.draw(g2);
-        maskGuy2.draw(g2);
+        for (Players p : personnages) {
+            p.draw(g2);
+        }
         g2.dispose();
     }
     }
