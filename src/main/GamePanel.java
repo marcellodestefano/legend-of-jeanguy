@@ -1,8 +1,10 @@
 package main;
-import entities.players.JeanGuy;
 import input.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import entities.players.*;
+
 import entities.players.*;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -14,13 +16,16 @@ public class GamePanel extends JPanel implements Runnable {
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
-
+    public ArrayList<Players> personnages = new ArrayList<>();
     final int FPS = 55;
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-
     JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    MaskGuy maskGuy = new MaskGuy(this);
+    MaskGuy maskGuy2 = new MaskGuy(this);
+
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -28,12 +33,30 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        prepareGame();
+    }
+
+    public void prepareGame() {
+
+
+        personnages.add(maskGuy);
+        personnages.add(maskGuy2);
+        personnages.add(jeanGuy);
+
+
+        for(Players np : personnages){
+            if (np instanceof NonPlayable enemy){
+                enemy.cible(jeanGuy);
+            }
+        }
+
     }
 
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
     @Override
     public void run() {
         long currentTime;
@@ -53,15 +76,24 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update() {
-        jeanGuy.update();
+        for (Players p : personnages) {
+            p.update();
+        }
 
-    }
+
+        }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
-        jeanGuy.draw(g2);
+        for (Players p : personnages) {
+            p.draw(g2);
+        }
         g2.dispose();
     }
-}
+    }
+
+
+
 

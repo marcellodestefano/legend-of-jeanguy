@@ -9,7 +9,7 @@ import java.util.List;
 import input.KeyHandler;
 import main.GamePanel;
 
-abstract class Players implements Actions{
+public abstract class Players implements Actions{
 
     protected String name;
     protected int damage;
