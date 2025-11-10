@@ -56,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
     @Override
     public void run() {
         long currentTime;
@@ -86,9 +87,9 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
-        jeanGuy.draw(g2);
-        maskGuy.draw(g2);
-        maskGuy2.draw(g2);
+        for (Players p : personnages) {
+            p.draw(g2);
+        }
         g2.dispose();
     }
     }
