@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void prepareGame() {
 
 
-
+        personnages.add(maskGuy);
         personnages.add(jeanGuy);
 
 
