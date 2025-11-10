@@ -1,6 +1,7 @@
 package entities.players;
 
 
+import entities.equipements.soins.CoeurMax;
 import input.KeyHandler;
 import main.GamePanel;
 
@@ -12,10 +13,11 @@ import java.util.Arrays;
 public class JeanGuy extends Playable {
 
     protected KeyHandler keyHandler;
+    protected int HpMax =5;
 
 
     public JeanGuy(GamePanel panel, KeyHandler keyHandler) {
-        super(panel,"Jean-Guy", 0, new ArrayList<Integer>(Arrays.asList(100,100,0)), 2, 100,3,
+        super(panel,"Jean-Guy", 0, new ArrayList<Integer>(Arrays.asList(100,100,0)), 2, 5,3,
                 false,true,2,true, Arrays.asList("",""), Arrays.asList("/assets/player/Haut1.png",
                         "/assets/player/Haut2.png","/assets/player/Bas1.png","/assets/player/Bas2.png", "/assets/player/Gauche1.png",
                         "/assets/player/Gauche2.png","/assets/player/Droite1.png","/assets/player/Droite2.png"));
@@ -23,6 +25,14 @@ public class JeanGuy extends Playable {
         this.keyHandler = keyHandler;
 
 
+    }
+
+    public int getHpMax() {
+        return HpMax;
+    }
+
+    public int SetHpMax(CoeurMax coeurMax) {
+        return HpMax++;
     }
 
     @Override
