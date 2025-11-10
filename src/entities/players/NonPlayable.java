@@ -14,7 +14,7 @@ public abstract class NonPlayable extends Players{
     public NonPlayable(GamePanel panel , String name, int damage, List<Integer> position, int range, int hp, int speed, boolean isDead, boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritePaths) {
         super (panel, name, damage, position, range,  hp,  speed,  isMelee,  attackSpeed,  killable,  soundPaths,spritePaths);
         id = counter++;
-
+        this.name = name + this.id;
     }
     public void cible(Playable cible){
         this.cible = cible;
@@ -25,8 +25,7 @@ public abstract class NonPlayable extends Players{
 
 
     public void update() {
-        String dir = AlgorithmMovement.movements(this, cible);
-
+        String dir = AlgorithmMovement.movements(gamePanel,this, cible);
 
         if (dir == "up" ) {
             direction = "up";
