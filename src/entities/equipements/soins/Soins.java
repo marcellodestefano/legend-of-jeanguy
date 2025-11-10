@@ -9,6 +9,7 @@ abstract class Soins extends Equipements{
     public Soins(boolean drop, String name, int unite, List<String> spritePath, int dropPercentage){
         super(drop, name, unite, spritePath);
         this.dropPercentage = dropPercentage;
+
     }
 
     public int getDropPercentage() {
