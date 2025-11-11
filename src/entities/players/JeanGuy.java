@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class JeanGuy extends Playable {
 
@@ -23,7 +24,7 @@ public class JeanGuy extends Playable {
 
     protected BufferedImage atkup, atkleft, atkdown, atkright, swordup, sworddown, swordright,swordleft,swordupleft,sworddownleft,swordupright,sworddownright;
     protected ArrayList<Integer> positionImage2 = new ArrayList<>(Arrays.asList(0,0,0));
-    protected String lastdir;
+    protected String lastdir = "down";
     public JeanGuy(GamePanel panel, KeyHandler keyHandler) {
         super(panel,"Jean-Guy", 0, new ArrayList<Integer>(Arrays.asList(100,100,0)), 2, 5,3,
                 false,true,2,true, Arrays.asList("",""), Arrays.asList("/assets/player/Haut1.png",
@@ -47,26 +48,26 @@ public class JeanGuy extends Playable {
     @Override
     public void getPlayerImage() {
         try{
-            this.up1 = ImageIO.read(getClass().getResourceAsStream(this.spritesPaths.get(0)));
-            this.up2 = ImageIO.read(getClass().getResourceAsStream(this.spritesPaths.get(1)));
-            this.down1 = ImageIO.read(getClass().getResourceAsStream(this.spritesPaths.get(2)));
-            this.down2 = ImageIO.read(getClass().getResourceAsStream(this.spritesPaths.get(3)));
-            this.left1 = ImageIO.read(getClass().getResourceAsStream(this.spritesPaths.get(4)));
-            this.left2 = ImageIO.read(getClass().getResourceAsStream(this.spritesPaths.get(5)));
-            this.right1 = ImageIO.read(getClass().getResourceAsStream(this.spritesPaths.get(6)));
-            this.right2 = ImageIO.read(getClass().getResourceAsStream(this.spritesPaths.get(7)));
-            this.atkup = ImageIO.read(getClass().getResourceAsStream(this.attackSprites.get(0)));
-            this.atkdown = ImageIO.read(getClass().getResourceAsStream(this.attackSprites.get(1)));
-            this.atkleft = ImageIO.read(getClass().getResourceAsStream(this.attackSprites.get(2)));
-            this.atkright = ImageIO.read(getClass().getResourceAsStream(this.attackSprites.get(3)));
-            this.swordup = ImageIO.read(getClass().getResourceAsStream(this.weaponsSprites.get(0)));
-            this.sworddown = ImageIO.read(getClass().getResourceAsStream(this.weaponsSprites.get(1)));
-            this.swordleft = ImageIO.read(getClass().getResourceAsStream(this.weaponsSprites.get(2)));
-            this.swordright = ImageIO.read(getClass().getResourceAsStream(this.weaponsSprites.get(3)));
-            this.swordupleft = ImageIO.read(getClass().getResourceAsStream(this.weaponsSprites.get(4)));
-            this.sworddownleft = ImageIO.read(getClass().getResourceAsStream(this.weaponsSprites.get(5)));
-            this.swordupright = ImageIO.read(getClass().getResourceAsStream(this.weaponsSprites.get(6)));
-            this.sworddownright = ImageIO.read(getClass().getResourceAsStream(this.weaponsSprites.get(7)));
+            this.up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritesPaths.get(0))));
+            this.up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritesPaths.get(1))));
+            this.down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritesPaths.get(2))));
+            this.down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritesPaths.get(3))));
+            this.left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritesPaths.get(4))));
+            this.left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritesPaths.get(5))));
+            this.right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritesPaths.get(6))));
+            this.right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritesPaths.get(7))));
+            this.atkup = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.attackSprites.get(0))));
+            this.atkdown = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.attackSprites.get(1))));
+            this.atkleft = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.attackSprites.get(2))));
+            this.atkright = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.attackSprites.get(3))));
+            this.swordup = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.weaponsSprites.get(0))));
+            this.sworddown = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.weaponsSprites.get(1))));
+            this.swordleft = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.weaponsSprites.get(3))));
+            this.swordright = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.weaponsSprites.get(2))));
+            this.swordupleft = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.weaponsSprites.get(4))));
+            this.sworddownleft = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.weaponsSprites.get(5))));
+            this.swordupright = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.weaponsSprites.get(6))));
+            this.sworddownright = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.weaponsSprites.get(7))));
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -76,13 +77,14 @@ public class JeanGuy extends Playable {
     @Override
     public void update() {
 
+        direction = lastdir;
+
         if(keyHandler.atkPressed){
             if (keyHandler.upPressed && keyHandler.leftPressed) {
                 direction = "atkleftup";
                 spriteCounter++;
             }
             else if (keyHandler.upPressed && keyHandler.rightPressed) {
-                System.out.println("hi");
                 direction = "atkrightup";
                 spriteCounter++;
             }
@@ -111,7 +113,7 @@ public class JeanGuy extends Playable {
                 spriteCounter++;
             }
             else{
-                direction = lastdir;
+                direction = "atk"+lastdir;
                 spriteCounter++;
             }
         }else{
