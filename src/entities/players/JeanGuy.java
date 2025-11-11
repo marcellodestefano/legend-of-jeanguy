@@ -177,7 +177,6 @@ public class JeanGuy extends Playable {
                 Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
 
                 if (receiver!=null){
-                    System.out.println(receiver.getHp());
                     receiver.receiveDamage(this.damage, direction);
                 }
             }else {
