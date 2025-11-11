@@ -4,6 +4,7 @@ package entities.players;
 import entities.equipements.soins.CoeurMax;
 import input.KeyHandler;
 import main.GamePanel;
+import utils.AttackCollisions;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -136,6 +137,7 @@ public class JeanGuy extends Playable {
             }else{
 
             if(keyHandler.atkPressed){
+
                 if (keyHandler.upPressed && keyHandler.leftPressed) {
                     direction = "atkleftup";
                     spriteCounter++;
@@ -171,6 +173,12 @@ public class JeanGuy extends Playable {
                 else{
                     direction = "atk"+lastdir;
                     spriteCounter++;
+                }
+                Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
+
+                if (receiver!=null){
+                    System.out.println(receiver.getName());
+                    receiver.receiveDamage(this.damage, direction);
                 }
             }else {
 
