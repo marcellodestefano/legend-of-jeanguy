@@ -3,6 +3,7 @@ package entities.players;
 
 import main.GamePanel;
 import utils.AlgorithmMovement;
+import utils.Collisions;
 
 import java.util.*;
 
@@ -26,7 +27,11 @@ public abstract class NonPlayable extends Players{
 
     public void update() {
         String dir = AlgorithmMovement.movements(gamePanel,this, cible);
+        String atk = Collisions.collisions(gamePanel.personnages, this.direction, this, gamePanel.tileSize);
 
+        if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
+            cible.receiveDamage(this.damage,atk);
+        }
         if (dir == "up" ) {
             direction = "up";
             spriteCounter++;
@@ -47,6 +52,8 @@ public abstract class NonPlayable extends Players{
             spriteCounter++;
             position.set(0, Math.min(gamePanel.getWidth()- gamePanel.tileSize,position.get(0) + speed));
         }
+
+
 
 
 

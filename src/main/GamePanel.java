@@ -21,8 +21,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
-    MaskGuy maskGuy = new MaskGuy(this);
+    public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    public MaskGuy maskGuy = new MaskGuy(this);
     MaskGuy maskGuy2 = new MaskGuy(this);
 
 

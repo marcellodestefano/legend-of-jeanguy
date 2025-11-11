@@ -77,6 +77,9 @@ public abstract class Players implements Actions{
     }
 
     public boolean isDead() {
+        if (this.hp<= 0){
+            this.isDead = true;
+        }
         return this.isDead;
     }
 
@@ -122,6 +125,8 @@ public abstract class Players implements Actions{
 
 
 
+
+
     public boolean attackDistance(Players cible){
         double distance;
         distance = Math.pow(Math.pow((cible.getPosition().get(0)-this.getPosition().get(0)),2)+Math.pow((cible.getPosition().get(1)-this.getPosition().get(1)),2),0.5);
@@ -132,14 +137,14 @@ public abstract class Players implements Actions{
         return cible.isKillable();
     }
 
-    public void receiveDamage(int damage){
+    public void receiveDamage(int damage, String dir){
         this.hp -= damage;
     }
 
 
     public boolean attack(Players cible){
         if (this.attackDistance(cible) && this.attackDistance(cible)){
-            cible.receiveDamage(this.getDamage());
+            cible.receiveDamage(this.getDamage(), this.direction);
             return true;
         }else{
             return false;

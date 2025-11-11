@@ -25,6 +25,6 @@ interface Actions{
     List<String> getSoundPaths();
     List<String> getSpritePaths();
     float getSpeed();
-    void receiveDamage(int damage);
+    void receiveDamage(int damage, String dir);
 
 }
