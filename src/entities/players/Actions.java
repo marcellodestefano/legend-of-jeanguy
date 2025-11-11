@@ -1,8 +1,6 @@
 package entities.players;
 import java.util.*;
 
-
-interface Actions{
     /*
     Méthodes communes à tous les joueurs
 
@@ -12,6 +10,7 @@ interface Actions{
     On a aussi les méthods nous permettant de acceder aux ressources graphiques et sonores.
     Les méthodes de déplacement vont probablement être supprimées ou modifiées plus tard.
      */
+interface Actions{
     String getName();
     int getDamage();
     List<Integer> getPosition();

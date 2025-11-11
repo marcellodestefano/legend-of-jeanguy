@@ -17,7 +17,7 @@ public abstract class Players implements Actions{
     protected int range;
     protected int hp;
     protected int speed;
-    protected boolean isDead;
+    protected boolean Dead;
     protected boolean isMelee;
     protected int attackSpeed;
     protected boolean killable;
@@ -32,14 +32,14 @@ public abstract class Players implements Actions{
 
 
 
-    public Players(GamePanel panel,String name, int damage, List<Integer> position, int range, int hp, int speed,boolean isDead,boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritesPaths ) {
+    public Players(GamePanel panel,String name, int damage, List<Integer> position, int range, int hp, int speed,boolean Dead,boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritesPaths ) {
         this.name = name;
         this.damage = damage;
         this.position = position;
         this.range = range;
         this.hp = hp;
         this.speed = speed;
-        this.isDead = isDead;
+        this.Dead = Dead;
         this.isMelee = isMelee;
         this.attackSpeed = attackSpeed;
         this.killable = killable;
@@ -79,14 +79,11 @@ public abstract class Players implements Actions{
 
     public boolean isDead() {
         if (this.hp<= 0){
-            this.isDead = true;
+            this.Dead = true;
         }
-        return this.isDead;
+        return this.Dead;
     }
 
-    public void killed(){
-        this.isDead = true;
-    }
 
     public boolean isKillable() {
         return this.killable;

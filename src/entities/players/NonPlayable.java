@@ -70,7 +70,7 @@ public abstract class NonPlayable extends Players{
         if (dir.contains("down")) {
             direction = "down";
             spriteCounter++;
-            position.set(1, Math.min(gamePanel.getHeight()- gamePanel.tileSize,position.get(1) + checkSpeed()));
+            position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
         }
         if (dir.contains("left")) {
             direction = "left";
@@ -80,7 +80,7 @@ public abstract class NonPlayable extends Players{
         if (dir.contains("right")) {
             direction = "right";
             spriteCounter++;
-            position.set(0, Math.min(gamePanel.getWidth()- gamePanel.tileSize,position.get(0) + checkSpeed()));
+            position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
         }
 
         if (spriteCounter > 12) {
