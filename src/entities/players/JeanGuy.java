@@ -26,10 +26,10 @@ public class JeanGuy extends Playable {
             "/assets/playerhit/hitbas1.png","/assets/playerhit/hitbas2.png","/assets/playerhit/hitgauche1.png","/assets/playerhit/hitgauche2.png",
             "/assets/playerhit/hitdroit1.png","/assets/playerhit/hitdroit2.png"));
 
+    protected BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, dead;
     protected BufferedImage atkup, atkleft, atkdown, atkright;
     protected BufferedImage swordup, sworddown, swordright,swordleft,swordupleft,sworddownleft,swordupright,sworddownright;
     protected BufferedImage degatup1, degatup2, degatdown1, degatdown2, degatright1, degatright2, degatleft1, degatleft2;
-    protected BufferedImage dead;
     protected int cpdmg = 0;
     protected ArrayList<Integer> positionImage2 = new ArrayList<>(Arrays.asList(0,0,0));
     protected String lastdir = "down";

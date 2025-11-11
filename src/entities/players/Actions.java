@@ -14,15 +14,11 @@ interface Actions{
     String getName();
     int getDamage();
     List<Integer> getPosition();
-    boolean moveR();
-    boolean moveU();
-    boolean moveL();
-    boolean moveD();
+    void getPlayerImage();
     int getHp();
     boolean attack(Players cible);
     //boolean defend();
     List<String> getSoundPaths();
-    List<String> getSpritePaths();
     float getSpeed();
     void receiveDamage(int damage, String dir);
 

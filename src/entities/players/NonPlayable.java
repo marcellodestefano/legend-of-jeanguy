@@ -52,12 +52,13 @@ public abstract class NonPlayable extends Players{
         this.cpdmg = 8;
     }
 
+    @Override
     public void update() {
         String dir = AlgorithmMovement.movements(gamePanel,this, cible);
         String atk = Collisions.collisions(gamePanel.personnages, this.direction, this, gamePanel.tileSize);
 
         if(this.isDead()){
-            gamePanel.removeDead(this);
+
         }else{
         if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
             cible.receiveDamage(this.damage,atk);

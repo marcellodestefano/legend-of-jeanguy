@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     public MaskGuy maskGuy = new MaskGuy(this);
     MaskGuy maskGuy2 = new MaskGuy(this);
+    Bat bat = new Bat(this);
 
 
 
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         personnages.add(maskGuy);
         personnages.add(jeanGuy);
+        personnages.add(bat);
 
 
         for(Players np : personnages){
@@ -80,10 +82,11 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         for (Players p : personnages) {
             p.update();
-        }
-
 
         }
+        personnages.removeIf(p -> p.isDead() && !(p instanceof Bat)&& !(p instanceof JeanGuy));
+
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
