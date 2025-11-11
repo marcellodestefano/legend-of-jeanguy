@@ -50,6 +50,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
     }
+    public void removeDead(Players player){
+        personnages.remove(player);
+    }
 
     public void startGameThread() {
         gameThread = new Thread(this);

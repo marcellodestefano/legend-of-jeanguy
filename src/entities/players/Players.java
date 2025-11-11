@@ -17,7 +17,7 @@ public abstract class Players implements Actions{
     protected int range;
     protected int hp;
     protected int speed;
-    protected boolean isDead = false;
+    protected boolean isDead;
     protected boolean isMelee;
     protected int attackSpeed;
     protected boolean killable;
@@ -32,13 +32,14 @@ public abstract class Players implements Actions{
 
 
 
-    public Players(GamePanel panel,String name, int damage, List<Integer> position, int range, int hp, int speed,boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritesPaths ) {
+    public Players(GamePanel panel,String name, int damage, List<Integer> position, int range, int hp, int speed,boolean isDead,boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritesPaths ) {
         this.name = name;
         this.damage = damage;
         this.position = position;
         this.range = range;
         this.hp = hp;
         this.speed = speed;
+        this.isDead = isDead;
         this.isMelee = isMelee;
         this.attackSpeed = attackSpeed;
         this.killable = killable;
@@ -138,7 +139,7 @@ public abstract class Players implements Actions{
     }
 
     public void receiveDamage(int damage, String dir){
-        this.hp -= damage;
+        this.hp = Math.max(0, this.hp-damage);
     }
 
 

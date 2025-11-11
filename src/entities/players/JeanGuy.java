@@ -35,7 +35,7 @@ public class JeanGuy extends Playable {
     protected String lastdir = "down";
     protected String dmgdir;
     public JeanGuy(GamePanel panel, KeyHandler keyHandler) {
-        super(panel,"Jean-Guy", 0, new ArrayList<Integer>(Arrays.asList(100,100,0)), 2, 5,3,
+        super(panel,"Jean-Guy", 1, new ArrayList<Integer>(Arrays.asList(100,100,0)), 2, 5,3,
                 false,true,2,true, Arrays.asList("",""), Arrays.asList("/assets/player/Haut1.png",
                         "/assets/player/Haut2.png","/assets/player/Bas1.png","/assets/player/Bas2.png", "/assets/player/Gauche1.png",
                         "/assets/player/Gauche2.png","/assets/player/Droite1.png","/assets/player/Droite2.png"));
@@ -177,7 +177,7 @@ public class JeanGuy extends Playable {
                 Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
 
                 if (receiver!=null){
-                    System.out.println(receiver.getName());
+                    System.out.println(receiver.getHp());
                     receiver.receiveDamage(this.damage, direction);
                 }
             }else {

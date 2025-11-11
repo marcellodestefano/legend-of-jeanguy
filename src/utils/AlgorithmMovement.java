@@ -14,6 +14,11 @@ public class AlgorithmMovement {
         float diffx = enemy.getPosition().get(0) - player.getPosition().get(0);
         float diffy = enemy.getPosition().get(1) - player.getPosition().get(1);
         String direction;
+        if(enemy.getCpdmg()!=0){
+            enemy.setCpdmg();
+            return enemy.getDmgdir();
+        }
+        else{
         if (Math.abs(diffx) >= Math.abs(diffy)) {
             if (diffx > 0) {
                 direction = "left";
@@ -51,7 +56,7 @@ public class AlgorithmMovement {
             }
         }else {
             return "none";
-        }
+        }}
     }
 }
 
