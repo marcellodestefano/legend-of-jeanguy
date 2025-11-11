@@ -17,7 +17,7 @@ public abstract class Players implements Actions{
     protected int range;
     protected int hp;
     protected int speed;
-    protected boolean isDead = false;
+    protected boolean isDead;
     protected boolean isMelee;
     protected int attackSpeed;
     protected boolean killable;
@@ -32,13 +32,14 @@ public abstract class Players implements Actions{
 
 
 
-    public Players(GamePanel panel,String name, int damage, List<Integer> position, int range, int hp, int speed,boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritesPaths ) {
+    public Players(GamePanel panel,String name, int damage, List<Integer> position, int range, int hp, int speed,boolean isDead,boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritesPaths ) {
         this.name = name;
         this.damage = damage;
         this.position = position;
         this.range = range;
         this.hp = hp;
         this.speed = speed;
+        this.isDead = isDead;
         this.isMelee = isMelee;
         this.attackSpeed = attackSpeed;
         this.killable = killable;
@@ -77,6 +78,9 @@ public abstract class Players implements Actions{
     }
 
     public boolean isDead() {
+        if (this.hp<= 0){
+            this.isDead = true;
+        }
         return this.isDead;
     }
 
@@ -122,6 +126,8 @@ public abstract class Players implements Actions{
 
 
 
+
+
     public boolean attackDistance(Players cible){
         double distance;
         distance = Math.pow(Math.pow((cible.getPosition().get(0)-this.getPosition().get(0)),2)+Math.pow((cible.getPosition().get(1)-this.getPosition().get(1)),2),0.5);
@@ -132,14 +138,14 @@ public abstract class Players implements Actions{
         return cible.isKillable();
     }
 
-    public void receiveDamage(int damage){
-        this.hp -= damage;
+    public void receiveDamage(int damage, String dir){
+        this.hp = Math.max(0, this.hp-damage);
     }
 
 
     public boolean attack(Players cible){
         if (this.attackDistance(cible) && this.attackDistance(cible)){
-            cible.receiveDamage(this.getDamage());
+            cible.receiveDamage(this.getDamage(), this.direction);
             return true;
         }else{
             return false;
