@@ -48,6 +48,11 @@ public class JeanGuy extends Playable {
 
     }
 
+    @Override
+    public void setArgent(int argent) {
+        super.setArgent(argent);
+    }
+
     public int getHpMax() {
         return HpMax;
     }
@@ -73,6 +78,8 @@ public class JeanGuy extends Playable {
         this.spritesPaths.set(7, "/assets/playershield/Droite2.png");
         this.getPlayerImage();
     }
+
+
 
     @Override
     public void getPlayerImage() {
@@ -122,6 +129,7 @@ public class JeanGuy extends Playable {
 
     @Override
     public void update() {
+        System.out.println(argent);
 
         direction = lastdir;
         if (cpdmg!=0){
@@ -193,6 +201,9 @@ public class JeanGuy extends Playable {
                 if (receiver!=null){
                     if (receiver.isKillable()){
                         receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
+                        if (receiver.isDead()&& receiver instanceof NonPlayable npc){
+                            this.setArgent(npc.getValue());
+                        }
                     }
                 }
             }else {
