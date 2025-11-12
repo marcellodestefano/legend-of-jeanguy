@@ -1,10 +1,12 @@
 package entities.players;
 
 
+import entities.equipements.Equipements;
 import entities.equipements.soins.CoeurMax;
 import input.KeyHandler;
 import main.GamePanel;
 import utils.AttackCollisions;
+import utils.CollisionEquipement;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -375,6 +377,19 @@ public class JeanGuy extends Playable {
             case "dead":
                 image = dead;
                 break;
+        }
+        Equipements ramasse= CollisionEquipement.collisionEquipement(gamePanel.equipements, this, gamePanel.tileSize);
+        if (ramasse !=null){
+            this.setInventaire(ramasse);
+            this.spritesPaths.set(0, "/assets/playershield/Haut1.png");
+            this.spritesPaths.set(1, "/assets/playershield/Haut2.png");
+            this.spritesPaths.set(2, "/assets/playershield/Bas1.png");
+            this.spritesPaths.set(3, "/assets/playershield/Bas2.png");
+            this.spritesPaths.set(4, "/assets/playershield/Gauche1.png");
+            this.spritesPaths.set(5, "/assets/playershield/Gauche2.png");
+            this.spritesPaths.set(6, "/assets/playershield/Droite1.png");
+            this.spritesPaths.set(7, "/assets/playershield/Droite2.png");
+            this.getPlayerImage();
         }
         if (this.cpdmg==0){
             dmgdir=null;

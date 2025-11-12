@@ -50,6 +50,9 @@ public abstract class Equipements {
             e.printStackTrace();
         }
     }
+    public ArrayList<Integer> getPosition(){
+        return this.position;
+    }
 
     public void draw(Graphics2D g) {
     }
