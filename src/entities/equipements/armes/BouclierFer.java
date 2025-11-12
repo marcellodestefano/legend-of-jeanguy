@@ -8,7 +8,7 @@ public class BouclierFer extends Armes{
 
 
     public BouclierFer(GamePanel gp){
-        super(gp, false, "Bouclier_en_fer", 3, new ArrayList<String>(Arrays.asList("","")), true, 1);
+        super(gp, false, "Bouclier_en_fer", 3, new ArrayList<String>(Arrays.asList("","")), true, 1,new ArrayList<Integer>(Arrays.asList(100,100,0)));
     }
 
     public int getPrix(){

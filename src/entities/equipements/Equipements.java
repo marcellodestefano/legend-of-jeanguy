@@ -15,13 +15,15 @@ public abstract class Equipements {
     protected List<String> spritePath;
     public BufferedImage equipementImage;
     protected GamePanel gp;
+    protected ArrayList<Integer> position;
 
-    public Equipements(GamePanel gp, boolean drop, String name, int unite, List<String> spritePath) {
+    public Equipements(GamePanel gp, boolean drop, String name, int unite, List<String> spritePath, ArrayList<Integer> position) {
         this.drop = drop;
         this.name = name;
         this.unite = unite;
         this.spritePath = spritePath;
         this.gp = gp;
+        this.position =position;
         id = id++;
     }
 

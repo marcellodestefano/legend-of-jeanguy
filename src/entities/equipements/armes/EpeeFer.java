@@ -9,7 +9,7 @@ public class EpeeFer extends Armes{
     protected int prix=0;
 
     public EpeeFer(GamePanel gp){
-        super(gp, false, "EpeeFer", 10, new ArrayList<String>(Arrays.asList("","")), true, 1);
+        super(gp, false, "EpeeFer", 10, new ArrayList<String>(Arrays.asList("","")), true, 1, new ArrayList<Integer>(Arrays.asList(100,100,0)));
     }
 
     public int getPrix(){

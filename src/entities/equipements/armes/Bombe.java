@@ -10,11 +10,11 @@ public class Bombe extends Armes{
     protected int prix;
 
 
-    public Bombe(GamePanel gp, int explosionTime, int radius, int nombre, List<String> BombSprite, int prix){
-        super(gp, false, "Bombe", 7, new ArrayList<String>(Arrays.asList("","")), false, 1);
-        this.explosionTime = explosionTime;
-        this.radius = radius;
-        this.nombre = nombre;
+    public Bombe(GamePanel gp){
+        super(gp, false, "Bombe", 7, new ArrayList<String>(Arrays.asList("","")), false, 1,new ArrayList<Integer>(Arrays.asList(100,100,0)));
+        this.explosionTime = 5;
+        this.radius = 2;
+        this.nombre = 3;
     }
 
     public int getExplosionTime(){
