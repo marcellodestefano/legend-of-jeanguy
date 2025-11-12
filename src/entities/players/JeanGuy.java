@@ -73,6 +73,10 @@ public class JeanGuy extends Playable {
         this.getPlayerImage();
     }
 
+    public void ramasserCoeur(){
+        this.hp += 1;
+    }
+
     @Override
     public void getPlayerImage() {
         try{
@@ -394,6 +398,7 @@ public class JeanGuy extends Playable {
             this.setInventaire(ramasse);
             ramasse.setRamasser();
             this.rammasserBouclier();
+            this.ramasserCoeur();
 
 
         }
