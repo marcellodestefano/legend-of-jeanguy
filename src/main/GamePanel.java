@@ -30,7 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
     JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     MaskGuy maskGuy = new MaskGuy(this);
     MaskGuy maskGuy2 = new MaskGuy(this);
-
+    Bat bat = new Bat(this);
+    Gumba gumba = new Gumba(this);
 
 
     public GamePanel() {
@@ -45,8 +46,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void prepareGame() {
 
 
-
+        personnages.add(maskGuy);
         personnages.add(jeanGuy);
+        personnages.add(bat);
+        personnages.add(gumba);
 
 
         for(Players np : personnages){
@@ -55,6 +58,9 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+    }
+    public void removeDead(Players player){
+        personnages.remove(player);
     }
 
 
@@ -84,10 +90,11 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         for (Players p : personnages) {
             p.update();
-        }
-
 
         }
+        personnages.removeIf(p -> p.isDead() && !(p instanceof Bat) && !(p instanceof JeanGuy) && !(p instanceof Gumba));
+
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

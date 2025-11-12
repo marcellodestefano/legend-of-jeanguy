@@ -14,17 +14,22 @@ public class AlgorithmMovement {
         float diffx = enemy.getPosition().get(0) - player.getPosition().get(0);
         float diffy = enemy.getPosition().get(1) - player.getPosition().get(1);
         String direction;
+        if(enemy.getCpdmg()!=0){
+            enemy.setCpdmg();
+            return enemy.getDmgdir();
+        }
+        else{
         if (Math.abs(diffx) >= Math.abs(diffy)) {
             if (diffx > 0) {
                 direction = "left";
-                if(Collisions.collisions(gamePanel.personnages, direction,enemy , gamePanel.tileSize)){
+                if(Collisions.collisions(gamePanel.personnages, direction,enemy , gamePanel.tileSize)=="ok"){
                     return "left";
                 }else{
                     return "none";
                 }
             } else {
                 direction = "right";
-                if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)){
+                if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
                     return "right";
                 }else{
                     return "none";
@@ -34,7 +39,7 @@ public class AlgorithmMovement {
         } else if (Math.abs(diffy) > Math.abs(diffx)) {
             if (diffy > 0) {
                 direction = "up";
-                if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)){
+                if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
                     return "up";
                 }else{
                     return "none";
@@ -42,7 +47,7 @@ public class AlgorithmMovement {
 
             } else {
                 direction = "down";
-                if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)){
+                if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
                     return "down";
                 }else{
                     return "none";
@@ -51,7 +56,7 @@ public class AlgorithmMovement {
             }
         }else {
             return "none";
-        }
+        }}
     }
 }
 
