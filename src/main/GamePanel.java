@@ -2,6 +2,7 @@ package main;
 import entities.equipements.Equipements;
 import entities.equipements.armes.BouclierBois;
 import entities.equipements.soins.Coeur;
+import entities.equipements.soins.CoeurMax;
 import entities.players.JeanGuy;
 import input.*;
 import javax.swing.*;
@@ -28,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     BouclierBois bbo = new BouclierBois(this);
     Coeur coeur = new Coeur(this);
+    CoeurMax coeurmax = new CoeurMax(this);
     public ArrayList<Equipements> equipements = new ArrayList<>();
     MaskGuy maskGuy = new MaskGuy(this);
     MaskGuy maskGuy2 = new MaskGuy(this);
@@ -53,6 +55,8 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.add(gumba);
         equipements.add(bbo);
         equipements.add(coeur);
+        equipements.add(coeurmax);
+
 
 
         for(Players np : personnages){
