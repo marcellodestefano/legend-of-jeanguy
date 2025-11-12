@@ -15,7 +15,7 @@ public class BouclierBois extends Armes{
     protected int prix=10;
 
     public BouclierBois(GamePanel gp){
-        super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/bouclierbois.png")), true, 1,  new ArrayList<Integer>(Arrays.asList(200,300,0)));
+        super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/bouclierbois.png")), true, 1,  new ArrayList<Integer>(Arrays.asList(200,500,0)));
 
 
         try{
@@ -35,6 +35,6 @@ public class BouclierBois extends Armes{
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(equipementImage, 250, 300, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(equipementImage, this.position.get(0), this.position.get(1), gp.tileSize, gp.tileSize, null);
     }
 }
