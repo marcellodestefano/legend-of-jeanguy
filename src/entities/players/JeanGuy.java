@@ -61,6 +61,17 @@ public class JeanGuy extends Playable {
         this.dmgdir = dir;
         this.cpdmg = 12;
     }
+    public void rammasserBouclier(){
+        this.spritesPaths.set(0, "/assets/playershield/Haut1.png");
+        this.spritesPaths.set(1, "/assets/playershield/Haut2.png");
+        this.spritesPaths.set(2, "/assets/playershield/Bas1.png");
+        this.spritesPaths.set(3, "/assets/playershield/Bas2.png");
+        this.spritesPaths.set(4, "/assets/playershield/Gauche1.png");
+        this.spritesPaths.set(5, "/assets/playershield/Gauche2.png");
+        this.spritesPaths.set(6, "/assets/playershield/Droite1.png");
+        this.spritesPaths.set(7, "/assets/playershield/Droite2.png");
+        this.getPlayerImage();
+    }
 
     @Override
     public void getPlayerImage() {
@@ -381,15 +392,10 @@ public class JeanGuy extends Playable {
         Equipements ramasse= CollisionEquipement.collisionEquipement(gamePanel.equipements, this, gamePanel.tileSize);
         if (ramasse !=null){
             this.setInventaire(ramasse);
-            this.spritesPaths.set(0, "/assets/playershield/Haut1.png");
-            this.spritesPaths.set(1, "/assets/playershield/Haut2.png");
-            this.spritesPaths.set(2, "/assets/playershield/Bas1.png");
-            this.spritesPaths.set(3, "/assets/playershield/Bas2.png");
-            this.spritesPaths.set(4, "/assets/playershield/Gauche1.png");
-            this.spritesPaths.set(5, "/assets/playershield/Gauche2.png");
-            this.spritesPaths.set(6, "/assets/playershield/Droite1.png");
-            this.spritesPaths.set(7, "/assets/playershield/Droite2.png");
-            this.getPlayerImage();
+            ramasse.setRamasser();
+            this.rammasserBouclier();
+
+
         }
         if (this.cpdmg==0){
             dmgdir=null;
@@ -400,7 +406,5 @@ public class JeanGuy extends Playable {
             g2.drawImage(image2, positionImage2.get(0), positionImage2.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
         }
     };
-
-
 
 }

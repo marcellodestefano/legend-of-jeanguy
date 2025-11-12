@@ -92,11 +92,12 @@ public class GamePanel extends JPanel implements Runnable {
             p.update();
 
         }
+
         for(Equipements e : equipements){
             e.update();
         }
         personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
-
+        equipements.removeIf(e -> e.isRamasser());
     }
 
     public void paintComponent(Graphics g) {

@@ -16,6 +16,7 @@ public abstract class Equipements {
     public BufferedImage equipementImage;
     protected GamePanel gp;
     protected ArrayList<Integer> position;
+    protected boolean ramasser = false;
 
     public Equipements(GamePanel gp, boolean drop, String name, int unite, List<String> spritePath, ArrayList<Integer> position) {
         this.drop = drop;
@@ -43,6 +44,10 @@ public abstract class Equipements {
         return spritePath;
     }
 
+    public boolean isRamasser() {
+        return this.ramasser;
+    }
+
     public void getPlayerImage() {
         try {
             this.equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
@@ -54,6 +59,9 @@ public abstract class Equipements {
         return this.position;
     }
 
+    public void setRamasser() {
+        this.ramasser = true;
+    }
     public void draw(Graphics2D g) {
     }
     public void update() {}
