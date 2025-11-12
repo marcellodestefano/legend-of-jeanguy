@@ -138,7 +138,6 @@ public class JeanGuy extends Playable {
 
     @Override
     public void update() {
-        System.out.println(argent);
 
         direction = lastdir;
         if (cpdmg!=0){
@@ -248,8 +247,7 @@ public class JeanGuy extends Playable {
             }
             spriteCounter = 0;
         }}}
-        System.out.println(this.hp);
-        System.out.println(this.hpmax);
+
     }
     @Override
     public void draw(Graphics2D g2) {
