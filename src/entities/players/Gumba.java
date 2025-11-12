@@ -36,7 +36,7 @@ public class Gumba extends NonPlayable {
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
-        if (isDead()){
+        if (this.cpdmg>0){
             image=dead;
         }else{
             if (spriteNum == 1) {

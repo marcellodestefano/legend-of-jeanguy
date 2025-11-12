@@ -15,6 +15,7 @@ public abstract class NonPlayable extends Players{
     protected int cpdmg = 0;
     protected int oldspeed;
 
+
     public NonPlayable(GamePanel panel , String name, int damage, List<Integer> position, int range, int hp, int speed, boolean isDead, boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritePaths) {
         super (panel, name, damage, position, range,  hp,  speed, isDead,  isMelee,  attackSpeed,  killable,  soundPaths,spritePaths);
         id = counter++;
@@ -50,6 +51,7 @@ public abstract class NonPlayable extends Players{
         this.hp = Math.max(0, this.hp-damage);
         this.dmgdir = dir;
         this.cpdmg = 8;
+        this.setKillable(false);
     }
 
     @Override
