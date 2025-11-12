@@ -2,6 +2,8 @@ package entities.players;
 
 
 import entities.equipements.Equipements;
+import entities.equipements.armes.BouclierBois;
+import entities.equipements.soins.Coeur;
 import entities.equipements.soins.CoeurMax;
 import input.KeyHandler;
 import main.GamePanel;
@@ -18,7 +20,7 @@ import java.util.Objects;
 public class JeanGuy extends Playable {
 
     protected KeyHandler keyHandler;
-    protected int HpMax =5;
+    protected int hpmax =5;
     protected ArrayList<String> attackSprites = new ArrayList<>(Arrays.asList("/assets/playerattack/attackup.png","/assets/playerattack/attackdown.png",
             "/assets/playerattack/attackleft.png","/assets/playerattack/attackright.png"));
     protected ArrayList<String> weaponsSprites = new ArrayList<>(Arrays.asList("/assets/playerattack/swordup.png","/assets/playerattack/sworddown.png",
@@ -54,11 +56,11 @@ public class JeanGuy extends Playable {
     }
 
     public int getHpMax() {
-        return HpMax;
+        return hpmax;
     }
 
     public int SetHpMax(CoeurMax coeurMax) {
-        return HpMax++;
+        return hpmax++;
     }
 
     public void receiveDamage(int damage, String dir){
@@ -79,7 +81,14 @@ public class JeanGuy extends Playable {
         this.getPlayerImage();
     }
 
+    public void ramasserCoeur(){
+        this.hp = Math.min(this.hp+1, this.hpmax);
+    }
 
+    public void ramasserCoeurMax(){
+        this.hpmax += 1;
+        this.hp = hpmax;
+    }
 
     @Override
     public void getPlayerImage() {
@@ -239,6 +248,8 @@ public class JeanGuy extends Playable {
             }
             spriteCounter = 0;
         }}}
+        System.out.println(this.hp);
+        System.out.println(this.hpmax);
     }
     @Override
     public void draw(Graphics2D g2) {
@@ -405,9 +416,18 @@ public class JeanGuy extends Playable {
         }
         Equipements ramasse= CollisionEquipement.collisionEquipement(gamePanel.equipements, this, gamePanel.tileSize);
         if (ramasse !=null){
-            this.setInventaire(ramasse);
-            ramasse.setRamasser();
-            this.rammasserBouclier();
+            if (ramasse instanceof BouclierBois){
+                this.setInventaire(ramasse);
+                ramasse.setRamasser();
+                this.rammasserBouclier();}
+            else if (ramasse instanceof CoeurMax){
+                this.ramasserCoeurMax();
+                ramasse.setRamasser();
+
+            }else if (ramasse instanceof Coeur){
+                this.ramasserCoeur();
+                ramasse.setRamasser();
+            }
 
 
         }
