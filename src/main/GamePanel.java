@@ -27,7 +27,6 @@ public class GamePanel extends JPanel implements Runnable {
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     public BouclierBois bbo = new BouclierBois(this);
     ArrayList<Equipements> equipements = new ArrayList<>();
-    JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     MaskGuy maskGuy = new MaskGuy(this);
     MaskGuy maskGuy2 = new MaskGuy(this);
     Bat bat = new Bat(this);
@@ -50,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.add(jeanGuy);
         personnages.add(bat);
         personnages.add(gumba);
+        equipements.add(bbo);
 
 
         for(Players np : personnages){
@@ -92,6 +92,9 @@ public class GamePanel extends JPanel implements Runnable {
             p.update();
 
         }
+        for(Equipements e : equipements){
+            e.update();
+        }
         personnages.removeIf(p -> p.isDead() && !(p instanceof Bat) && !(p instanceof JeanGuy) && !(p instanceof Gumba));
 
     }
@@ -102,6 +105,9 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         for (Players p : personnages) {
             p.draw(g2);
+        }
+        for (Equipements e : equipements) {
+            e.draw(g2);
         }
         g2.dispose();
     }
