@@ -11,7 +11,7 @@ abstract class Playable extends Players{
     public Playable(GamePanel panel, String name, int damage, List<Integer> position, int range, int hp, int speed, boolean isDead, boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritePaths){
         super(panel, name, damage, position, range,  hp,  speed,  isMelee,  attackSpeed,  killable,  soundPaths, spritePaths);
         this.argent = 0;
-        this.arme = new EpeeBois(10);
+        this.arme = new EpeeBois(gamePanel);
     }
 
     public void equip(Armes arme){

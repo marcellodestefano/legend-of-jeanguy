@@ -1,8 +1,12 @@
 package main;
+import entities.equipements.Equipements;
+import entities.equipements.armes.BouclierBois;
 import entities.players.JeanGuy;
 import input.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+
 import entities.players.*;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -19,8 +23,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-
-    JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    public BouclierBois bbo = new BouclierBois(this);
+    ArrayList<Equipements> equipements = new ArrayList<>();
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -29,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
+
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -54,13 +60,16 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public void update() {
         jeanGuy.update();
+        bbo.update();
 
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
+        bbo.draw(g2);
         jeanGuy.draw(g2);
+
         g2.dispose();
     }
 }

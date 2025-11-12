@@ -1,5 +1,11 @@
 package entities.equipements;
+import main.GamePanel;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.List;
 
 public abstract class Equipements {
     protected static int id;
@@ -7,12 +13,15 @@ public abstract class Equipements {
     protected String name;
     protected int unite;
     protected List<String> spritePath;
+    public BufferedImage equipementImage;
+    protected GamePanel gp;
 
-    public Equipements(boolean drop, String name, int unite, List<String> spritePath) {
+    public Equipements(GamePanel gp, boolean drop, String name, int unite, List<String> spritePath) {
         this.drop = drop;
         this.name = name;
         this.unite = unite;
         this.spritePath = spritePath;
+        this.gp = gp;
         id = id++;
     }
 
@@ -31,7 +40,17 @@ public abstract class Equipements {
     public List<String> getSpritePath() {
         return spritePath;
     }
-}
 
+    public void getPlayerImage() {
+        try {
+            this.equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void draw(Graphics2D g) {
+    }
+}
 
 
