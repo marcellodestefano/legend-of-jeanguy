@@ -87,6 +87,9 @@ public abstract class Players implements Actions{
     public boolean isKillable() {
         return this.killable;
     }
+    public void setKillable(boolean kill){
+        this.killable = kill;
+    }
 
     public List<String> getSoundPaths() {
         return this.soundPaths;

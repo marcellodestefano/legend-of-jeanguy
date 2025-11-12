@@ -50,6 +50,11 @@ public class JeanGuy extends Playable {
 
     }
 
+    @Override
+    public void setArgent(int argent) {
+        super.setArgent(argent);
+    }
+
     public int getHpMax() {
         return hpmax;
     }
@@ -62,6 +67,7 @@ public class JeanGuy extends Playable {
         this.hp = Math.max(0,this.hp-=damage);
         this.dmgdir = dir;
         this.cpdmg = 12;
+        this.setKillable(false);
     }
     public void rammasserBouclier(){
         this.spritesPaths.set(0, "/assets/playershield/Haut1.png");
@@ -132,10 +138,14 @@ public class JeanGuy extends Playable {
 
     @Override
     public void update() {
+        System.out.println(argent);
 
         direction = lastdir;
         if (cpdmg!=0){
             direction = dmgdir;
+            cpdmg--;
+        }else{
+            this.setKillable(true);
         }
 
 
@@ -145,19 +155,16 @@ public class JeanGuy extends Playable {
             if (this.direction.equals("up-player")) {
                 spriteCounter++;
                 position.set(1, Math.max(0,position.get(1) - 5));
-                cpdmg--;
+
             }else if (this.direction.equals("down-player")) {
                 spriteCounter++;
                 position.set(1, Math.min(gamePanel.getHeight()-gamePanel.tileSize, position.get(1) + 5));
-                cpdmg--;
             }else if (this.direction.equals("left-player")) {
                 spriteCounter++;
                 position.set(0, Math.max(0,position.get(0) - 5));
-                cpdmg--;
             }else if (this.direction.equals("right-player")) {
                 spriteCounter++;
                 position.set(0, Math.min(gamePanel.getWidth()- gamePanel.tileSize,position.get(0) + 5));
-                cpdmg--;
             }else{
 
             if(keyHandler.atkPressed){
@@ -201,7 +208,12 @@ public class JeanGuy extends Playable {
                 Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
 
                 if (receiver!=null){
-                    receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
+                    if (receiver.isKillable()){
+                        receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
+                        if (receiver.isDead()&& receiver instanceof NonPlayable npc){
+                            this.setArgent(npc.getValue());
+                        }
+                    }
                 }
             }else {
 

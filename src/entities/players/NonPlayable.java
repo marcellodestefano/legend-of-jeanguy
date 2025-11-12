@@ -13,7 +13,9 @@ public abstract class NonPlayable extends Players{
     protected Playable cible;
     protected String dmgdir;
     protected int cpdmg = 0;
-    protected int oldspeed;
+    protected int oldspeed, maxvalue=10;
+
+
 
     public NonPlayable(GamePanel panel , String name, int damage, List<Integer> position, int range, int hp, int speed, boolean isDead, boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritePaths) {
         super (panel, name, damage, position, range,  hp,  speed, isDead,  isMelee,  attackSpeed,  killable,  soundPaths,spritePaths);
@@ -35,10 +37,17 @@ public abstract class NonPlayable extends Players{
         }
     }
 
+    public int getValue(){
+        Random r = new Random();
+        return r.nextInt(maxvalue);
+    }
+
     public String getDmgdir(){
+
         return this.dmgdir;
     }
     public int getCpdmg(){
+
         return this.cpdmg;
     }
     public void setCpdmg(){
@@ -50,6 +59,7 @@ public abstract class NonPlayable extends Players{
         this.hp = Math.max(0, this.hp-damage);
         this.dmgdir = dir;
         this.cpdmg = 8;
+        this.setKillable(false);
     }
 
     @Override
