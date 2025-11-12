@@ -5,10 +5,12 @@ import java.util.List;
 
 import entities.equipements.Equipements;
 import entities.equipements.armes.*;
+import entities.equipements.soins.CoeurMax;
 import main.GamePanel;
 
 public abstract class Playable extends Players{
 
+    protected int hpmax =5;
     protected int argent;
     protected ArrayList<Equipements> inventaire = new ArrayList<>();
 
@@ -18,6 +20,25 @@ public abstract class Playable extends Players{
         Equipements arme  = new EpeeBois(gamePanel);
         inventaire.add(arme);
     }
+    public void ramasserCoeur(){
+        this.hp = Math.min(this.hp+1, this.hpmax);
+    }
+
+    public void ramasserCoeurMax(){
+        this.hpmax += 1;
+        this.hp = hpmax;
+    }
+
+
+    public int getHpMax() {
+        return hpmax;
+    }
+
+    public int SetHpMax(CoeurMax coeurMax) {
+        return hpmax++;
+    }
+
+
 
 
     public ArrayList<Equipements> getInventaire(){

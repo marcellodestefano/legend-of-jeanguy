@@ -20,7 +20,6 @@ import java.util.Objects;
 public class JeanGuy extends Playable {
 
     protected KeyHandler keyHandler;
-    protected int hpmax =5;
     protected ArrayList<String> attackSprites = new ArrayList<>(Arrays.asList("/assets/playerattack/attackup.png","/assets/playerattack/attackdown.png",
             "/assets/playerattack/attackleft.png","/assets/playerattack/attackright.png"));
     protected ArrayList<String> weaponsSprites = new ArrayList<>(Arrays.asList("/assets/playerattack/swordup.png","/assets/playerattack/sworddown.png",
@@ -51,18 +50,6 @@ public class JeanGuy extends Playable {
     }
 
     @Override
-    public void setArgent(int argent) {
-        super.setArgent(argent);
-    }
-
-    public int getHpMax() {
-        return hpmax;
-    }
-
-    public int SetHpMax(CoeurMax coeurMax) {
-        return hpmax++;
-    }
-
     public void receiveDamage(int damage, String dir){
         this.hp = Math.max(0,this.hp-=damage);
         this.dmgdir = dir;
@@ -81,14 +68,7 @@ public class JeanGuy extends Playable {
         this.getPlayerImage();
     }
 
-    public void ramasserCoeur(){
-        this.hp = Math.min(this.hp+1, this.hpmax);
-    }
 
-    public void ramasserCoeurMax(){
-        this.hpmax += 1;
-        this.hp = hpmax;
-    }
 
     @Override
     public void getPlayerImage() {
