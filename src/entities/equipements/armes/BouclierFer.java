@@ -1,12 +1,14 @@
 package entities.equipements.armes;
+import main.GamePanel;
+
 import java.util.*;
 
 public class BouclierFer extends Armes{
-    protected int prix;
+    protected int prix = 30;
 
-    BouclierFer(int prix){
-        super(false, "Bouclier_en_fer", 3, new ArrayList<String>(Arrays.asList("","")), true, 1);
-        this.prix = prix;
+
+    public BouclierFer(GamePanel gp){
+        super(gp, false, "Bouclier_en_fer", 3, new ArrayList<String>(Arrays.asList("","")), true, 1);
     }
 
     public int getPrix(){

@@ -1,4 +1,7 @@
 package main;
+import entities.equipements.Equipements;
+import entities.equipements.armes.BouclierBois;
+import entities.players.JeanGuy;
 import input.*;
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +24,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
+    public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    public BouclierBois bbo = new BouclierBois(this);
+    ArrayList<Equipements> equipements = new ArrayList<>();
     JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     MaskGuy maskGuy = new MaskGuy(this);
     MaskGuy maskGuy2 = new MaskGuy(this);
@@ -50,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
     }
+
 
     public void startGameThread() {
         gameThread = new Thread(this);
