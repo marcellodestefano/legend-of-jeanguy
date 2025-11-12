@@ -29,7 +29,8 @@ public class BouclierBois extends Armes{
         return prix;
     }
 
-    public void update() {
+    @Override
+    public void update(){
 
     }
 
