@@ -1,6 +1,7 @@
 package maps;
 
 public class Donjon extends Salles{
-    Donjon(){
+    public Donjon(){
+
     }
 }
