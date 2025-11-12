@@ -1,17 +1,40 @@
 package entities.equipements.armes;
 
+import main.GamePanel;
+
+import javax.imageio.IIOException;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class BouclierBois extends Armes{
-    protected int prix;
+    protected int prix=10;
 
-    BouclierBois(int prix){
-        super(false, "Bouclier_en_bois", 1, new ArrayList<String>(Arrays.asList("","")), true, 1);
-        this.prix = prix;
+    public BouclierBois(GamePanel gp){
+        super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/bouclierbois.png")), true, 1);
+
+
+        try{
+            equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public int getPrix(){
         return prix;
+    }
+
+    public void update() {
+
+    }
+
+    @Override
+    public void draw(Graphics2D g2) {
+        g2.drawImage(equipementImage, 250, 300, gp.tileSize, gp.tileSize, null);
     }
 }

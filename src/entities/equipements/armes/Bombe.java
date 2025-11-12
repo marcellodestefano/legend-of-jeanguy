@@ -1,4 +1,6 @@
 package entities.equipements.armes;
+import main.GamePanel;
+
 import java.util.*;
 
 public class Bombe extends Armes{
@@ -8,8 +10,8 @@ public class Bombe extends Armes{
     protected int prix;
 
 
-    Bombe(int explosionTime, int radius, int nombre, List<String> BombSprite, int prix){
-        super(false, "Bombe", 7, new ArrayList<String>(Arrays.asList("","")), false, 1);
+    public Bombe(GamePanel gp, int explosionTime, int radius, int nombre, List<String> BombSprite, int prix){
+        super(gp, false, "Bombe", 7, new ArrayList<String>(Arrays.asList("","")), false, 1);
         this.explosionTime = explosionTime;
         this.radius = radius;
         this.nombre = nombre;
