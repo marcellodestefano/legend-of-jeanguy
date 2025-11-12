@@ -6,6 +6,7 @@ import input.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import entities.players.*;
 
 import entities.players.*;
 
@@ -18,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
-
+    public ArrayList<Players> personnages = new ArrayList<>();
     final int FPS = 55;
 
     KeyHandler keyHandler = new KeyHandler();
@@ -26,6 +27,11 @@ public class GamePanel extends JPanel implements Runnable {
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     public BouclierBois bbo = new BouclierBois(this);
     ArrayList<Equipements> equipements = new ArrayList<>();
+    JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    MaskGuy maskGuy = new MaskGuy(this);
+    MaskGuy maskGuy2 = new MaskGuy(this);
+
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -33,6 +39,22 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        prepareGame();
+    }
+
+    public void prepareGame() {
+
+
+
+        personnages.add(jeanGuy);
+
+
+        for(Players np : personnages){
+            if (np instanceof NonPlayable enemy){
+                enemy.cible(jeanGuy);
+            }
+        }
+
     }
 
 
@@ -40,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
     @Override
     public void run() {
         long currentTime;
@@ -59,18 +82,24 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update() {
-        jeanGuy.update();
-        bbo.update();
+        for (Players p : personnages) {
+            p.update();
+        }
 
-    }
+
+        }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
-        bbo.draw(g2);
-        jeanGuy.draw(g2);
-
+        for (Players p : personnages) {
+            p.draw(g2);
+        }
         g2.dispose();
     }
-}
+    }
+
+
+
 
