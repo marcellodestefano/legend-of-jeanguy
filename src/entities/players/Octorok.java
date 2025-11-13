@@ -4,6 +4,7 @@ package entities.players;
 import main.GamePanel;
 import utils.AlgorithmMovement;
 import utils.AlgorithmMovementRange;
+import utils.CollisionDistance;
 import utils.Collisions;
 
 import javax.imageio.ImageIO;
@@ -44,14 +45,11 @@ public class Octorok extends NonPlayable{
     @Override
     public void update() {
         String dir = AlgorithmMovementRange.algorithmMovementRange(gamePanel,this, cible);
-        String atk = Collisions.collisions(gamePanel.personnages, this.direction, this, gamePanel.tileSize);
+
 
         if(this.isDead()){
 
         }else{
-            if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
-                cible.receiveDamage(this.damage,atk);
-            }
             if (dir.contains("up")) {
                 direction = "up";
                 spriteCounter++;

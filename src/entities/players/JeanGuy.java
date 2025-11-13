@@ -8,6 +8,7 @@ import entities.equipements.soins.CoeurMax;
 import input.KeyHandler;
 import main.GamePanel;
 import utils.AttackCollisions;
+import utils.CollisionDistance;
 import utils.CollisionEquipement;
 
 import javax.imageio.ImageIO;
@@ -126,11 +127,26 @@ public class JeanGuy extends Playable {
         }else{
             this.setKillable(true);
         }
+        boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
 
 
         if (this.isDead()){
             direction = "dead";
-        }else{
+        }else if (!pass){
+            if (lastdir=="down"){
+                this.position.set(1, this.position.get(1)-1);
+
+            }else if (lastdir=="up"){
+                this.position.set(1, this.position.get(1)+2);
+            }
+            else if (lastdir=="left"){
+                this.position.set(0, this.position.get(0)+1);
+            }else if (lastdir=="right"){
+                this.position.set(0, this.position.get(0)-1);
+            }
+
+        }
+        else{
             if (this.direction.equals("up-player")) {
                 spriteCounter++;
                 position.set(1, Math.max(0,position.get(1) - 5));
