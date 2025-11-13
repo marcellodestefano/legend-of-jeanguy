@@ -1,6 +1,8 @@
 package entities.players;
 
 
+import entities.bullets.Bullets;
+import entities.bullets.Octorokatk;
 import main.GamePanel;
 import utils.AlgorithmMovement;
 import utils.AlgorithmMovementRange;
@@ -22,6 +24,7 @@ public class Octorok extends NonPlayable{
                         "/assets/ennemies/shootingmob/up2.png","/assets/ennemies/shootingmob/down1.png","/assets/ennemies/shootingmob/down2.png",
                         "/assets/ennemies/shootingmob/left1.png", "/assets/ennemies/shootingmob/left2.png","/assets/ennemies/shootingmob/right1.png",
                         "/assets/ennemies/shootingmob/right2.png"));
+
     }
 
     @Override
@@ -50,6 +53,9 @@ public class Octorok extends NonPlayable{
         if(this.isDead()){
 
         }else{
+            Bullets b = new Octorokatk(gamePanel, this, cible);
+            gamePanel.bullets.add(b);
+
             if (dir.contains("up")) {
                 direction = "up";
                 spriteCounter++;

@@ -2,15 +2,17 @@ package entities.bullets;
 
 import entities.players.Players;
 import main.GamePanel;
+import utils.BulletCollisions;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class Bullets {
-    protected List<Double> position;
+    protected List<Double> position = new ArrayList<>();
     protected List<String> spritesPaths;
     protected int damage;
     protected Players sender;
@@ -26,7 +28,7 @@ public abstract class Bullets {
     public Bullets(GamePanel gamePanel, Players sender, Players receiver, List<String> spritesPaths,int damage, int speed ) {
         this.gamePanel = gamePanel;
         for (int val : sender.getPosition()) {
-            this.position.add((double) val);
+            position.add((double) val);
         }
         this.sender = sender;
         this.receiver = receiver;
@@ -46,19 +48,40 @@ public abstract class Bullets {
     }
 
     public void calcSpeed(){
-        this.diffX = receiver.getPosition().get(0) - sender.getPosition().get(0);
-        this.diffY = receiver.getPosition().get(1) - sender.getPosition().get(1);
-        this.ipten = Math.sqrt(diffX*diffX+diffY*diffY);
-        this.speedX = diffX/ipten;
-        this.speedY = diffY/ipten;
+        if (receiver != null) {
+            this.diffX = receiver.getPosition().get(0) - sender.getPosition().get(0);
+            this.diffY = receiver.getPosition().get(1) - sender.getPosition().get(1);
+            this.ipten = Math.sqrt(diffX*diffX+diffY*diffY);
+            this.speedX = diffX/ipten;
+            this.speedY = diffY/ipten;
+        }
+
+    }
+
+    public void setIsActive() {
+        String act = BulletCollisions.bulletCollisions(gamePanel, this, gamePanel.jeanGuy);
+        this.isActive = act;
+    }
+
+    public String getIsActive(){
+        return this.isActive;
+    }
+
+
+
+    public List<Double> getPosition() {
+        return this.position;
     }
 
 
 
     public void update(){
+        this.setIsActive();
         if(isActive.equals("ok")){
             this.position.set(0, position.get(0) + speedX);
             this.position.set(1, position.get(1) + speedY);
+        }else if(isActive.equals("touche")) {
+            receiver.receiveDamage(this.damage, "none");
         }
     }
 
