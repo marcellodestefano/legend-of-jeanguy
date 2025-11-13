@@ -55,6 +55,7 @@ public abstract class Equipements {
             e.printStackTrace();
         }
     }
+
     public ArrayList<Integer> getPosition(){
         return this.position;
     }
@@ -62,6 +63,7 @@ public abstract class Equipements {
     public void setRamasser() {
         this.ramasser = true;
     }
+
     public void draw(Graphics2D g) {
     }
     public void update() {}

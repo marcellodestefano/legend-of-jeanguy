@@ -1,6 +1,9 @@
 package entities.players;
 
 
+import entities.equipements.Equipements;
+import entities.equipements.soins.Coeur;
+import entities.equipements.soins.CoeurMax;
 import main.GamePanel;
 import utils.AlgorithmMovement;
 import utils.Collisions;
@@ -14,6 +17,8 @@ public abstract class NonPlayable extends Players{
     protected String dmgdir;
     protected int cpdmg = 0;
     protected int oldspeed, maxvalue=10;
+    private List<Equipements> possibleDrops;
+
 
 
 
@@ -22,7 +27,13 @@ public abstract class NonPlayable extends Players{
         id = counter++;
         this.name = name + this.id;
         oldspeed = speed;
+        this.possibleDrops = new ArrayList<>();
+
+        possibleDrops.add(new Coeur(gamePanel));
+        possibleDrops.add(new CoeurMax(gamePanel));
     }
+
+
     public void cible(Playable cible){
         this.cible = cible;
     }
@@ -53,6 +64,8 @@ public abstract class NonPlayable extends Players{
     public void setCpdmg(){
         this.cpdmg--;
     }
+
+
 
     @Override
     public void receiveDamage(int damage, String dir) {
