@@ -5,17 +5,21 @@ import entities.equipements.Equipements;
 import entities.equipements.armes.BouclierBois;
 import entities.equipements.soins.Coeur;
 import entities.equipements.soins.CoeurMax;
+import entities.equipements.soins.Soins;
 import input.KeyHandler;
 import main.GamePanel;
 import utils.AttackCollisions;
 import utils.CollisionEquipement;
+import utils.DropItems;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.desktop.SystemEventListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
 public class JeanGuy extends Playable {
 
@@ -191,6 +195,17 @@ public class JeanGuy extends Playable {
                         receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
                         if (receiver.isDead()&& receiver instanceof NonPlayable npc){
                             this.setArgent(npc.getValue());
+                            //mort ennemi
+                            String order="";
+                            Random r = new Random();
+                            int rand = r.nextInt(100);
+                            System.out.println(rand);
+                            if (rand<Coeur.getDropPercentage()){
+                                order = "coeur";
+                            }else if (Coeur.getDropPercentage()<rand && rand < Coeur.getDropPercentage() + CoeurMax.getDropPercentage()){
+                                order ="coeurmax";
+                            }
+                            DropItems.dropItems(order, gamePanel, receiver);
                         }
                     }
                 }

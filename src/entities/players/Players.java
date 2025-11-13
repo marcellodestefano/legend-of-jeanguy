@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
 
+import entities.equipements.Equipements;
 import input.KeyHandler;
 import main.GamePanel;
 
@@ -119,6 +120,11 @@ public abstract class Players implements Actions{
 
     public void getPlayerImage() {
     }
+
+    public void checkDrop(Players players){}
+
+    public void dropItem(Equipements equipements){}
+
     public void update(){
 
     }

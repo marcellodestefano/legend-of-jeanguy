@@ -54,8 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.add(bat);
         personnages.add(gumba);
         equipements.add(bbo);
-        equipements.add(coeur);
-        equipements.add(coeurmax);
+
 
 
 
