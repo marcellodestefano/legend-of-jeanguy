@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public ArrayList<Equipements> equipements = new ArrayList<>();
     MaskGuy maskGuy = new MaskGuy(this);
     MaskGuy maskGuy2 = new MaskGuy(this);
+    Octorok octorok = new Octorok(this);
     Bat bat = new Bat(this);
     Gumba gumba = new Gumba(this);
 
@@ -53,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.add(jeanGuy);
         personnages.add(bat);
         personnages.add(gumba);
+        personnages.add(octorok);
         equipements.add(bbo);
         equipements.add(coeur);
         equipements.add(coeurmax);

@@ -22,7 +22,14 @@ public abstract class NonPlayable extends Players{
         id = counter++;
         this.name = name + this.id;
         oldspeed = speed;
+        this.startPosition();
     }
+
+    public void startPosition(){
+        this.position.set(0, 400);
+        this.position.set(1, 50+this.id*100);
+    }
+
     public void cible(Playable cible){
         this.cible = cible;
     }
