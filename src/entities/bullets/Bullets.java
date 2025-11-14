@@ -52,8 +52,9 @@ public abstract class Bullets {
             this.diffX = receiver.getPosition().get(0) - sender.getPosition().get(0);
             this.diffY = receiver.getPosition().get(1) - sender.getPosition().get(1);
             this.ipten = Math.sqrt(diffX*diffX+diffY*diffY);
-            this.speedX = diffX/ipten;
-            this.speedY = diffY/ipten;
+            this.speedX = speed*diffX/ipten;
+            this.speedY = speed*diffY/ipten;
+
         }
 
     }
@@ -76,12 +77,24 @@ public abstract class Bullets {
 
 
     public void update(){
+        System.out.println(receiver.getHp());
         this.setIsActive();
         if(isActive.equals("ok")){
             this.position.set(0, position.get(0) + speedX);
             this.position.set(1, position.get(1) + speedY);
         }else if(isActive.equals("touche")) {
-            receiver.receiveDamage(this.damage, "none");
+            if (speedX>0 && speedX>speedY){
+                receiver.receiveDamage(this.damage, "none");
+            }
+            else if (speedX>0 && speedX>speedY){
+                receiver.receiveDamage(this.damage, "none");
+            }
+            else if (speedX>0 && speedX>speedY){
+                receiver.receiveDamage(this.damage, "none");
+            }
+            else if (speedX>0 && speedX>speedY){
+                receiver.receiveDamage(this.damage, "none");
+            }
         }
     }
 

@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
         for(Equipements e : equipements){
             e.update();
         }
-        bullets.removeIf(b -> !(b.getIsActive()!="ok"));
+        bullets.removeIf(b -> !(b.getIsActive()=="ok"));
         personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
         equipements.removeIf(e -> e.isRamasser());
     }

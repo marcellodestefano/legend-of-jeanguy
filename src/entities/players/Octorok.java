@@ -18,6 +18,7 @@ import java.util.Objects;
 
 public class Octorok extends NonPlayable{
     protected BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    protected int cpAtk=0;
     public Octorok(GamePanel panel) {
         super(panel,"Octorok", 1, new ArrayList<Integer>(Arrays.asList(5,5,0)), 5, 1,2,false,false,1,true, Arrays.asList("",""),
                 Arrays.asList("/assets/ennemies/shootingmob/up1.png",
@@ -48,34 +49,38 @@ public class Octorok extends NonPlayable{
     @Override
     public void update() {
         String dir = AlgorithmMovementRange.algorithmMovementRange(gamePanel,this, cible);
-
+        if (cpAtk==0){
+            cpAtk=200;
+            Bullets b = new Octorokatk(gamePanel, this, cible);
+            gamePanel.bullets.add(b);
+        }
 
         if(this.isDead()){
 
         }else{
-            Bullets b = new Octorokatk(gamePanel, this, cible);
-            gamePanel.bullets.add(b);
 
-            if (dir.contains("up")) {
-                direction = "up";
-                spriteCounter++;
-                position.set(1, Math.max(0,position.get(1) - checkSpeed()));
-            }
-            if (dir.contains("down")) {
-                direction = "down";
-                spriteCounter++;
-                position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
-            }
-            if (dir.contains("left")) {
-                direction = "left";
-                spriteCounter++;
-                position.set(0, Math.max(0,position.get(0) - checkSpeed()));
-            }
-            if (dir.contains("right")) {
-                direction = "right";
-                spriteCounter++;
-                position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
-            }
+
+//            if (dir.contains("up")) {
+//                direction = "up";
+//                spriteCounter++;
+//                position.set(1, Math.max(0,position.get(1) - checkSpeed()));
+//            }
+//            if (dir.contains("down")) {
+//                direction = "down";
+//                spriteCounter++;
+//                position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
+//            }
+//            if (dir.contains("left")) {
+//                direction = "left";
+//                spriteCounter++;
+//                position.set(0, Math.max(0,position.get(0) - checkSpeed()));
+//            }
+//            if (dir.contains("right")) {
+//                direction = "right";
+//                spriteCounter++;
+//                position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
+//            }
+            cpAtk--;
 
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {
