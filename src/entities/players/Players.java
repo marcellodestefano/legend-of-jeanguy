@@ -24,10 +24,11 @@ public abstract class Players implements Actions{
     protected boolean killable;
     protected List<String> soundPaths = new ArrayList<>();
     protected List<String> spritesPaths = new ArrayList<>();
-    protected String direction = "down";
+    public String direction = "down";
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
     protected GamePanel gamePanel;
+
 
 
 
@@ -130,46 +131,7 @@ public abstract class Players implements Actions{
     }
 
 
-    public void draw(Graphics2D g2) {
-
-//        BufferedImage image = null;
-//            switch(direction) {
-//                case "up":
-//                    if (spriteNum == 1) {
-//                        image = up1;
-//                    }
-//                    if (spriteNum == 2) {
-//                        image = up2;
-//                    }
-//                    break;
-//                case "down":
-//                    if (spriteNum == 1) {
-//                        image = down1;
-//                    }
-//                    if (spriteNum == 2) {
-//                        image = down2;
-//                    }
-//                    break;
-//                case "left":
-//                    if (spriteNum == 1) {
-//                        image = left1;
-//                    }
-//                    if (spriteNum == 2) {
-//                        image = left2;
-//                    }
-//                    break;
-//                case "right":
-//                    if (spriteNum == 1) {
-//                        image = right1;
-//                    }
-//                    if (spriteNum == 2) {
-//                        image = right2;
-//                    }
-//                    break;
-//            }
-//            g2.drawImage(image, position.get(0), position.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
-        };
-
+    public void draw(Graphics2D g2) {}
 
 }
 
