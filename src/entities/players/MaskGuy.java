@@ -27,13 +27,10 @@ public class MaskGuy extends NonPlayable{
                         "/assets/ennemies/maskass/Haut2.png","/assets/ennemies/maskass/Bas1.png","/assets/ennemies/maskass/Bas2.png",
                         "/assets/ennemies/maskass/Gauche1.png", "/assets/ennemies/maskass/Gauche2.png","/assets/ennemies/maskass/Droite1.png",
                         "/assets/ennemies/maskass/Droite2.png"));
-        this.startPosition();
+
     }
 
-    public void startPosition(){
-        this.position.set(0, 400);
-        this.position.set(1, 50+this.id*100);
-    }
+
     @Override
     public void getPlayerImage() {
         try{

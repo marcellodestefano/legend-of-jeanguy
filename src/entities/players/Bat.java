@@ -15,13 +15,10 @@ public class Bat extends NonPlayable{
         super(gamePanel,"Bat#", 1,new ArrayList<Integer>(Arrays.asList(0,0,0)),1,3,2,
                 false, true, 1,true, Arrays.asList("",""),Arrays.asList("/assets/ennemies/batattck/Bat1.png",
                         "/assets/ennemies/batattck/Bat2.png","/assets/ennemies/batattck/BatDeath.png"));
-        this.startPosition();
+
     }
 
-    public void startPosition(){
-        this.position.set(0, 300);
-        this.position.set(1, 50+this.id*100);
-    }
+
     @Override
     public void getPlayerImage() {
         try{

@@ -1,4 +1,5 @@
 package main;
+import entities.bullets.Bullets;
 import entities.equipements.Equipements;
 import entities.equipements.armes.BouclierBois;
 import entities.equipements.soins.Coeur;
@@ -34,8 +35,10 @@ public class GamePanel extends JPanel implements Runnable {
     public ArrayList<Equipements> equipements = new ArrayList<>();
     MaskGuy maskGuy = new MaskGuy(this);
     MaskGuy maskGuy2 = new MaskGuy(this);
+    Octorok octorok = new Octorok(this);
     Bat bat = new Bat(this);
     Gumba gumba = new Gumba(this);
+    public ArrayList<Bullets> bullets = new ArrayList<>();
 
 
     public GamePanel() {
@@ -54,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.add(jeanGuy);
         personnages.add(bat);
         personnages.add(gumba);
+        personnages.add(octorok);
         equipements.add(bbo);
 
 
@@ -66,9 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
     }
-    public void removeDead(Players player){
-        personnages.remove(player);
-    }
+
 
 
     public void startGameThread() {
@@ -99,10 +101,14 @@ public class GamePanel extends JPanel implements Runnable {
             p.update();
 
         }
+        for (Bullets b: bullets){
+            b.update();
+        }
 
         for(Equipements e : equipements){
             e.update();
         }
+        bullets.removeIf(b -> !(b.getIsActive()=="ok"));
         personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
         equipements.removeIf(e -> e.isRamasser());
     }
@@ -115,6 +121,9 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         for (Players p : personnages) {
             p.draw(g2);
+        }
+        for (Bullets b: bullets){
+            b.draw(g2);
         }
         for (Equipements e : equipements) {
             e.draw(g2);
