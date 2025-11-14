@@ -12,21 +12,22 @@ import java.util.ArrayList;
 import entities.players.*;
 
 import entities.players.*;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;
     final int scale = 3; //for now
     public final int tileSize = originalTileSize * scale;
-
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol;
-    final int screenHeight = tileSize * maxScreenRow;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
     public ArrayList<Players> personnages = new ArrayList<>();
     final int FPS = 60;
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
+    TileManager tileM = new TileManager(this);
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     BouclierBois bbo = new BouclierBois(this);
     Coeur coeur = new Coeur(this);
@@ -58,8 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.add(gumba);
         personnages.add(octorok);
         equipements.add(bbo);
-        equipements.add(coeur);
-        equipements.add(coeurmax);
+
 
 
 
@@ -115,6 +115,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        tileM.draw(g);
 
         Graphics2D g2 = (Graphics2D)g;
         for (Players p : personnages) {

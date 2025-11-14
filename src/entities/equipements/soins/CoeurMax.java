@@ -10,15 +10,22 @@ import java.util.*;
 
 public class CoeurMax extends Soins{
 
+    static int dropPercentage = 10;
+
     public CoeurMax(GamePanel gp)
     {
-        super(gp,true, "CoeurMax", 1, new ArrayList<String>(Arrays.asList("/assets/equipments/coeurmaxdrop/coeurmax.png")), 100,new ArrayList<Integer>(Arrays.asList(100,250,0)));
+        super(gp,true, "CoeurMax", 1, new ArrayList<String>(Arrays.asList("/assets/equipments/coeurmaxdrop/coeurmax.png")),new ArrayList<Integer>(Arrays.asList(100,250,0)));
 
         try{
             equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+
+    public static int getDropPercentage() {
+        return dropPercentage;
     }
 
     @Override

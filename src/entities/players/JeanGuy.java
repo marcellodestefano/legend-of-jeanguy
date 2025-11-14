@@ -5,18 +5,22 @@ import entities.equipements.Equipements;
 import entities.equipements.armes.BouclierBois;
 import entities.equipements.soins.Coeur;
 import entities.equipements.soins.CoeurMax;
+import entities.equipements.soins.Soins;
 import input.KeyHandler;
 import main.GamePanel;
 import utils.AttackCollisions;
 import utils.CollisionDistance;
 import utils.CollisionEquipement;
+import utils.DropItems;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.desktop.SystemEventListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
 public class JeanGuy extends Playable {
 
@@ -39,7 +43,7 @@ public class JeanGuy extends Playable {
     protected String lastdir = "down";
     protected String dmgdir;
     public JeanGuy(GamePanel panel, KeyHandler keyHandler) {
-        super(panel,"Jean-Guy", 1, new ArrayList<Integer>(Arrays.asList(100,100,0)), 2, 5,3,
+        super(panel,"Jean-Guy", 1, new ArrayList<Integer>(Arrays.asList(200,200,0)), 2, 5,3,
                 false,true,2,true, Arrays.asList("",""), Arrays.asList("/assets/player/Haut1.png",
                         "/assets/player/Haut2.png","/assets/player/Bas1.png","/assets/player/Bas2.png", "/assets/player/Gauche1.png",
                         "/assets/player/Gauche2.png","/assets/player/Droite1.png","/assets/player/Droite2.png"));
@@ -49,6 +53,7 @@ public class JeanGuy extends Playable {
 
 
     }
+
 
     @Override
     public void receiveDamage(int damage, String dir){
@@ -202,12 +207,24 @@ public class JeanGuy extends Playable {
                     }
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
 
-                    if (receiver!=null){
-                        if (receiver.isKillable()){
-                            receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
-                            if (receiver.isDead()&& receiver instanceof NonPlayable npc){
-                                this.setArgent(npc.getValue());
+                   
+
+                if (receiver!=null){
+                    if (receiver.isKillable()){
+                        receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
+                        if (receiver.isDead()&& receiver instanceof NonPlayable npc){
+                            this.setArgent(npc.getValue());
+                            //mort ennemi
+                            String order="";
+                            Random r = new Random();
+                            int rand = r.nextInt(100);
+                            System.out.println(rand);
+                            if (rand<Coeur.getDropPercentage()){
+                                order = "coeur";
+                            }else if (Coeur.getDropPercentage()<rand && rand < Coeur.getDropPercentage() + CoeurMax.getDropPercentage()){
+                                order ="coeurmax";
                             }
+                            DropItems.dropItems(order, gamePanel, receiver);
                         }
                     }
                 }else {
