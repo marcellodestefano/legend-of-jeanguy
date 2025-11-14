@@ -77,7 +77,6 @@ public abstract class Bullets {
 
 
     public void update(){
-        System.out.println(receiver.getHp());
         this.setIsActive();
         if(isActive.equals("ok")){
             this.position.set(0, position.get(0) + speedX);

@@ -51,17 +51,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void prepareGame() {
-
-
         personnages.add(maskGuy);
         personnages.add(jeanGuy);
         personnages.add(bat);
         personnages.add(gumba);
         personnages.add(octorok);
         equipements.add(bbo);
-
-
-
 
         for(Players np : personnages){
             if (np instanceof NonPlayable enemy){

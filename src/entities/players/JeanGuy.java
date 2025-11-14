@@ -125,6 +125,7 @@ public class JeanGuy extends Playable {
     @Override
     public void update() {
 
+
         direction = lastdir;
         if (cpdmg!=0){
             direction = dmgdir;
@@ -206,28 +207,24 @@ public class JeanGuy extends Playable {
                         spriteCounter++;
                     }
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
-
-                   
-
-                if (receiver!=null){
-                    if (receiver.isKillable()){
-                        receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
-                        if (receiver.isDead()&& receiver instanceof NonPlayable npc){
-                            this.setArgent(npc.getValue());
-                            //mort ennemi
-                            String order="";
-                            Random r = new Random();
-                            int rand = r.nextInt(100);
-                            System.out.println(rand);
-                            if (rand<Coeur.getDropPercentage()){
-                                order = "coeur";
-                            }else if (Coeur.getDropPercentage()<rand && rand < Coeur.getDropPercentage() + CoeurMax.getDropPercentage()){
-                                order ="coeurmax";
+                    if (receiver!=null){
+                        if (receiver.isKillable()){
+                            receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
+                            if (receiver.isDead()&& receiver instanceof NonPlayable npc){
+                                this.setArgent(npc.getValue());
+                                //mort ennemi
+                                String order="";
+                                Random r = new Random();
+                                int rand = r.nextInt(100);
+                                if (rand<Coeur.getDropPercentage()){
+                                    order = "coeur";
+                                }else if (Coeur.getDropPercentage()<rand && rand < Coeur.getDropPercentage() + CoeurMax.getDropPercentage()){
+                                    order ="coeurmax";
+                                }
+                                DropItems.dropItems(order, gamePanel, receiver);
                             }
-                            DropItems.dropItems(order, gamePanel, receiver);
                         }
-                    }
-                }else {
+                }}else {
 
                     if (keyHandler.upPressed) {
                         direction = "up";
@@ -259,9 +256,11 @@ public class JeanGuy extends Playable {
                         spriteNum = 1;
                     }
                     spriteCounter = 0;
-                }}}
-
+                }
+            }
     }
+    }
+    
     @Override
     public void draw(Graphics2D g2) {
 
