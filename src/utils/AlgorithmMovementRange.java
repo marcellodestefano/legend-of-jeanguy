@@ -5,11 +5,13 @@ import entities.players.Playable;
 import main.GamePanel;
 
 public class AlgorithmMovementRange {
+
     public static String algorithmMovementRange(GamePanel gamePanel, NonPlayable enemy, Playable player) {
         float diffx = enemy.getPosition().get(0) - player.getPosition().get(0);
         float diffy = enemy.getPosition().get(1) - player.getPosition().get(1);
         double ipten = Math.sqrt(diffx*diffx+diffy*diffy);
         String direction;
+
         if (enemy.getCpdmg() != 0) {
             enemy.setCpdmg();
             return enemy.getDmgdir();
@@ -37,15 +39,11 @@ public class AlgorithmMovementRange {
                     direction = "right";
                     if (Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize).equals("ok")) {
                         return "right";
-                    } else {
-                        return "none";
                     }
                 } else {
                     direction = "left";
                     if (Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize).equals("ok")) {
                         return "left";
-                    } else {
-                        return "none";
                     }
 
                 }
@@ -54,21 +52,15 @@ public class AlgorithmMovementRange {
                     direction = "down";
                     if (Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize).equals("ok")) {
                         return "down";
-                    } else {
-                        return "none";
                     }
 
                 } else {
                     direction = "up";
                     if (Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize).equals("ok")) {
                         return "up";
-                    } else {
-                        return "none";
                     }
 
                 }
-            } else {
-                return "none";
             }
         }
         return "none";

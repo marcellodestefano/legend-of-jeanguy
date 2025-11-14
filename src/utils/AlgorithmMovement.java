@@ -25,15 +25,11 @@ public class AlgorithmMovement {
                     direction = "left";
                     if(Collisions.collisions(gamePanel.personnages, direction,enemy , gamePanel.tileSize)=="ok"){
                         return "left";
-                    }else{
-                        return "none";
                     }
                 } else {
                     direction = "right";
                     if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
                         return "right";
-                    }else{
-                        return "none";
                     }
 
                 }
@@ -42,22 +38,18 @@ public class AlgorithmMovement {
                     direction = "up";
                     if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
                         return "up";
-                    }else{
-                        return "none";
                     }
 
                 } else {
                     direction = "down";
                     if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
                         return "down";
-                    }else{
-                        return "none";
                     }
 
                 }
-            }else {
+            }
                 return "none";
-            }}
+            }
     }
 }
 
