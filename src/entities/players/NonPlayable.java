@@ -25,6 +25,7 @@ public abstract class NonPlayable extends Players{
         this.startPosition();
     }
 
+
     public void startPosition(){
         this.position.set(0, 400);
         this.position.set(1, 50+this.id*100);

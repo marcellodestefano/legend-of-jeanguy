@@ -27,6 +27,8 @@ public abstract class Players implements Actions{
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
     protected GamePanel gamePanel;
+    protected int cpAtk;
+
 
 
 
@@ -59,6 +61,9 @@ public abstract class Players implements Actions{
     public List<Integer> getPosition() {
         return this.position;
 
+    }
+    public int getAttackSpeed(){
+        return this.attackSpeed;
     }
     public int getRange() {
         return this.range;

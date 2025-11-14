@@ -10,7 +10,7 @@ public class BulletCollisions {
         int posY=(int) Math.round(bullet.getPosition().get(1));
         int posXend= posX+gp.tileSize;
         int posYend=posY+gp.tileSize;
-        if(bullet.getPosition().get(0)<=0 || bullet.getPosition().get(1)<=0 || bullet.getPosition().get(0)>gp.getWidth()|| bullet.getPosition().get(1)>gp.getHeight()){
+        if(bullet.getPosition().get(0)<0 || bullet.getPosition().get(1)<0 || bullet.getPosition().get(0)>gp.getWidth()|| bullet.getPosition().get(1)>gp.getHeight()){
             return "screen";
         } else if (posX < cible.getPosition().get(0) + gp.tileSize && posXend > cible.getPosition().get(0) && posY < cible.getPosition().get(1) + gp.tileSize && posYend > cible.getPosition().get(1)) {
             return "touche";

@@ -83,17 +83,19 @@ public abstract class Bullets {
             this.position.set(0, position.get(0) + speedX);
             this.position.set(1, position.get(1) + speedY);
         }else if(isActive.equals("touche")) {
-            if (speedX>0 && speedX>speedY){
-                receiver.receiveDamage(this.damage, "none");
+            if (Math.abs(speedX)>=Math.abs(speedY)){
+                if(speedX>=0){
+                    receiver.receiveDamage(this.damage, "right-player");
+                } else {
+                    receiver.receiveDamage(this.damage, "left-player");
+                }
             }
-            else if (speedX>0 && speedX>speedY){
-                receiver.receiveDamage(this.damage, "none");
-            }
-            else if (speedX>0 && speedX>speedY){
-                receiver.receiveDamage(this.damage, "none");
-            }
-            else if (speedX>0 && speedX>speedY){
-                receiver.receiveDamage(this.damage, "none");
+            else if (Math.abs(speedX)<Math.abs(speedY)) {
+                if(speedY>=0){
+                    receiver.receiveDamage(this.damage, "down-player");
+                } else {
+                    receiver.receiveDamage(this.damage, "up-player");
+                }
             }
         }
     }
