@@ -15,7 +15,6 @@ public class AlgorithmMovementRange {
             return enemy.getDmgdir();
         }
         if (enemy.getAttackSpeed() < 10) {
-            System.out.println("hi");
             enemy.setKillable(true);
             if (Math.abs(diffx) >= Math.abs(diffy)) {
                 if (diffx >= 0) {
