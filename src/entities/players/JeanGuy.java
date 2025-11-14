@@ -42,7 +42,7 @@ public class JeanGuy extends Playable {
     protected String lastdir = "down";
     protected String dmgdir;
     public JeanGuy(GamePanel panel, KeyHandler keyHandler) {
-        super(panel,"Jean-Guy", 1, new ArrayList<Integer>(Arrays.asList(100,100,0)), 2, 5,3,
+        super(panel,"Jean-Guy", 1, new ArrayList<Integer>(Arrays.asList(200,200,0)), 2, 5,3,
                 false,true,2,true, Arrays.asList("",""), Arrays.asList("/assets/player/Haut1.png",
                         "/assets/player/Haut2.png","/assets/player/Bas1.png","/assets/player/Bas2.png", "/assets/player/Gauche1.png",
                         "/assets/player/Gauche2.png","/assets/player/Droite1.png","/assets/player/Droite2.png"));
@@ -52,6 +52,7 @@ public class JeanGuy extends Playable {
 
 
     }
+
 
     @Override
     public void receiveDamage(int damage, String dir){
@@ -190,6 +191,7 @@ public class JeanGuy extends Playable {
                 }
                 Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
 
+
                 if (receiver!=null){
                     if (receiver.isKillable()){
                         receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
@@ -230,9 +232,12 @@ public class JeanGuy extends Playable {
                     direction = "right";
                     spriteCounter++;
                     position.set(0, position.get(0) + speed);
+
                 }
                 lastdir = direction;
             }
+
+
 
         if (spriteCounter > 12) {
             if (spriteNum == 1) {

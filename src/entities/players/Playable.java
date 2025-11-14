@@ -1,5 +1,6 @@
 package entities.players;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public abstract class Playable extends Players{
         this.argent = 0;
         Equipements arme  = new EpeeBois(gamePanel);
         inventaire.add(arme);
+
     }
     public void ramasserCoeur(){
         this.hp = Math.min(this.hp+1, this.hpmax);
@@ -28,6 +30,7 @@ public abstract class Playable extends Players{
         this.hpmax += 1;
         this.hp = hpmax;
     }
+
 
 
     public int getHpMax() {
