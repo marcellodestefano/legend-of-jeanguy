@@ -4,10 +4,8 @@ package entities.players;
 import entities.bullets.Bullets;
 import entities.bullets.Octorokatk;
 import main.GamePanel;
-import utils.AlgorithmMovement;
 import utils.AlgorithmMovementRange;
-import utils.CollisionDistance;
-import utils.Collisions;
+
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -57,34 +55,35 @@ public class Octorok extends NonPlayable{
             gamePanel.bullets.add(b);
         }
 
-        if(this.isDead()){
-
-        }else{
-
+        if(!this.isDead()){
             if (dir.contains("up")) {
                 direction = "up";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
-                position.set(1, Math.max(0,position.get(1) - checkSpeed()));
-            }}
+                    position.set(1, Math.max(0,position.get(1) - checkSpeed()));
+                }
+            }
             if (dir.contains("down")) {
                 direction = "down";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
-                position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
-            }}
+                    position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
+                }
+            }
             if (dir.contains("left")) {
                 direction = "left";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
-                position.set(0, Math.max(0,position.get(0) - checkSpeed()));
-            }}
+                    position.set(0, Math.max(0,position.get(0) - checkSpeed()));
+                }
+            }
             if (dir.contains("right")) {
                 direction = "right";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
-                position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
-            }}
+                    position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
+                }
+            }
             this.attackSpeed--;
 
             if (spriteCounter > 12) {

@@ -42,8 +42,6 @@ public abstract class Playable extends Players{
     }
 
 
-
-
     public ArrayList<Equipements> getInventaire(){
         return this.inventaire;
     }

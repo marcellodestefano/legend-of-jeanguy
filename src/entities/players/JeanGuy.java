@@ -144,15 +144,33 @@ public class JeanGuy extends Playable {
         return cpdmg!=0;
     }
 
+    public String oppositeDirection(String dir){
+        if (dir.contains("up")){
+            return "down";
+        }
+        if (dir.contains("down")){
+            return "up";
+        }
+        if (dir.contains("left")){
+            return "right";
+        }
+        if (dir.contains("right")){
+            return "left";
+        }
+        return dir;
+    }
+
     @Override
-    public void receiveDamage(int damage, String dir){
+    public void receiveDamage (NonPlayable sender, int damage, String dir){
         if(!(defense(dir))){
             this.hp = Math.max(0,this.hp-=damage);
             this.dmgdir = dir;
             this.cpdmg = 12;
             this.setKillable(false);
-        }else{
-            this.direction = lastdir;
+        }
+        else{
+            String direc = oppositeDirection(dir);
+            sender.receiveDamage(0, direc);
         }
     }
 
@@ -266,25 +284,38 @@ public class JeanGuy extends Playable {
     }
 
     public String normalMovement() {
-        spriteCounter++;
+
         String going = lastdir;
         if (keyHandler.upPressed) {
+            spriteCounter++;
             position.set(1, position.get(1) - speed);
             going =  "up";
         }
         if (keyHandler.downPressed) {
+            spriteCounter++;
             position.set(1, position.get(1) + speed);
             going =  "down";
         }
          if (keyHandler.leftPressed) {
-            position.set(0, position.get(0) - speed);
-            going = "left";
+             spriteCounter++;
+             position.set(0, position.get(0) - speed);
+             going = "left";
         }
         if (keyHandler.rightPressed) {
+            spriteCounter++;
             position.set(0, position.get(0) + speed);
             going = "right";
         }
         return going;
+    }
+
+    public boolean canBlock(){
+        for (Equipements eq : inventaire){
+            if (eq instanceof BouclierBois){
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -306,7 +337,8 @@ public class JeanGuy extends Playable {
                 if (!pass){
                     notPassing(lastdir);
                 }
-                if(keyHandler.defPressed){
+
+                if(canBlock() && keyHandler.defPressed){
                     direction = defenseMovement();
                 }
                 else if(keyHandler.atkPressed) {

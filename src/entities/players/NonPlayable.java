@@ -49,6 +49,8 @@ public abstract class NonPlayable extends Players{
     public int getId() {
         return id;
     }
+
+
     public int checkSpeed(){
         if (this.cpdmg!=0){
             return this.speed = 5;
@@ -67,7 +69,6 @@ public abstract class NonPlayable extends Players{
         return this.dmgdir;
     }
     public int getCpdmg(){
-
         return this.cpdmg;
     }
     public void setCpdmg(){
@@ -89,41 +90,39 @@ public abstract class NonPlayable extends Players{
         String dir = AlgorithmMovement.movements(gamePanel,this, cible);
         String atk = Collisions.collisions(gamePanel.personnages, this.direction, this, gamePanel.tileSize);
 
-        if(this.isDead()){
-
-        }else{
-        if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
-            cible.receiveDamage(this.damage,atk);
-        }
-        if (dir.contains("up")) {
-            direction = "up";
-            spriteCounter++;
-            position.set(1, Math.max(0,position.get(1) - checkSpeed()));
-        }
-        if (dir.contains("down")) {
-            direction = "down";
-            spriteCounter++;
-            position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
-        }
-        if (dir.contains("left")) {
-            direction = "left";
-            spriteCounter++;
-            position.set(0, Math.max(0,position.get(0) - checkSpeed()));
-        }
-        if (dir.contains("right")) {
-            direction = "right";
-            spriteCounter++;
-            position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
-        }
-
-        if (spriteCounter > 12) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 1;
+        if(!(this.isDead())){
+            if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
+                cible.receiveDamage(this, this.damage,atk);
             }
-            spriteCounter = 0;
-        }}
+            if (dir.contains("up")) {
+                direction = "up";
+                spriteCounter++;
+                position.set(1, Math.max(0,position.get(1) - checkSpeed()));
+            }
+            if (dir.contains("down")) {
+                direction = "down";
+                spriteCounter++;
+                position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
+            }
+            if (dir.contains("left")) {
+                direction = "left";
+                spriteCounter++;
+                position.set(0, Math.max(0,position.get(0) - checkSpeed()));
+            }
+            if (dir.contains("right")) {
+                direction = "right";
+                spriteCounter++;
+                position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
+            }
+
+            if (spriteCounter > 12) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }}
     }
 
 
