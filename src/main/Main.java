@@ -8,7 +8,6 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
         window.setTitle("Legend of Jean-Guy");
-
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 

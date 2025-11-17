@@ -1,14 +1,15 @@
 package entities.equipements.armes;
 
+import main.GamePanel;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class EpeeBois extends Armes{
-    protected int prix;
+    protected int prix = 0;
 
-    public EpeeBois(int prix){
-        super(false, "EpeeBois", 5, new ArrayList<String>(Arrays.asList("","")), true, 1);
-        this.prix = prix;
+    public EpeeBois(GamePanel gp){
+        super(gp, false, "EpeeBois", 1, new ArrayList<String>(Arrays.asList("","")), true, 1,new ArrayList<Integer>(Arrays.asList(100,100,0)));
     }
 
     public int getPrix(){
