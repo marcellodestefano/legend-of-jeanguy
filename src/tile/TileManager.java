@@ -16,11 +16,19 @@ public class TileManager {
     public Tile[] tile;
     public int mapTileNum[][];
 
+    public String currentZone;
+    public int currentChunkX;
+    public int currentChunkY;
+
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
         tile = new Tile[1000];
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+
+        currentZone = "overworld";
+        currentChunkX = 0;
+        currentChunkY = 0;
 
         getTileImage();
         loadMap();
@@ -31,7 +39,109 @@ public class TileManager {
         try{
 
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor2.png")));
+            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/Chemin.png")));
+
+            tile[1] = new Tile();
+            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/panneau.png")));
+
+            tile[2] = new Tile();
+            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/rockblocker.png")));
+
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/sandwithlittleherbs.png")));
+
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/CheminGazon.png")));
+
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/FleursVert1.png")));
+
+            tile[13] = new Tile();
+            tile[13].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/FleursVert3.png")));
+
+            tile[15] = new Tile();
+            tile[15].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonBas.png")));
+
+            tile[16] = new Tile();
+            tile[16].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonBasDroit.png")));
+
+            tile[17] = new Tile();
+            tile[17].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonBasGauche.png")));
+
+            tile[18] = new Tile();
+            tile[18].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonDroit.png")));
+
+            tile[19] = new Tile();
+            tile[19].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonGauche.png")));
+
+            tile[20] = new Tile();
+            tile[20].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/greentree/HautDroit.png")));
+
+            tile[22] = new Tile();
+            tile[22].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/greentree/HautGauche.png")));
+
+            tile[24] = new Tile();
+            tile[24].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/greentree/HautMultiDroit.png")));
+
+            tile[25] = new Tile();
+            tile[25].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/greentree/HautMultiGauche.png")));
+
+            tile[26] = new Tile();
+            tile[26].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/greentree/RacineDroite.png")));
+
+            tile[27] = new Tile();
+            tile[27].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/greentree/RacineGauche.png")));
+
+            tile[40] = new Tile();
+            tile[40].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/shop/BasDroitViolet.png")));
+
+            tile[41] = new Tile();
+            tile[41].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/shop/BasGaucheViolet.png")));
+
+            tile[42] = new Tile();
+            tile[42].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/shop/BasViolet.png")));
+
+            tile[43] = new Tile();
+            tile[43].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/shop/HautDroitViolet.png")));
+
+            tile[44] = new Tile();
+            tile[44].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/shop/HautGaucheViolet.png")));
+
+            tile[45] = new Tile();
+            tile[45].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/shop/HautViolet.png")));
+
+            tile[46] = new Tile();
+            tile[46].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/BrownDoor.png")));
+
+            tile[81] = new Tile();
+            tile[81].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/BrownDoor.png")));
+
+            tile[84] = new Tile();
+            tile[84].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/rockblocker.png")));
+
+            tile[110] = new Tile();
+            tile[110].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonHaut.png")));
+
+            tile[111] = new Tile();
+            tile[111].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonHautDroit.png")));
+
+            tile[112] = new Tile();
+            tile[112].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonHautGauche.png")));
+
+            tile[113] = new Tile();
+            tile[113].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonPlein.png")));
+
+            tile[119] = new Tile();
+            tile[119].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/SavageGrass.png")));
+
+            tile[410] = new Tile();
+            tile[410].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/PurpleWindow.png")));
+
+            tile[411] = new Tile();
+            tile[411].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/StoneWall.png")));
+
+            tile[412] = new Tile();
+            tile[412].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/TopStoneWall.png")));
 
             tile[640] = new Tile();
             tile[640].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topleftcornerwall.png")));
@@ -79,62 +189,141 @@ public class TileManager {
     }
 
     public void loadMap(){
+        loadChunk(currentZone, currentChunkX, currentChunkY);
+    }
 
-        System.out.println("=== DÉBUT CHARGEMENT MAP ===");
+    public void loadChunk(String zone, int chunkX, int chunkY) {
 
-        try{
-            InputStream is = getClass().getResourceAsStream("/fichiers_maps/map_minimum/A1test");
+        System.out.println("CHARGEMENT [" + zone + "] CHUNK [" + chunkX + "," + chunkY + "]");
+
+        try {
+
+            // "/fichiers_maps/overworld/chunk_0_0"
+            String mapPath = "/fichiers_maps/" + zone + "/chunk_" + chunkX + "_" + chunkY;
+            InputStream is = getClass().getResourceAsStream(mapPath);
 
             if(is == null) {
-                System.out.println("❌ ERREUR: Fichier de carte introuvable!");
-                System.out.println("Chemin cherché: /fichiers_maps/map_minimum/A1test.txt");
+                System.out.println("ERREUR: Chunk introuvable: " + mapPath);
                 return;
             }
 
-            System.out.println("✅ Fichier trouvé!");
+            System.out.println("Chunk trouvé: " + mapPath);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
             int row = 0;
 
             while (row < gp.maxScreenRow) {
-
                 String line = br.readLine();
 
                 if(line == null) {
-                    System.out.println("Fin du fichier atteinte à la ligne " + row);
+                    System.out.println("Fin du fichier à la ligne " + row);
                     break;
                 }
-
-                // ✅ Afficher TOUTES les lignes pour voir ce qui est lu
-                System.out.println("Ligne " + row + ": " + line.substring(0, Math.min(50, line.length())) + "...");
 
                 String numbers[] = line.split(",");
 
                 for(int col = 0; col < gp.maxScreenCol && col < numbers.length; col++) {
-
                     String numStr = numbers[col].trim();
                     int num = Integer.parseInt(numStr);
                     mapTileNum[col][row] = num;
-
-                    // Afficher les 10 premières valeurs de la première ligne
-                    if(row == 0 && col < 10) {
-                        System.out.println("  mapTileNum[" + col + "][0] = " + num);
-                    }
                 }
 
                 row++;
             }
 
             br.close();
-            System.out.println("✅ Chargement terminé: " + row + " lignes lues");
-            System.out.println("=== FIN CHARGEMENT MAP ===");
 
-        }catch(Exception e){
-            System.out.println("❌ ERREUR lors du chargement:");
+            // Mettre à jour les variables globales
+            currentZone = zone;
+            currentChunkX = chunkX;
+            currentChunkY = chunkY;
+
+            System.out.println("Chunk chargé: " + zone + " [" + chunkX + "," + chunkY + "]");
+
+        } catch(Exception e) {
+            System.out.println("ERREUR lors du chargement:");
             e.printStackTrace();
         }
     }
+
+    public void changeChunk(String direction) {
+        switch(direction) {
+            case "NORTH":
+                loadChunk(currentZone, currentChunkX, currentChunkY - 1);
+                break;
+            case "SOUTH":
+                loadChunk(currentZone, currentChunkX, currentChunkY + 1);
+                break;
+            case "EAST":
+                loadChunk(currentZone, currentChunkX + 1, currentChunkY);
+                break;
+            case "WEST":
+                loadChunk(currentZone, currentChunkX - 1, currentChunkY);
+                break;
+        }
+    }
+
+    public void changeZone(String newZone, int spawnChunkX, int spawnChunkY) {
+        loadChunk(newZone, spawnChunkX, spawnChunkY);
+    }
+
+//    public void loadMap(){
+//
+//        System.out.println("=== DÉBUT CHARGEMENT MAP ===");
+//
+//        try{
+//            InputStream is = getClass().getResourceAsStream("/fichiers_maps/map_minimum/A1test");
+//
+//            if(is == null) {
+//                System.out.println("ERREUR: Fichier de carte introuvable!");
+//                System.out.println("Chemin cherché: /fichiers_maps/map_minimum/A1test.txt");
+//                return;
+//            }
+//
+//            System.out.println("Fichier trouvé!");
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+//
+//            int row = 0;
+//
+//            while (row < gp.maxScreenRow) {
+//
+//                String line = br.readLine();
+//
+//                if(line == null) {
+//                    System.out.println("Fin du fichier atteinte à la ligne " + row);
+//                    break;
+//                }
+//
+//                // ✅ Afficher TOUTES les lignes pour voir ce qui est lu
+//                System.out.println("Ligne " + row + ": " + line.substring(0, Math.min(50, line.length())) + "...");
+//
+//                String numbers[] = line.split(",");
+//
+//                for(int col = 0; col < gp.maxScreenCol && col < numbers.length; col++) {
+//
+//                    String numStr = numbers[col].trim();
+//                    int num = Integer.parseInt(numStr);
+//                    mapTileNum[col][row] = num;
+//
+//                    // Afficher les 10 premières valeurs de la première ligne
+//                    if(row == 0 && col < 10) {
+//                        System.out.println("  mapTileNum[" + col + "][0] = " + num);
+//                    }
+//                }
+//
+//                row++;
+//            }
+//
+//            br.close();
+//            System.out.println("✅ Chargement terminé: " + row + " lignes lues");
+//            System.out.println("=== FIN CHARGEMENT MAP ===");
+//
+//        }catch(Exception e){
+//            System.out.println("❌ ERREUR lors du chargement:");
+//            e.printStackTrace();
+//        }
+//    }
 
     public void draw(Graphics g) {
 
@@ -148,8 +337,8 @@ public class TileManager {
             int tileNum = mapTileNum[col][row];
 
             if(tile[tileNum] == null) {
-                System.out.println("⚠️ ERREUR: tile[" + tileNum + "] est null à la position col=" + col + ", row=" + row);
-                // ✅ Utiliser la tile par défaut au lieu de crasher
+//                System.out.println("⚠ERREUR: tile[" + tileNum + "] est null à la position col=" + col + ", row=" + row);
+
                 if(tile[0] != null) {
                     g.drawImage(tile[0].image, x, y, gp.tileSize, gp.tileSize, null);
                 }
