@@ -92,8 +92,9 @@ public abstract class NonPlayable extends Players{
 
         if(!(this.isDead())){
             if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
+                if (cible.isKillable()){
                 cible.receiveDamage(this, this.damage,atk);
-            }
+            }}
             if (dir.contains("up")) {
                 direction = "up";
                 spriteCounter++;
