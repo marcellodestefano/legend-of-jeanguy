@@ -5,7 +5,6 @@ import entities.equipements.Equipements;
 import entities.equipements.armes.BouclierBois;
 import entities.equipements.soins.Coeur;
 import entities.equipements.soins.CoeurMax;
-import entities.equipements.soins.Soins;
 import input.KeyHandler;
 import main.GamePanel;
 import utils.AttackCollisions;
@@ -15,7 +14,6 @@ import utils.DropItems;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.desktop.SystemEventListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,11 +44,12 @@ public class JeanGuy extends Playable {
     protected BufferedImage degatup1, degatup2, degatdown1, degatdown2, degatright1, degatright2, degatleft1, degatleft2;
     protected int cpdmg = 0;
     protected ArrayList<Integer> positionImage2 = new ArrayList<>(Arrays.asList(0,0,0));
-    protected String lastdir = "down";
+    protected String lastdir = "down", lastAtk, lastDef;
     protected String dmgdir;
+    protected int cpAtk, cpDef, defenseSpeed=30;
     public JeanGuy(GamePanel panel, KeyHandler keyHandler) {
         super(panel,"Jean-Guy", 1, new ArrayList<Integer>(Arrays.asList(200,200,0)), 2, 5,3,
-                false,true,2,true, Arrays.asList("",""), Arrays.asList("/assets/player/Haut1.png",
+                false,true,30,true, Arrays.asList("",""), Arrays.asList("/assets/player/Haut1.png",
                         "/assets/player/Haut2.png","/assets/player/Bas1.png","/assets/player/Bas2.png", "/assets/player/Gauche1.png",
                         "/assets/player/Gauche2.png","/assets/player/Droite1.png","/assets/player/Droite2.png","/assets/playerdeath/linkdeath.png"));
 
@@ -202,6 +201,8 @@ public class JeanGuy extends Playable {
 
     public String defenseMovement(){
         spriteCounter++;
+        cpDef=10;
+        defenseSpeed=30;
         if(keyHandler.upPressed) {
             return "defup";
         }
@@ -231,8 +232,17 @@ public class JeanGuy extends Playable {
         spriteCounter++;
     }
 
+    public boolean isAttacking(){
+        return cpAtk!=0;
+    }
+    public boolean isDefending(){
+        return cpDef!=0;
+    }
+
     public String atkMovement() {
         spriteCounter++;
+        attackSpeed=30;
+        cpAtk=5;
         if (keyHandler.upPressed && keyHandler.leftPressed) {
             return "atkleftup";
         }
@@ -318,31 +328,48 @@ public class JeanGuy extends Playable {
         return false;
     }
 
+    public boolean canAttack(){
+        return attackSpeed==0;
+    }
+
+    public boolean canDefend(){
+        return defenseSpeed==0;
+    }
 
     @Override
     public void update() {
-
-
         direction = lastdir;
         if (this.isDead()){
             direction = "dead";
         }else{
+            attackSpeed = Math.max(0, attackSpeed - 1);
+            defenseSpeed = Math.max(0, defenseSpeed - 1);
             if (isGettingDamage()){
                 direction = dmgdir;
                 cpdmg--;
                 damageMovement(direction);
-            }else{
+            }else if (isAttacking()){
+                direction = lastAtk;
+                cpAtk--;
+            }
+            else if (isDefending()){
+                direction = lastDef;
+                cpDef--;
+            }
+            else{
                 this.setKillable(true);
                 boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
                 if (!pass){
                     notPassing(lastdir);
                 }
 
-                if(canBlock() && keyHandler.defPressed){
+                if(canBlock() && canDefend() && keyHandler.defPressed){
                     direction = defenseMovement();
+                    lastDef = direction;
                 }
-                else if(keyHandler.atkPressed) {
+                else if(canAttack() && keyHandler.atkPressed) {
                     direction = atkMovement();
+                    lastAtk = direction;
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
                     sendDamage(receiver);
                 }else{
