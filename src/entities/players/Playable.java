@@ -39,7 +39,7 @@ public abstract class Playable extends Players{
 
     public int SetHpMax(CoeurMax coeurMax) {
         return hpmax++;
-    }
+    } // inutile
 
 
     public ArrayList<Equipements> getInventaire(){
