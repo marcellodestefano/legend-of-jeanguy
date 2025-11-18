@@ -347,10 +347,6 @@ public class TileManager {
     }
 
 
-    public void changeZone(String newZone, int spawnChunkX, int spawnChunkY) {
-        loadChunk(newZone, spawnChunkX, spawnChunkY);
-    }
-
 
     public void draw(Graphics g) {
 
