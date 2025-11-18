@@ -351,63 +351,6 @@ public class TileManager {
         loadChunk(newZone, spawnChunkX, spawnChunkY);
     }
 
-//    public void loadMap(){
-//
-//        System.out.println("=== DÉBUT CHARGEMENT MAP ===");
-//
-//        try{
-//            InputStream is = getClass().getResourceAsStream("/fichiers_maps/map_minimum/chunk_0_1");
-//
-//            if(is == null) {
-//                System.out.println("ERREUR: Fichier de carte introuvable!");
-//                System.out.println("Chemin cherché: /fichiers_maps/map_minimum/chunk_0_1.txt");
-//                return;
-//            }
-//
-//            System.out.println("Fichier trouvé!");
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-//
-//            int row = 0;
-//
-//            while (row < gp.maxScreenRow) {
-//
-//                String line = br.readLine();
-//
-//                if(line == null) {
-//                    System.out.println("Fin du fichier atteinte à la ligne " + row);
-//                    break;
-//                }
-//
-//                // ✅ Afficher TOUTES les lignes pour voir ce qui est lu
-//                System.out.println("Ligne " + row + ": " + line.substring(0, Math.min(50, line.length())) + "...");
-//
-//                String numbers[] = line.split(",");
-//
-//                for(int col = 0; col < gp.maxScreenCol && col < numbers.length; col++) {
-//
-//                    String numStr = numbers[col].trim();
-//                    int num = Integer.parseInt(numStr);
-//                    mapTileNum[col][row] = num;
-//
-//                    // Afficher les 10 premières valeurs de la première ligne
-//                    if(row == 0 && col < 10) {
-//                        System.out.println("  mapTileNum[" + col + "][0] = " + num);
-//                    }
-//                }
-//
-//                row++;
-//            }
-//
-//            br.close();
-//            System.out.println("✅ Chargement terminé: " + row + " lignes lues");
-//            System.out.println("=== FIN CHARGEMENT MAP ===");
-//
-//        }catch(Exception e){
-//            System.out.println("❌ ERREUR lors du chargement:");
-//            e.printStackTrace();
-//        }
-//    }
 
     public void draw(Graphics g) {
 
