@@ -39,8 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     Bat bat = new Bat(this);
     Gumba gumba = new Gumba(this);
     public ArrayList<Bullets> bullets = new ArrayList<>();
-    int playerX = jeanGuy.getPosition().get(0);
-    int playerY = jeanGuy.getPosition().get(1);
+
 
 
     public GamePanel() {
@@ -53,12 +52,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void prepareGame() {
-        personnages.add(maskGuy);
+//        personnages.add(maskGuy);
         personnages.add(jeanGuy);
-        personnages.add(bat);
-        personnages.add(gumba);
-        personnages.add(octorok);
-        equipements.add(bbo);
+//        personnages.add(bat);
+//        personnages.add(gumba);
+//        personnages.add(octorok);
+//        equipements.add(bbo);
 
         for(Players np : personnages){
             if (np instanceof NonPlayable enemy){
@@ -73,33 +72,33 @@ public class GamePanel extends JPanel implements Runnable {
         int screenWidth = maxScreenCol * tileSize;
         int screenHeight = maxScreenRow * tileSize;
 
-        if(playerX > screenWidth) {
+        if(jeanGuy.getPosition().get(0) > screenWidth) {
             tileM.changeChunk("EAST");
-            playerX = tileSize;
+            jeanGuy.getPosition().set(0,tileSize);
         }
 
-        else if(playerX < 0) {
+        else if(jeanGuy.getPosition().get(0) < 0) {
             tileM.changeChunk("WEST");
-            playerX = screenWidth - tileSize * 2;
+            jeanGuy.getPosition().set(0, screenWidth - tileSize * 2);
         }
 
-        else if(playerY < 0) {
+        else if(jeanGuy.getPosition().get(1)< 0) {
             tileM.changeChunk("NORTH");
-            playerY = screenHeight - tileSize * 2;
+            jeanGuy.getPosition().set(1, screenHeight - tileSize * 2);
         }
 
-        else if(playerY > screenHeight) {
+        else if(jeanGuy.getPosition().get(1) > screenHeight) {
             tileM.changeChunk("SOUTH");
-            playerY = tileSize;
+            jeanGuy.getPosition().set(1, tileSize);
         }
     }
 
-    public void checkZoneTransition() {
-        int playerTileX = playerX / tileSize;
-        int playerTileY = playerY / tileSize;
-
-        // ici ça servira pour rentrer dans le shop
-    }
+//    public void checkZoneTransition() {
+//        int playerTileX = playerX / tileSize;
+//        int playerTileY = playerY / tileSize;
+//
+//        // ici ça servira pour rentrer dans le shop
+//    }
 
 
 
@@ -127,6 +126,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update() {
+
         for (Players p : personnages) {
             p.update();
 
@@ -143,7 +143,7 @@ public class GamePanel extends JPanel implements Runnable {
         equipements.removeIf(e -> e.isRamasser());
 
         checkChunkTransition();
-        checkZoneTransition();
+//        checkZoneTransition();
     }
 
 

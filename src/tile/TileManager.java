@@ -1,5 +1,6 @@
 package tile;
 
+import com.sun.source.doctree.SystemPropertyTree;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -31,15 +32,91 @@ public class TileManager {
         currentChunkY = 0;
 
         getTileImage();
-        loadMap();
+        loadChunk(currentZone, currentChunkX, currentChunkY);
     }
 
     public void getTileImage() {
 
         try{
 
+            // Donjon map 1
+
+            tile[64] = new Tile();
+            tile[64].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomleftcornerwall.png")));
+
+            tile[69] = new Tile();
+            tile[69].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomrightcornerwall.png")));
+
+            tile[610] = new Tile();
+            tile[610].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/brickwall.png")));
+
+            tile[612] = new Tile();
+            tile[612].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor2.png")));
+
+            tile[613] = new Tile();
+            tile[613].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/door1.png")));
+
+            tile[614] = new Tile();
+            tile[614].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/door2.png")));
+
+            tile[616] = new Tile();
+            tile[616].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/flooright.png")));
+
+            tile[617] = new Tile();
+            tile[617].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/floorleft.png")));
+
+            tile[621] = new Tile();
+            tile[621].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/leftsidebrick.png")));
+
+            tile[622] = new Tile();
+            tile[622].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middlebottombrick.png")));
+
+            tile[623] = new Tile();
+            tile[623].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middledoor.png")));
+
+            tile[628] = new Tile();
+            tile[628].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/rightbottombrick.png")));
+
+            tile[635] = new Tile();
+            tile[635].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/straight.png")));
+
+            tile[636] = new Tile();
+            tile[636].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topandbottom.png")));
+
+            tile[638] = new Tile();
+            tile[638].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topdoorleft.png")));
+
+            tile[640] = new Tile();
+            tile[640].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topleftcornerwall.png")));
+
+            tile[641] = new Tile();
+            tile[641].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topmiddledoor.png")));
+
+            tile[644] = new Tile();
+            tile[644].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/toprightcornerwall.png")));
+
+            tile[645] = new Tile();
+            tile[645].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/toprightdoor.png")));
+
+            tile[646] = new Tile();
+            tile[646].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/endleft.png")));
+
+            tile[647] = new Tile();
+            tile[647].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/endright.png")));
+
+            tile[649] = new Tile();
+            tile[649].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/mainentry.png")));
+
+            tile[651] = new Tile();
+            tile[651].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/entrymiddle.png")));
+
+            // Exterieur
+
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/Chemin.png")));
+
+            tile[07] = new Tile();
+            tile[07].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/blackvoid.jpg")));
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/panneau.png")));
@@ -114,10 +191,19 @@ public class TileManager {
             tile[46].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/BrownDoor.png")));
 
             tile[81] = new Tile();
-            tile[81].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/BrownDoor.png")));
+            tile[81].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/entrancedonjon/left1.png")));
+
+            tile[82] = new Tile();
+            tile[82].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/entrancedonjon/left2.png")));
+
+            tile[83] = new Tile();
+            tile[83].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/entrancedonjon/middleentrance.png")));
+
+            tile[85] = new Tile();
+            tile[85].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/entrancedonjon/right2.png")));
 
             tile[84] = new Tile();
-            tile[84].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/rockblocker.png")));
+            tile[84].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/entrancedonjon/right1.png")));
 
             tile[110] = new Tile();
             tile[110].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonHaut.png")));
@@ -143,6 +229,7 @@ public class TileManager {
             tile[412] = new Tile();
             tile[412].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/TopStoneWall.png")));
 
+            // Test donjon
             tile[640] = new Tile();
             tile[640].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topleftcornerwall.png")));
 
@@ -186,10 +273,6 @@ public class TileManager {
             e.printStackTrace();
         }
 
-    }
-
-    public void loadMap(){
-        loadChunk(currentZone, currentChunkX, currentChunkY);
     }
 
     public void loadChunk(String zone, int chunkX, int chunkY) {
@@ -249,10 +332,10 @@ public class TileManager {
     public void changeChunk(String direction) {
         switch(direction) {
             case "NORTH":
-                loadChunk(currentZone, currentChunkX, currentChunkY - 1);
+                loadChunk(currentZone, currentChunkX, currentChunkY + 1);
                 break;
             case "SOUTH":
-                loadChunk(currentZone, currentChunkX, currentChunkY + 1);
+                loadChunk(currentZone, currentChunkX, currentChunkY - 1);
                 break;
             case "EAST":
                 loadChunk(currentZone, currentChunkX + 1, currentChunkY);
@@ -263,6 +346,7 @@ public class TileManager {
         }
     }
 
+
     public void changeZone(String newZone, int spawnChunkX, int spawnChunkY) {
         loadChunk(newZone, spawnChunkX, spawnChunkY);
     }
@@ -272,11 +356,11 @@ public class TileManager {
 //        System.out.println("=== DÉBUT CHARGEMENT MAP ===");
 //
 //        try{
-//            InputStream is = getClass().getResourceAsStream("/fichiers_maps/map_minimum/A1test");
+//            InputStream is = getClass().getResourceAsStream("/fichiers_maps/map_minimum/chunk_0_1");
 //
 //            if(is == null) {
 //                System.out.println("ERREUR: Fichier de carte introuvable!");
-//                System.out.println("Chemin cherché: /fichiers_maps/map_minimum/A1test.txt");
+//                System.out.println("Chemin cherché: /fichiers_maps/map_minimum/chunk_0_1.txt");
 //                return;
 //            }
 //
