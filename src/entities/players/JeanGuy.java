@@ -13,12 +13,14 @@ import utils.CollisionEquipement;
 import utils.DropItems;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class JeanGuy extends Playable {
 
@@ -587,10 +589,14 @@ public class JeanGuy extends Playable {
         }
         Equipements ramasse= CollisionEquipement.collisionEquipement(gamePanel.equipements, this, gamePanel.tileSize);
         if (ramasse !=null){
-            if (ramasse instanceof BouclierBois){
+            if (ramasse instanceof BouclierBois && this.getArgent() >= ((BouclierBois) ramasse).getPrix()){
+                this.argent -= ((BouclierBois) ramasse).getPrix();
                 this.setInventaire(ramasse);
                 ramasse.setRamasser();
                 this.rammasserBouclier();}
+            else if (ramasse instanceof BouclierBois && this.getArgent() <= ((BouclierBois) ramasse).getPrix()){
+                gamePanel.showMessage("Tu n'as pas assez d'argent ! Prix : " + ((BouclierBois) ramasse).getPrix());
+            }
             else if (ramasse instanceof CoeurMax){
                 this.ramasserCoeurMax();
                 ramasse.setRamasser();
