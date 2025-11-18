@@ -24,6 +24,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow;
     public ArrayList<Players> personnages = new ArrayList<>();
     final int FPS = 60;
+    private String message = "";
+    private boolean messageOn = false;
+    private int messageCounter = 0;
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
@@ -57,6 +60,8 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.add(gumba);
         personnages.add(octorok);
         equipements.add(bbo);
+        equipements.add(coeur);
+        equipements.add(coeurmax);
 
         for(Players np : personnages){
             if (np instanceof NonPlayable enemy){
@@ -64,6 +69,12 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+    }
+
+    public void showMessage(String text){
+        message = text;
+        messageOn = true;
+        messageCounter = 0;
     }
 
 
@@ -103,9 +114,20 @@ public class GamePanel extends JPanel implements Runnable {
         for(Equipements e : equipements){
             e.update();
         }
+
+        if(messageOn){
+            messageCounter++;
+            if(messageCounter >= 60){
+                messageOn = false;
+                messageCounter = 0;
+            }
+        }
+
         bullets.removeIf(b -> !(b.getIsActive()=="ok"));
         personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
         equipements.removeIf(e -> e.isRamasser());
+        System.out.println("hp : " + jeanGuy.getHp());
+        System.out.println("argent :" + jeanGuy.getArgent());
     }
 
     public void paintComponent(Graphics g) {
@@ -114,15 +136,35 @@ public class GamePanel extends JPanel implements Runnable {
         tileM.draw(g);
 
         Graphics2D g2 = (Graphics2D)g;
+        for (Equipements e : equipements) {
+            e.draw(g2);
+        }
+
         for (Players p : personnages) {
             p.draw(g2);
         }
         for (Bullets b: bullets){
             b.draw(g2);
         }
-        for (Equipements e : equipements) {
-            e.draw(g2);
+
+        if (messageOn) {
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
+            g2.setColor(Color.RED);
+
+            // Centrer le texte
+            FontMetrics metrics = g2.getFontMetrics();
+            int x = (getWidth() - metrics.stringWidth(message)) / 2;
+            int y = getHeight() / 2;
+
+            // Fond semi-transparent
+            g2.setColor(new Color(0, 0, 0, 180));
+            g2.fillRect(x - 10, y - 25, metrics.stringWidth(message) + 20, 35);
+
+            // Texte
+            g2.setColor(Color.WHITE);
+            g2.drawString(message, x, y);
         }
+
         g2.dispose();
     }
     }
