@@ -7,10 +7,7 @@ import entities.equipements.soins.Coeur;
 import entities.equipements.soins.CoeurMax;
 import input.KeyHandler;
 import main.GamePanel;
-import utils.AttackCollisions;
-import utils.CollisionDistance;
-import utils.CollisionEquipement;
-import utils.DropItems;
+import utils.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -188,17 +185,21 @@ public class JeanGuy extends Playable {
         return false;
     }
 
-    public void notPassing(String lastdir){
-        if (lastdir=="down"){
-            this.position.set(1, this.position.get(1)-1);
-        }else if (lastdir=="up"){
-            this.position.set(1, this.position.get(1)+2);
+    public void notPassing(){
+        if (keyHandler.downPressed){
+            this.direction = "down";
+            this.lastdir = "down";
+        }if (keyHandler.upPressed){
+            this.direction = "up";
+            this.lastdir = "up";
+        }if (keyHandler.leftPressed){
+            this.direction = "left";
+            this.lastdir = "left";
+        }if (keyHandler.rightPressed){
+            this.direction = "right";
+            this.lastdir = "right";
         }
-        else if (lastdir=="left"){
-            this.position.set(0, this.position.get(0)+1);
-        }else if (lastdir=="right"){
-            this.position.set(0, this.position.get(0)-1);
-        }
+    
     }
 
     public String defenseMovement(){
@@ -338,8 +339,153 @@ public class JeanGuy extends Playable {
         return defenseSpeed==0;
     }
 
+
+
+    }
+
+    public String defenseMovement(){
+        spriteCounter++;
+        cpDef=10;
+        defenseSpeed=30;
+        if(keyHandler.upPressed) {
+            return "defup";
+        }
+        else if (keyHandler.downPressed) {
+            return "defdown";
+        }
+        else if (keyHandler.leftPressed) {
+            return "defleft";
+        }
+        else if (keyHandler.rightPressed) {
+            return "defright";
+        }
+        return "def"+lastdir;
+
+    }
+
+    public void damageMovement(String dir){
+        if (dir.equals("up-player")) {
+            position.set(1, Math.max(0,position.get(1) - 5));
+        }else if (dir.equals("down-player")) {
+            position.set(1, Math.min(gamePanel.getHeight()-gamePanel.tileSize, position.get(1) + 5));
+        }else if (dir.equals("left-player")) {
+            position.set(0, Math.max(0,position.get(0) - 5));
+        }else if (dir.equals("right-player")) {
+            position.set(0, Math.min(gamePanel.getWidth()- gamePanel.tileSize,position.get(0) + 5));
+        }
+        spriteCounter++;
+    }
+
+    public boolean isAttacking(){
+        return cpAtk!=0;
+    }
+    public boolean isDefending(){
+        return cpDef!=0;
+    }
+
+    public String atkMovement() {
+        spriteCounter++;
+        attackSpeed=30;
+        cpAtk=5;
+        if (keyHandler.upPressed && keyHandler.leftPressed) {
+            return "atkleftup";
+        }
+        else if (keyHandler.upPressed && keyHandler.rightPressed) {
+            return "atkrightup";
+        }
+        else if (keyHandler.upPressed) {
+            return "atkup";
+        }
+        else if (keyHandler.downPressed && keyHandler.leftPressed) {
+            return "atkleftdown";
+        }
+        else if (keyHandler.downPressed && keyHandler.rightPressed) {
+            return "atkrightdown";
+        }
+        else if (keyHandler.rightPressed ) {
+            return "atkright";
+        }
+        else if (keyHandler.leftPressed ) {
+            return "atkleft";
+        }
+        else if (keyHandler.downPressed ) {
+            return "atkdown";
+        }
+        return "atk"+lastdir;
+
+
+    }
+
+    public void sendDamage(Players receiver) {
+        if (receiver!=null){
+            if (receiver.isKillable()){
+                receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
+                if (receiver.isDead() && receiver instanceof NonPlayable npc){
+                    this.setArgent(npc.getValue());
+                    //mort ennemi
+                    String order="";
+                    Random r = new Random();
+                    int rand = r.nextInt(100);
+                    if (rand<Coeur.getDropPercentage()){
+                        order = "coeur";
+                    }else if (Coeur.getDropPercentage()<rand && rand < Coeur.getDropPercentage() + CoeurMax.getDropPercentage()){
+                        order ="coeurmax";
+                    }
+                    DropItems.dropItems(order, gamePanel, receiver);
+                }
+            }
+        }
+    }
+
+    public String normalMovement() {
+
+        String going = lastdir;
+        if (keyHandler.upPressed) {
+            spriteCounter++;
+            position.set(1, position.get(1) - speed);
+            going =  "up";
+        }
+        if (keyHandler.downPressed) {
+            spriteCounter++;
+            position.set(1, position.get(1) + speed);
+            going =  "down";
+        }
+         if (keyHandler.leftPressed) {
+             spriteCounter++;
+             position.set(0, position.get(0) - speed);
+             going = "left";
+        }
+        if (keyHandler.rightPressed) {
+            spriteCounter++;
+            position.set(0, position.get(0) + speed);
+            going = "right";
+        }
+        return going;
+    }
+
+    public boolean canBlock(){
+        for (Equipements eq : inventaire){
+            if (eq instanceof BouclierBois){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public KeyHandler getKeyHandler(){
+        return this.keyHandler;
+    }
+    public boolean canAttack(){
+        return attackSpeed==0;
+    }
+
+    public boolean canDefend(){
+        return defenseSpeed==0;
+    }
+
     @Override
     public void update() {
+
         direction = lastdir;
         if (this.isDead()){
             direction = "dead";
@@ -362,9 +508,8 @@ public class JeanGuy extends Playable {
                 this.setKillable(true);
                 boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
                 if (!pass){
-                    notPassing(lastdir);
+                    notPassing();
                 }
-
                 if(canBlock() && canDefend() && keyHandler.defPressed){
                     direction = defenseMovement();
                     lastDef = direction;
@@ -374,9 +519,14 @@ public class JeanGuy extends Playable {
                     lastAtk = direction;
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
                     sendDamage(receiver);
-                }else{
+                }
+                else if (CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles()).equals("path")){
                     direction = normalMovement();
                     lastdir = direction;
+                }
+                else{
+                    cpNoPass=2;
+                    notPassing();
                 }
                 if (spriteCounter > 12) {
                     if (spriteNum == 1) {

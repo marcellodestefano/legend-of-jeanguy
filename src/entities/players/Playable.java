@@ -7,6 +7,7 @@ import java.util.List;
 import entities.equipements.Equipements;
 import entities.equipements.armes.*;
 import entities.equipements.soins.CoeurMax;
+import input.KeyHandler;
 import main.GamePanel;
 
 public abstract class Playable extends Players{

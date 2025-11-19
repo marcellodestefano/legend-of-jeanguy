@@ -30,8 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    TileManager tileM = new TileManager(this);
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    TileManager tileM = new TileManager(this, jeanGuy);
     BouclierBois bbo = new BouclierBois(this);
     Coeur coeur = new Coeur(this);
     CoeurMax coeurmax = new CoeurMax(this);
@@ -44,24 +44,22 @@ public class GamePanel extends JPanel implements Runnable {
     public ArrayList<Bullets> bullets = new ArrayList<>();
 
 
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
-        this.setFocusable(true);
         prepareGame();
     }
 
     public void prepareGame() {
-        personnages.add(maskGuy);
+//        personnages.add(maskGuy);
         personnages.add(jeanGuy);
-        personnages.add(bat);
-        personnages.add(gumba);
-        personnages.add(octorok);
-        equipements.add(bbo);
-        equipements.add(coeur);
-        equipements.add(coeurmax);
+//        personnages.add(bat);
+//        personnages.add(gumba);
+//        personnages.add(octorok);
+//        equipements.add(bbo);
 
         for(Players np : personnages){
             if (np instanceof NonPlayable enemy){
@@ -84,6 +82,10 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
+    public TileManager getTileM() {
+        return tileM;
+    }
+
     @Override
     public void run() {
         long currentTime;
@@ -103,6 +105,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update() {
+
         for (Players p : personnages) {
             p.update();
 
@@ -126,25 +129,26 @@ public class GamePanel extends JPanel implements Runnable {
         bullets.removeIf(b -> !(b.getIsActive()=="ok"));
         personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
         equipements.removeIf(e -> e.isRamasser());
-        System.out.println("hp : " + jeanGuy.getHp());
-        System.out.println("argent :" + jeanGuy.getArgent());
+
     }
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        tileM.draw(g);
+
 
         Graphics2D g2 = (Graphics2D)g;
+        tileM.draw(g2);
         for (Equipements e : equipements) {
             e.draw(g2);
-        }
-
-        for (Players p : personnages) {
-            p.draw(g2);
-        }
+       
+        
         for (Bullets b: bullets){
             b.draw(g2);
+        }
+          for (Players p : personnages) {
+            p.draw(g2);
         }
 
         if (messageOn) {
@@ -167,7 +171,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2.dispose();
     }
-    }
+
+}
 
 
 
