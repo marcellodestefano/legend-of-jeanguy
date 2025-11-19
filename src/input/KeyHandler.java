@@ -1,11 +1,18 @@
 package input;
+import main.GamePanel;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+    GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, atkPressed, defPressed;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -15,6 +22,14 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+
+        if(code == KeyEvent.VK_ESCAPE){
+            if(gp.GameState == gp.playState){
+                gp.GameState = gp.pauseState;
+            } else if (gp.GameState == gp.pauseState){
+                gp.GameState = gp.playState;
+            }
+        }
 
         if(code == KeyEvent.VK_Q){
             leftPressed = true;
@@ -34,6 +49,7 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_K){
             defPressed = true;
         }
+
     }
 
     @Override

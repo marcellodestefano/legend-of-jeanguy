@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     private boolean messageOn = false;
     private int messageCounter = 0;
 
-    KeyHandler keyHandler = new KeyHandler();
+    KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
     TileManager tileM = new TileManager(this);
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
@@ -42,6 +42,13 @@ public class GamePanel extends JPanel implements Runnable {
     Bat bat = new Bat(this);
     Gumba gumba = new Gumba(this);
     public ArrayList<Bullets> bullets = new ArrayList<>();
+    public UI UI = new UI(this);
+
+    // GAME STATE
+
+    public int GameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
 
     public GamePanel() {
@@ -50,7 +57,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        setupGame();
         prepareGame();
+    }
+
+    public void setupGame(){
+        GameState = playState;
     }
 
     public void prepareGame() {
@@ -103,31 +115,35 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update() {
-        for (Players p : personnages) {
-            p.update();
 
-        }
-        for (Bullets b: bullets){
-            b.update();
-        }
+        if(GameState == playState){
+            for (Players p : personnages) {
+                p.update();
 
-        for(Equipements e : equipements){
-            e.update();
-        }
-
-        if(messageOn){
-            messageCounter++;
-            if(messageCounter >= 60){
-                messageOn = false;
-                messageCounter = 0;
             }
+            for (Bullets b: bullets){
+                b.update();
+            }
+
+            for(Equipements e : equipements){
+                e.update();
+            }
+
+            if(messageOn){
+                messageCounter++;
+                if(messageCounter >= 60){
+                    messageOn = false;
+                    messageCounter = 0;
+                }
+            }
+
+            bullets.removeIf(b -> !(b.getIsActive()=="ok"));
+            personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
+            equipements.removeIf(e -> e.isRamasser());
+        }
+        if(GameState == pauseState){
         }
 
-        bullets.removeIf(b -> !(b.getIsActive()=="ok"));
-        personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
-        equipements.removeIf(e -> e.isRamasser());
-        System.out.println("hp : " + jeanGuy.getHp());
-        System.out.println("argent :" + jeanGuy.getArgent());
     }
 
     public void paintComponent(Graphics g) {
@@ -147,6 +163,8 @@ public class GamePanel extends JPanel implements Runnable {
             b.draw(g2);
         }
 
+        UI.draw(g2);
+
         if (messageOn) {
             g2.setFont(new Font("Arial", Font.BOLD, 20));
             g2.setColor(Color.RED);
@@ -164,6 +182,8 @@ public class GamePanel extends JPanel implements Runnable {
             g2.setColor(Color.WHITE);
             g2.drawString(message, x, y);
         }
+
+
 
         g2.dispose();
     }
