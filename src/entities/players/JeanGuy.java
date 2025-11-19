@@ -377,7 +377,7 @@ public class JeanGuy extends Playable {
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
                     sendDamage(receiver);
                 }
-                else if (CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles()).equals("path")){
+                else if (!(CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles()).equals("block"))){
                     direction = normalMovement();
                     lastdir = direction;
                 }
@@ -400,9 +400,6 @@ public class JeanGuy extends Playable {
     
     @Override
     public void draw(Graphics2D g2) {
-        System.out.println("image");
-
-
         BufferedImage image = null;
         BufferedImage image2 = null;
         switch(direction) {

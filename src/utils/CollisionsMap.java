@@ -17,9 +17,9 @@ public class CollisionsMap {
 
 
 
-        posX = jeanGuy.getPosition().get(0);
+        posX = jeanGuy.getPosition().get(0)+4;
         posY = jeanGuy.getPosition().get(1);
-        posXend = jeanGuy.getPosition().get(0)+gp.tileSize;
+        posXend = jeanGuy.getPosition().get(0)+gp.tileSize-4;
         posYend = jeanGuy.getPosition().get(1)+gp.tileSize;
 
         row = (posY)/(gp.tileSize);
@@ -56,8 +56,10 @@ public class CollisionsMap {
 
 
         if (pathTiles.contains(tiles[mapTiles[col][rowEnd]])&&pathTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
+            System.out.println("hat");
             return "path";
-        } else if (chunkTiles.contains(tiles[mapTiles[col][row]])) {
+        } else if (chunkTiles.contains(tiles[mapTiles[col][rowEnd]]) && chunkTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
+            System.out.println("hit");
             return "chunk";
         } else {
             return "block";

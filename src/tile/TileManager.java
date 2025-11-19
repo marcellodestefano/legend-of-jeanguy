@@ -231,7 +231,7 @@ public class TileManager {
 
             tile[46] = new Tile();
             tile[46].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/BrownDoor.png")));
-            pathTiles.add(tile[46]);
+            chunkTiles.add(tile[46]);
 
             tile[81] = new Tile();
             tile[81].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/entrancedonjon/left1.png")));
@@ -294,18 +294,16 @@ public class TileManager {
 
             tile[636] = new Tile();
             tile[636].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topandbottom.png")));
-            tile[636].collision = true;
+
 
             tile[635] = new Tile();
             tile[635].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/straight.png")));
-            tile[635].collision = true;
 
             tile[610] = new Tile();
             tile[610].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/brickwall.png")));
 
             tile[622] = new Tile();
             tile[622].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middlebottombrick.png")));
-            tile[622].collision = true;
 
             tile[612] = new Tile();
             tile[612].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor2.png")));
@@ -314,11 +312,11 @@ public class TileManager {
 
             tile[64] = new Tile();
             tile[64].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomleftcornerwall.png")));
-            tile[64].collision = true;
+
 
             tile[69] = new Tile();
             tile[69].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomrightcornerwall.png")));
-            tile[69].collision = true;
+
 
         }catch(IOException e){
 

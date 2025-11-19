@@ -142,7 +142,6 @@ public class GamePanel extends JPanel implements Runnable {
             b.draw(g2);
         }
         for (Players p : personnages) {
-            System.out.println("hi");
             p.draw(g2);
         }
 
