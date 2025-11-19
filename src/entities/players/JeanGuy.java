@@ -347,9 +347,8 @@ public class JeanGuy extends Playable {
 
     @Override
     public void update() {
-        System.out.println(direction);
+
         direction = lastdir;
-        System.out.println(direction);
         if (this.isDead()){
             direction = "dead";
         }else{
