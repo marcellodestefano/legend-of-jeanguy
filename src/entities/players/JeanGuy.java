@@ -86,9 +86,6 @@ public class JeanGuy extends Playable {
     }
 
 
-
-
-
     @Override
     public void getPlayerImage() {
         try{
@@ -340,152 +337,12 @@ public class JeanGuy extends Playable {
     }
 
 
-
-    }
-
-    public String defenseMovement(){
-        spriteCounter++;
-        cpDef=10;
-        defenseSpeed=30;
-        if(keyHandler.upPressed) {
-            return "defup";
-        }
-        else if (keyHandler.downPressed) {
-            return "defdown";
-        }
-        else if (keyHandler.leftPressed) {
-            return "defleft";
-        }
-        else if (keyHandler.rightPressed) {
-            return "defright";
-        }
-        return "def"+lastdir;
-
-    }
-
-    public void damageMovement(String dir){
-        if (dir.equals("up-player")) {
-            position.set(1, Math.max(0,position.get(1) - 5));
-        }else if (dir.equals("down-player")) {
-            position.set(1, Math.min(gamePanel.getHeight()-gamePanel.tileSize, position.get(1) + 5));
-        }else if (dir.equals("left-player")) {
-            position.set(0, Math.max(0,position.get(0) - 5));
-        }else if (dir.equals("right-player")) {
-            position.set(0, Math.min(gamePanel.getWidth()- gamePanel.tileSize,position.get(0) + 5));
-        }
-        spriteCounter++;
-    }
-
-    public boolean isAttacking(){
-        return cpAtk!=0;
-    }
-    public boolean isDefending(){
-        return cpDef!=0;
-    }
-
-    public String atkMovement() {
-        spriteCounter++;
-        attackSpeed=30;
-        cpAtk=5;
-        if (keyHandler.upPressed && keyHandler.leftPressed) {
-            return "atkleftup";
-        }
-        else if (keyHandler.upPressed && keyHandler.rightPressed) {
-            return "atkrightup";
-        }
-        else if (keyHandler.upPressed) {
-            return "atkup";
-        }
-        else if (keyHandler.downPressed && keyHandler.leftPressed) {
-            return "atkleftdown";
-        }
-        else if (keyHandler.downPressed && keyHandler.rightPressed) {
-            return "atkrightdown";
-        }
-        else if (keyHandler.rightPressed ) {
-            return "atkright";
-        }
-        else if (keyHandler.leftPressed ) {
-            return "atkleft";
-        }
-        else if (keyHandler.downPressed ) {
-            return "atkdown";
-        }
-        return "atk"+lastdir;
-
-
-    }
-
-    public void sendDamage(Players receiver) {
-        if (receiver!=null){
-            if (receiver.isKillable()){
-                receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
-                if (receiver.isDead() && receiver instanceof NonPlayable npc){
-                    this.setArgent(npc.getValue());
-                    //mort ennemi
-                    String order="";
-                    Random r = new Random();
-                    int rand = r.nextInt(100);
-                    if (rand<Coeur.getDropPercentage()){
-                        order = "coeur";
-                    }else if (Coeur.getDropPercentage()<rand && rand < Coeur.getDropPercentage() + CoeurMax.getDropPercentage()){
-                        order ="coeurmax";
-                    }
-                    DropItems.dropItems(order, gamePanel, receiver);
-                }
-            }
-        }
-    }
-
-    public String normalMovement() {
-
-        String going = lastdir;
-        if (keyHandler.upPressed) {
-            spriteCounter++;
-            position.set(1, position.get(1) - speed);
-            going =  "up";
-        }
-        if (keyHandler.downPressed) {
-            spriteCounter++;
-            position.set(1, position.get(1) + speed);
-            going =  "down";
-        }
-         if (keyHandler.leftPressed) {
-             spriteCounter++;
-             position.set(0, position.get(0) - speed);
-             going = "left";
-        }
-        if (keyHandler.rightPressed) {
-            spriteCounter++;
-            position.set(0, position.get(0) + speed);
-            going = "right";
-        }
-        return going;
-    }
-
-    public boolean canBlock(){
-        for (Equipements eq : inventaire){
-            if (eq instanceof BouclierBois){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public KeyHandler getKeyHandler(){
         return this.keyHandler;
-    }
-    public boolean canAttack(){
-        return attackSpeed==0;
-    }
-
-    public boolean canDefend(){
-        return defenseSpeed==0;
     }
 
     @Override
     public void update() {
-
         direction = lastdir;
         if (this.isDead()){
             direction = "dead";
@@ -525,7 +382,6 @@ public class JeanGuy extends Playable {
                     lastdir = direction;
                 }
                 else{
-                    cpNoPass=2;
                     notPassing();
                 }
                 if (spriteCounter > 12) {
@@ -544,6 +400,7 @@ public class JeanGuy extends Playable {
     
     @Override
     public void draw(Graphics2D g2) {
+        System.out.println("image");
 
 
         BufferedImage image = null;
@@ -756,8 +613,9 @@ public class JeanGuy extends Playable {
                 ramasse.setRamasser();
             }
 
-
         }
+
+
         if (this.cpdmg==0){
             dmgdir=null;
 

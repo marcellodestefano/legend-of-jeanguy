@@ -54,13 +54,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void prepareGame() {
-//        personnages.add(maskGuy);
-        personnages.add(jeanGuy);
-//        personnages.add(bat);
-//        personnages.add(gumba);
-//        personnages.add(octorok);
-//        equipements.add(bbo);
 
+        personnages.add(jeanGuy);
         for(Players np : personnages){
             if (np instanceof NonPlayable enemy){
                 enemy.cible(jeanGuy);
@@ -142,12 +137,12 @@ public class GamePanel extends JPanel implements Runnable {
         tileM.draw(g2);
         for (Equipements e : equipements) {
             e.draw(g2);
-       
-        
+        }
         for (Bullets b: bullets){
             b.draw(g2);
         }
-          for (Players p : personnages) {
+        for (Players p : personnages) {
+            System.out.println("hi");
             p.draw(g2);
         }
 
@@ -173,6 +168,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 }
+
 
 
 
