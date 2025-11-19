@@ -1,7 +1,9 @@
 package tile;
 
 import com.sun.source.doctree.SystemPropertyTree;
+import entities.players.JeanGuy;
 import main.GamePanel;
+import utils.CollisionsMap;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class TileManager {
@@ -16,24 +19,42 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int mapTileNum[][];
-
-    public String currentZone;
-    public int currentChunkX;
-    public int currentChunkY;
-
-    public TileManager(GamePanel gp) {
+    private JeanGuy jeanGuy;
+    private String currentZone;
+    private String folderName;
+    private String choices;
+    private ArrayList<Tile> pathTiles = new ArrayList<>();
+    private ArrayList<Tile> chunkTiles = new ArrayList<>();
+    public TileManager(GamePanel gp, JeanGuy jeanGuy) {
         this.gp = gp;
+        this.jeanGuy = jeanGuy;
 
         tile = new Tile[1000];
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
 
-        currentZone = "overworld";
-        currentChunkX = 0;
-        currentChunkY = 0;
-
+        currentZone = "map_minimum";
+        folderName = "exterior.txt";
         getTileImage();
-        loadChunk(currentZone, currentChunkX, currentChunkY);
+        loadChunk(currentZone, folderName);
     }
+
+    public ArrayList<Tile> getPathTiles(){
+        return this.pathTiles;
+    }
+
+    public ArrayList<Tile> getChunkTiles(){
+        return this.chunkTiles;
+    }
+
+    public int[][] getMapTiles(){
+        return this.mapTileNum;
+    }
+
+    public Tile[] getTiles(){
+        return this.tile;
+    }
+
+
 
     public void getTileImage() {
 
@@ -52,6 +73,7 @@ public class TileManager {
 
             tile[612] = new Tile();
             tile[612].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor2.png")));
+            pathTiles.add(tile[612]);
 
             tile[613] = new Tile();
             tile[613].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/door1.png")));
@@ -61,9 +83,11 @@ public class TileManager {
 
             tile[616] = new Tile();
             tile[616].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/flooright.png")));
+            pathTiles.add(tile[616]);
 
             tile[617] = new Tile();
             tile[617].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/floorleft.png")));
+            pathTiles.add(tile[617]);
 
             tile[621] = new Tile();
             tile[621].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/leftsidebrick.png")));
@@ -73,6 +97,7 @@ public class TileManager {
 
             tile[623] = new Tile();
             tile[623].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middledoor.png")));
+            chunkTiles.add(tile[623]);
 
             tile[628] = new Tile();
             tile[628].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/rightbottombrick.png")));
@@ -106,6 +131,7 @@ public class TileManager {
 
             tile[649] = new Tile();
             tile[649].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/mainentry.png")));
+            chunkTiles.add(tile[649]);
 
             tile[651] = new Tile();
             tile[651].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/entrymiddle.png")));
@@ -114,9 +140,11 @@ public class TileManager {
 
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/Chemin.png")));
+            pathTiles.add(tile[0]);
 
             tile[07] = new Tile();
             tile[07].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/blackvoid.jpg")));
+            chunkTiles.add(tile[07]);
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/panneau.png")));
@@ -126,30 +154,44 @@ public class TileManager {
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/sandwithlittleherbs.png")));
+            pathTiles.add(tile[3]);
+
 
             tile[10] = new Tile();
             tile[10].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/CheminGazon.png")));
+            pathTiles.add(tile[10]);
+
 
             tile[11] = new Tile();
             tile[11].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/FleursVert1.png")));
+            pathTiles.add(tile[11]);
 
             tile[13] = new Tile();
             tile[13].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/FleursVert3.png")));
+            pathTiles.add(tile[13]);
+
 
             tile[15] = new Tile();
             tile[15].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonBas.png")));
+            pathTiles.add(tile[15]);
 
             tile[16] = new Tile();
             tile[16].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonBasDroit.png")));
+            pathTiles.add(tile[16]);
+
 
             tile[17] = new Tile();
             tile[17].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonBasGauche.png")));
+            pathTiles.add(tile[17]);
+
 
             tile[18] = new Tile();
             tile[18].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonDroit.png")));
+            pathTiles.add(tile[18]);
 
             tile[19] = new Tile();
             tile[19].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonGauche.png")));
+            pathTiles.add(tile[19]);
 
             tile[20] = new Tile();
             tile[20].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/greentree/HautDroit.png")));
@@ -189,6 +231,7 @@ public class TileManager {
 
             tile[46] = new Tile();
             tile[46].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/BrownDoor.png")));
+            pathTiles.add(tile[46]);
 
             tile[81] = new Tile();
             tile[81].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/entrancedonjon/left1.png")));
@@ -207,18 +250,25 @@ public class TileManager {
 
             tile[110] = new Tile();
             tile[110].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonHaut.png")));
+            pathTiles.add(tile[110]);
+
 
             tile[111] = new Tile();
             tile[111].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonHautDroit.png")));
+            pathTiles.add(tile[111]);
+
 
             tile[112] = new Tile();
             tile[112].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonHautGauche.png")));
+            pathTiles.add(tile[112]);
 
             tile[113] = new Tile();
             tile[113].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/GazonPlein.png")));
+            pathTiles.add(tile[113]);
 
             tile[119] = new Tile();
             tile[119].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/grass/SavageGrass.png")));
+            pathTiles.add(tile[119]);
 
             tile[410] = new Tile();
             tile[410].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/PurpleWindow.png")));
@@ -259,6 +309,8 @@ public class TileManager {
 
             tile[612] = new Tile();
             tile[612].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor2.png")));
+            pathTiles.add(tile[612]);
+
 
             tile[64] = new Tile();
             tile[64].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomleftcornerwall.png")));
@@ -275,56 +327,34 @@ public class TileManager {
 
     }
 
-    public void loadChunk(String zone, int chunkX, int chunkY) {
-
-        System.out.println("CHARGEMENT [" + zone + "] CHUNK [" + chunkX + "," + chunkY + "]");
-
+    public void loadChunk(String zone, String folderName) {
         try {
-
-            // "/fichiers_maps/overworld/chunk_0_0"
-            String mapPath = "/fichiers_maps/" + zone + "/chunk_" + chunkX + "_" + chunkY;
+            String mapPath = "/fichiers_maps/" + zone + "/"+ folderName;
             InputStream is = getClass().getResourceAsStream(mapPath);
 
-            if(is == null) {
-                System.out.println("ERREUR: Chunk introuvable: " + mapPath);
-                return;
-            }
+            if(is != null) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                int row = 0;
+                while (row < gp.maxScreenRow+1) {
+                    String line = br.readLine();
 
-            System.out.println("Chunk trouvé: " + mapPath);
+                    String numbers[] = line.split(",");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            int row = 0;
+                    for(int col = 0 ; col < gp.maxScreenCol && col < numbers.length; col++) {
+                        String numStr = numbers[col].trim();
+                        int num = Integer.parseInt(numStr);
+                        mapTileNum[col][row] = num;
+                        System.out.println(col + " " +row);
+                    }
 
-            while (row < gp.maxScreenRow) {
-                String line = br.readLine();
-
-                if(line == null) {
-                    System.out.println("Fin du fichier à la ligne " + row);
-                    break;
+                    row++;
                 }
 
-                String numbers[] = line.split(",");
+                br.close();
+                currentZone = zone;
 
-                for(int col = 0; col < gp.maxScreenCol && col < numbers.length; col++) {
-                    String numStr = numbers[col].trim();
-                    int num = Integer.parseInt(numStr);
-                    mapTileNum[col][row] = num;
-                }
-
-                row++;
             }
-
-            br.close();
-
-            // Mettre à jour les variables globales
-            currentZone = zone;
-            currentChunkX = chunkX;
-            currentChunkY = chunkY;
-
-            System.out.println("Chunk chargé: " + zone + " [" + chunkX + "," + chunkY + "]");
-
         } catch(Exception e) {
-            System.out.println("ERREUR lors du chargement:");
             e.printStackTrace();
         }
     }
@@ -332,51 +362,42 @@ public class TileManager {
     public void changeChunk(String direction) {
         switch(direction) {
             case "NORTH":
-                loadChunk(currentZone, currentChunkX, currentChunkY + 1);
+                loadChunk(currentZone,"");
                 break;
             case "SOUTH":
-                loadChunk(currentZone, currentChunkX, currentChunkY - 1);
+                loadChunk(currentZone,"");
                 break;
             case "EAST":
-                loadChunk(currentZone, currentChunkX + 1, currentChunkY);
+                loadChunk(currentZone, "");
                 break;
             case "WEST":
-                loadChunk(currentZone, currentChunkX - 1, currentChunkY);
+                loadChunk(currentZone, "");
                 break;
         }
     }
 
 
 
-    public void draw(Graphics g) {
-
+    public void draw(Graphics2D g2) {
         int col = 0;
         int row = 0;
         int x = 0;
         int y = 0;
 
-        while (col < gp.maxScreenCol && row < gp.maxScreenRow){
-
+        while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
             int tileNum = mapTileNum[col][row];
+            if (!(tile[tileNum] == null)) {
+                g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
 
-            if(tile[tileNum] == null) {
-//                System.out.println("⚠ERREUR: tile[" + tileNum + "] est null à la position col=" + col + ", row=" + row);
+                col++;
+                x += gp.tileSize;
 
-                if(tile[0] != null) {
-                    g.drawImage(tile[0].image, x, y, gp.tileSize, gp.tileSize, null);
+                if (col == gp.maxScreenCol) {
+                    col = 0;
+                    x = 0;
+                    row++;
+                    y += gp.tileSize;
                 }
-            } else {
-                g.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-            }
-
-            col++;
-            x += gp.tileSize;
-
-            if(col == gp.maxScreenCol){
-                col = 0;
-                x = 0;
-                row++;
-                y += gp.tileSize;
             }
         }
     }

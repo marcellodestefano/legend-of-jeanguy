@@ -27,8 +27,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    TileManager tileM = new TileManager(this);
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    TileManager tileM = new TileManager(this, jeanGuy);
     BouclierBois bbo = new BouclierBois(this);
     Coeur coeur = new Coeur(this);
     CoeurMax coeurmax = new CoeurMax(this);
@@ -47,7 +47,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
-        this.setFocusable(true);
         prepareGame();
     }
 
@@ -67,44 +66,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void checkChunkTransition() {
-
-        int screenWidth = maxScreenCol * tileSize;
-        int screenHeight = maxScreenRow * tileSize;
-
-        if(jeanGuy.getPosition().get(0) > screenWidth) {
-            tileM.changeChunk("EAST");
-            jeanGuy.getPosition().set(0,tileSize);
-        }
-
-        else if(jeanGuy.getPosition().get(0) < 0) {
-            tileM.changeChunk("WEST");
-            jeanGuy.getPosition().set(0, screenWidth - tileSize * 2);
-        }
-
-        else if(jeanGuy.getPosition().get(1)< 0) {
-            tileM.changeChunk("NORTH");
-            jeanGuy.getPosition().set(1, screenHeight - tileSize * 2);
-        }
-
-        else if(jeanGuy.getPosition().get(1) > screenHeight) {
-            tileM.changeChunk("SOUTH");
-            jeanGuy.getPosition().set(1, tileSize);
-        }
-    }
-
-//    public void checkZoneTransition() {
-//        int playerTileX = playerX / tileSize;
-//        int playerTileY = playerY / tileSize;
-//
-//        // ici ça servira pour rentrer dans le shop
-//    }
-
-
-
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    public TileManager getTileM() {
+        return tileM;
     }
 
     @Override
@@ -142,29 +110,31 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
         equipements.removeIf(e -> e.isRamasser());
 
-        checkChunkTransition();
-//        checkZoneTransition();
     }
 
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        tileM.draw(g);
+
 
         Graphics2D g2 = (Graphics2D)g;
-        for (Players p : personnages) {
-            p.draw(g2);
+        tileM.draw(g2);
+        for (Equipements e : equipements) {
+            e.draw(g2);
         }
         for (Bullets b: bullets){
             b.draw(g2);
         }
-        for (Equipements e : equipements) {
-            e.draw(g2);
+        for (Players p : personnages) {
+            p.draw(g2);
         }
+
+
         g2.dispose();
     }
-    }
+
+}
 
 
 
