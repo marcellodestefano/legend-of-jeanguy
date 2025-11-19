@@ -44,8 +44,12 @@ public class GamePanel extends JPanel implements Runnable {
     // GAME STATE
 
     public int GameState;
+    public final int titleState = 0;
     public final int playState = 1;
-    public final int pauseState = 2;
+    public final int selectState = 2;
+    public final int pauseState = 3;
+    public final int commandState = 4;
+
 
 
     public GamePanel() {
@@ -59,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame(){
-        GameState = playState;
+        GameState = titleState;
     }
 
     public void prepareGame() {
@@ -134,9 +138,17 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        tileM.draw(g);
 
         Graphics2D g2 = (Graphics2D)g;
+
+        // TITLE SCREEN
+
+        if(GameState == titleState){
+            UI.draw(g2);
+        }
+        else{ // Play state
+        tileM.draw(g);
+
         for (Equipements e : equipements) {
             e.draw(g2);
         }
@@ -150,9 +162,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         UI.draw(g2);
 
-        g2.dispose();
+        g2.dispose();}
     }
-    }
+}
 
 
 

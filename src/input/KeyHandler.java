@@ -1,5 +1,6 @@
 package input;
 import main.GamePanel;
+import main.UI;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,6 +23,68 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+
+        // TITLE STATE
+
+        if(gp.GameState == gp.titleState){
+            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                gp.UI.commandNum--;
+            }
+            if(code == KeyEvent.VK_S && gp.UI.commandNum < 2){
+                gp.UI.commandNum++;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.UI.commandNum == 0){
+                    gp.GameState = gp.playState;
+                }
+                if(gp.UI.commandNum == 1){
+                    // ajouter menu setting
+                    // gp.GameState = gp.Settings;
+                }
+                if(gp.UI.commandNum == 2){
+                    System.exit(0);
+                }
+            }
+
+        }
+
+        // PAUSE STATE
+
+        if(gp.GameState == gp.pauseState){
+            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                gp.UI.commandNum--;
+            }
+            if(code == KeyEvent.VK_S && gp.UI.commandNum < 1){
+                gp.UI.commandNum++;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.UI.commandNum == 0){
+                    gp.GameState = gp.titleState;
+                }
+                if(gp.UI.commandNum == 1){
+                    System.exit(0);
+                }
+            }
+        }
+
+        // COMMAND STATE
+
+        if(gp.GameState == gp.commandState){
+            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                gp.UI.commandNum--;
+            }
+            if(code == KeyEvent.VK_S && gp.UI.commandNum < 1){
+                gp.UI.commandNum++;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.UI.commandNum == 0){
+                    gp.GameState = gp.titleState;
+                }
+            }
+        }
+
+
+        // PLAY STATE
 
         if(code == KeyEvent.VK_ESCAPE){
             if(gp.GameState == gp.playState){
