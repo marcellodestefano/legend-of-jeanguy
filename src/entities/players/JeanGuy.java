@@ -10,12 +10,14 @@ import main.GamePanel;
 import utils.*;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class JeanGuy extends Playable {
 
@@ -44,8 +46,6 @@ public class JeanGuy extends Playable {
     protected String lastdir = "down", lastAtk, lastDef;
     protected String dmgdir;
     protected int cpAtk, cpDef, defenseSpeed=30;
-    protected int cpNoPass;
-    protected ArrayList<Integer> lastPosition = new ArrayList<>(Arrays.asList(0,0,0));
     public JeanGuy(GamePanel panel, KeyHandler keyHandler) {
         super(panel,"Jean-Guy", 1, new ArrayList<Integer>(Arrays.asList(200,200,0)), 2, 5,3,
                 false,true,30,true, Arrays.asList("",""), Arrays.asList("/assets/player/Haut1.png",
@@ -199,7 +199,145 @@ public class JeanGuy extends Playable {
             this.direction = "right";
             this.lastdir = "right";
         }
+    
+    }
 
+    public String defenseMovement(){
+        spriteCounter++;
+        cpDef=10;
+        defenseSpeed=30;
+        if(keyHandler.upPressed) {
+            return "defup";
+        }
+        else if (keyHandler.downPressed) {
+            return "defdown";
+        }
+        else if (keyHandler.leftPressed) {
+            return "defleft";
+        }
+        else if (keyHandler.rightPressed) {
+            return "defright";
+        }
+        return "def"+lastdir;
+
+    }
+
+    public void damageMovement(String dir){
+        if (dir.equals("up-player")) {
+            position.set(1, Math.max(0,position.get(1) - 5));
+        }else if (dir.equals("down-player")) {
+            position.set(1, Math.min(gamePanel.getHeight()-gamePanel.tileSize, position.get(1) + 5));
+        }else if (dir.equals("left-player")) {
+            position.set(0, Math.max(0,position.get(0) - 5));
+        }else if (dir.equals("right-player")) {
+            position.set(0, Math.min(gamePanel.getWidth()- gamePanel.tileSize,position.get(0) + 5));
+        }
+        spriteCounter++;
+    }
+
+    public boolean isAttacking(){
+        return cpAtk!=0;
+    }
+    public boolean isDefending(){
+        return cpDef!=0;
+    }
+
+    public String atkMovement() {
+        spriteCounter++;
+        attackSpeed=30;
+        cpAtk=5;
+        if (keyHandler.upPressed && keyHandler.leftPressed) {
+            return "atkleftup";
+        }
+        else if (keyHandler.upPressed && keyHandler.rightPressed) {
+            return "atkrightup";
+        }
+        else if (keyHandler.upPressed) {
+            return "atkup";
+        }
+        else if (keyHandler.downPressed && keyHandler.leftPressed) {
+            return "atkleftdown";
+        }
+        else if (keyHandler.downPressed && keyHandler.rightPressed) {
+            return "atkrightdown";
+        }
+        else if (keyHandler.rightPressed ) {
+            return "atkright";
+        }
+        else if (keyHandler.leftPressed ) {
+            return "atkleft";
+        }
+        else if (keyHandler.downPressed ) {
+            return "atkdown";
+        }
+        return "atk"+lastdir;
+
+
+    }
+
+    public void sendDamage(Players receiver) {
+        if (receiver!=null){
+            if (receiver.isKillable()){
+                receiver.receiveDamage(this.inventaire.get(0).getUnite(), direction);
+                if (receiver.isDead() && receiver instanceof NonPlayable npc){
+                    this.setArgent(npc.getValue());
+                    //mort ennemi
+                    String order="";
+                    Random r = new Random();
+                    int rand = r.nextInt(100);
+                    if (rand<Coeur.getDropPercentage()){
+                        order = "coeur";
+                    }else if (Coeur.getDropPercentage()<rand && rand < Coeur.getDropPercentage() + CoeurMax.getDropPercentage()){
+                        order ="coeurmax";
+                    }
+                    DropItems.dropItems(order, gamePanel, receiver);
+                }
+            }
+        }
+    }
+
+    public String normalMovement() {
+
+        String going = lastdir;
+        if (keyHandler.upPressed) {
+            spriteCounter++;
+            position.set(1, position.get(1) - speed);
+            going =  "up";
+        }
+        if (keyHandler.downPressed) {
+            spriteCounter++;
+            position.set(1, position.get(1) + speed);
+            going =  "down";
+        }
+         if (keyHandler.leftPressed) {
+             spriteCounter++;
+             position.set(0, position.get(0) - speed);
+             going = "left";
+        }
+        if (keyHandler.rightPressed) {
+            spriteCounter++;
+            position.set(0, position.get(0) + speed);
+            going = "right";
+        }
+        return going;
+    }
+
+    public boolean canBlock(){
+        for (Equipements eq : inventaire){
+            if (eq instanceof BouclierBois){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canAttack(){
+        return attackSpeed==0;
+    }
+
+    public boolean canDefend(){
+        return defenseSpeed==0;
+    }
 
 
 
@@ -601,10 +739,14 @@ public class JeanGuy extends Playable {
         }
         Equipements ramasse= CollisionEquipement.collisionEquipement(gamePanel.equipements, this, gamePanel.tileSize);
         if (ramasse !=null){
-            if (ramasse instanceof BouclierBois){
+            if (ramasse instanceof BouclierBois && this.getArgent() >= ((BouclierBois) ramasse).getPrix()){
+                this.argent -= ((BouclierBois) ramasse).getPrix();
                 this.setInventaire(ramasse);
                 ramasse.setRamasser();
                 this.rammasserBouclier();}
+            else if (ramasse instanceof BouclierBois && this.getArgent() <= ((BouclierBois) ramasse).getPrix()){
+                gamePanel.showMessage("Tu n'as pas assez d'argent ! Prix : " + ((BouclierBois) ramasse).getPrix());
+            }
             else if (ramasse instanceof CoeurMax){
                 this.ramasserCoeurMax();
                 ramasse.setRamasser();
