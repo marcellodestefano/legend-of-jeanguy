@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class TileManager {
@@ -25,6 +26,7 @@ public class TileManager {
     private String choices;
     private ArrayList<Tile> pathTiles = new ArrayList<>();
     private ArrayList<Tile> chunkTiles = new ArrayList<>();
+    private ArrayList<String> info = new ArrayList<>();
     public TileManager(GamePanel gp, JeanGuy jeanGuy) {
         this.gp = gp;
         this.jeanGuy = jeanGuy;
@@ -35,7 +37,7 @@ public class TileManager {
         currentZone = "map_minimum";
         folderName = "exterior.txt";
         getTileImage();
-        loadChunk(currentZone, folderName);
+        loadChunk(currentZone, folderName,null);
     }
 
     public ArrayList<Tile> getPathTiles(){
@@ -60,10 +62,90 @@ public class TileManager {
 
         try{
 
+
             // Donjon map 1
+
+            tile[63] = new Tile();
+            tile[63].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomleftcorner.png")));
 
             tile[64] = new Tile();
             tile[64].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomleftcornerwall.png")));
+
+            tile[65] = new Tile();
+            tile[65].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottommiddle.png")));
+
+            tile[68] = new Tile();
+            tile[68].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomrightcorner.png")));
+
+            tile[69] = new Tile();
+            tile[69].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomrightcornerwall.png")));
+
+            tile[610] = new Tile();
+            tile[610].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/brickwall.png")));
+
+            tile[611] = new Tile();
+            tile[611].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor1.png")));
+
+            tile[612] = new Tile();
+            tile[612].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor2.png")));
+
+            tile[621] = new Tile();
+            tile[621].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/leftsidebrick.png")));
+
+            tile[622] = new Tile();
+            tile[622].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middlebottombrick.png")));
+
+
+
+            tile[624] = new Tile();
+            tile[624].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middleleft.png")));
+
+            tile[626] = new Tile();
+            tile[626].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middleright.png")));
+
+            tile[627] = new Tile();
+            tile[627].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middlewall.png")));
+
+            tile[628] = new Tile();
+            tile[628].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/rightbottombrick.png")));
+
+            tile[630] = new Tile();
+            tile[630].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/stairs.png")));
+
+            tile[631] = new Tile();
+            tile[631].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue1.png")));
+
+            tile[632] = new Tile();
+            tile[632].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue2.png")));
+
+            tile[633] = new Tile();
+            tile[633].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue3.png")));
+
+            tile[634] = new Tile();
+            tile[634].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue4.png")));
+
+            tile[635] = new Tile();
+            tile[635].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/straight.png")));
+
+            tile[636] = new Tile();
+            tile[636].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topandbottom.png")));
+
+            tile[639] = new Tile();
+            tile[639].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topleftcorner.png")));
+
+
+            tile[640] = new Tile();
+            tile[640].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topleftcornerwall.png")));
+
+            tile[644] = new Tile();
+            tile[644].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/toprightcornerwall.png")));
+
+            tile[646] = new Tile();
+            tile[646].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/endleft.png")));
+
+            tile[647] = new Tile();
+            tile[647].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/endright.png")));
+
 
             tile[69] = new Tile();
             tile[69].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottomrightcornerwall.png")));
@@ -325,7 +407,45 @@ public class TileManager {
 
     }
 
-    public void loadChunk(String zone, String folderName) {
+    public void changeMap(String order){
+
+        String lastLine = null;
+        try {
+            String mapPath = "/fichiers_maps/" + currentZone + "/"+ folderName;
+            InputStream is = getClass().getResourceAsStream(mapPath);
+            if (is != null) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = br.readLine()) != null) {
+                lastLine = line;
+            }
+            System.out.println(lastLine);
+            assert lastLine != null;
+            String[] infos = lastLine.split(",");
+            this.info.addAll(Arrays.asList(infos));
+            int index=0;
+            for (int i =0; i < info.size();i++) {
+                if (info.get(i).equals(order)){
+                    index = i;
+                }
+            }
+            lastLine = null;
+            this.currentZone = info.get(index+1);
+            this.folderName = info.get(index+2);
+            System.out.println(this.currentZone);
+            System.out.println(this.folderName);
+            loadChunk(currentZone,folderName, lastLine);
+
+
+            }
+
+        } catch(Exception e ){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadChunk(String zone, String folderName, String lastLine) {
+        System.out.println(lastLine);
         try {
             String mapPath = "/fichiers_maps/" + zone + "/"+ folderName;
             InputStream is = getClass().getResourceAsStream(mapPath);
@@ -333,7 +453,7 @@ public class TileManager {
             if(is != null) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 int row = 0;
-                while (row < gp.maxScreenRow+1) {
+                while (row < gp.maxScreenRow) {
                     String line = br.readLine();
 
                     String numbers[] = line.split(",");
@@ -342,14 +462,14 @@ public class TileManager {
                         String numStr = numbers[col].trim();
                         int num = Integer.parseInt(numStr);
                         mapTileNum[col][row] = num;
-                        System.out.println(col + " " +row);
                     }
 
                     row++;
                 }
 
-                br.close();
-                currentZone = zone;
+            this.info.clear();
+            br.close();
+            currentZone = zone;
 
             }
         } catch(Exception e) {
@@ -357,22 +477,7 @@ public class TileManager {
         }
     }
 
-    public void changeChunk(String direction) {
-        switch(direction) {
-            case "NORTH":
-                loadChunk(currentZone,"");
-                break;
-            case "SOUTH":
-                loadChunk(currentZone,"");
-                break;
-            case "EAST":
-                loadChunk(currentZone, "");
-                break;
-            case "WEST":
-                loadChunk(currentZone, "");
-                break;
-        }
-    }
+
 
 
 

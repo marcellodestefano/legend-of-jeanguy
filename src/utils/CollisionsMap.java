@@ -56,10 +56,8 @@ public class CollisionsMap {
 
 
         if (pathTiles.contains(tiles[mapTiles[col][rowEnd]])&&pathTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
-            System.out.println("hat");
             return "path";
         } else if (chunkTiles.contains(tiles[mapTiles[col][rowEnd]]) && chunkTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
-            System.out.println("hit");
             return "chunk";
         } else {
             return "block";

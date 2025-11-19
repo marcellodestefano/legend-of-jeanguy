@@ -364,6 +364,7 @@ public class JeanGuy extends Playable {
             else{
                 this.setKillable(true);
                 boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
+                String respass = CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
                 if (!pass){
                     notPassing();
                 }
@@ -377,9 +378,12 @@ public class JeanGuy extends Playable {
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
                     sendDamage(receiver);
                 }
-                else if (!(CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles()).equals("block"))){
+                else if (!(respass.equals("block"))){
                     direction = normalMovement();
                     lastdir = direction;
+                    if (respass.equals("chunk")){
+                        gamePanel.getTileM().changeMap("NORTH");
+                    }
                 }
                 else{
                     notPassing();
