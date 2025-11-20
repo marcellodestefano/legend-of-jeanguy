@@ -24,21 +24,21 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow;
     public ArrayList<Players> personnages = new ArrayList<>();
     final int FPS = 60;
+    private String message = "";
+    private boolean messageOn = false;
+    private int messageCounter = 0;
+    private boolean addplayers = false;
 
     KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
-    TileManager tileM = new TileManager(this);
     public JeanGuy jeanGuy;
+    TileManager tileM = new TileManager(this, jeanGuy);
     BouclierBois bbo = new BouclierBois(this);
     Coeur coeur = new Coeur(this);
     CoeurMax coeurmax = new CoeurMax(this);
     public ArrayList<Equipements> equipements = new ArrayList<>();
-    MaskGuy maskGuy = new MaskGuy(this);
-    MaskGuy maskGuy2 = new MaskGuy(this);
-    Octorok octorok = new Octorok(this);
-    Bat bat = new Bat(this);
-    Gumba gumba = new Gumba(this);
     public ArrayList<Bullets> bullets = new ArrayList<>();
+    protected ArrayList<String> info;
     public UI UI = new UI(this);
 
     // GAME STATE
@@ -64,6 +64,42 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void prepareGame() {
+        personnages.add(jeanGuy);
+
+
+    }
+    public void instateMonsters(){
+        String npcs= null;
+        int index=-1;
+        System.out.println("Inst Mons "+info.size());;
+        for (int i =0; i < info.size();i++) {
+            if (info.get(i).equals("NPC")){
+                index = i;
+            }
+        }
+        if (index!=-1) {
+            npcs = info.get(index + 1);
+            System.out.println(npcs);
+            for(int i=0; i < npcs.length();i++){
+                if (npcs.charAt(i) == 'G'){
+                    Gumba gumba = new Gumba(this);
+                    personnages.add(gumba);
+                }
+                if (npcs.charAt(i) == 'B'){
+                    Bat bat = new Bat(this);
+                    personnages.add(bat);
+                }
+                if (npcs.charAt(i) == 'M'){
+                    MaskGuy maskGuy = new MaskGuy(this);
+                    personnages.add(maskGuy);
+                }
+                if (npcs.charAt(i) == 'O'){
+                    Octorok octorok = new Octorok(this);
+                    personnages.add(octorok);
+                }
+
+            }
+        }
         GameState = titleState;
         UI.titleScreenState = 0;
     }
@@ -110,6 +146,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void resetGame() {
         // Reset le TileManager (retour à la première map)
         tileM = new TileManager(this);
+
+        this.addplayers = false;
+        this.info.clear();
+        tileM.clearInfo();
 
         // Reset les positions
         playerX = 200;
@@ -159,7 +199,14 @@ public class GamePanel extends JPanel implements Runnable {
         // ici ça servira pour rentrer dans le shop
     }
 
+    public void setInfo(ArrayList<String> info){
+        this.info = info;
+        System.out.println("set "+info);
+    }
 
+    public void setAddplayers(boolean addplayers) {
+        this.addplayers = addplayers;
+    }
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -191,8 +238,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        for (Players p : personnages) {
-            p.update();
+   
 
         if(GameState == playState){
 
@@ -207,6 +253,14 @@ public class GamePanel extends JPanel implements Runnable {
                 UI.commandNum = 0;
             }
 
+        if(addplayers){
+            instateMonsters();
+        }
+//        System.out.println(personnages.size());
+
+        bullets.removeIf(b -> !(b.getIsActive()=="ok"));
+        personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
+        equipements.removeIf(e -> e.isRamasser());
             for (Players p : personnages) {
                 p.update();
             }

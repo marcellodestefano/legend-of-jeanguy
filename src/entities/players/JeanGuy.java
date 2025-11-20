@@ -385,6 +385,31 @@ public class JeanGuy extends Playable {
         }
         return false;
     }
+    public String chooseDirection(){
+        if (((gamePanel.screenWidth/2)-(2*gamePanel.tileSize))<=position.get(0)&&((gamePanel.screenWidth/2)+(2*gamePanel.tileSize))>=position.get(0)){
+            if (position.get(1)>gamePanel.screenHeight/2){
+                position.set(1, 2*gamePanel.tileSize);
+                return "SOUTH";
+            }
+            else if(position.get(1)<gamePanel.screenHeight/2){
+                System.out.println(position.get(1));
+                position.set(1, gamePanel.screenHeight-3*gamePanel.tileSize);
+                return "NORTH";
+            }
+
+        }
+        else if(((gamePanel.screenHeight/2)-(2*gamePanel.tileSize))<=position.get(1)&&((gamePanel.screenHeight/2)+(2*gamePanel.tileSize))>=position.get(1)){
+            if (position.get(0)>gamePanel.screenWidth/2){
+                position.set(0, gamePanel.tileSize);
+                return "EAST";
+            }
+            else if(position.get(0)<gamePanel.screenWidth/2){
+                position.set(0, gamePanel.screenWidth-gamePanel.tileSize);
+                return "WEST";
+            }
+        }
+        return null;
+    }
 
     public boolean canAttack(){
         return attackSpeed==0;
@@ -422,6 +447,7 @@ public class JeanGuy extends Playable {
             else{
                 this.setKillable(true);
                 boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
+                String respass = CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
                 if (!pass){
                     notPassing();
                 }
@@ -435,9 +461,24 @@ public class JeanGuy extends Playable {
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
                     sendDamage(receiver);
                 }
-                else if (!(CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles()).equals("block"))){
+                else if (!(respass.equals("block"))){
                     direction = normalMovement();
                     lastdir = direction;
+                    if (respass.equals("chunk")){
+                        String nextCunk = chooseDirection();
+                        gamePanel.getTileM().changeMap(nextCunk);
+                        System.out.println("hi");
+                    }
+                    if (respass.equals("merchant")){
+                        position.set(0, gamePanel.screenWidth/2);
+                        position.set(1,gamePanel.screenHeight-3*gamePanel.tileSize);
+                        gamePanel.getTileM().changeMap("MERCHANT");
+                    }
+                    if (respass.equals("exitmerchant")){
+                        position.set(0, 4*gamePanel.tileSize);
+                        position.set(1,gamePanel.screenHeight-3*gamePanel.tileSize);
+                        gamePanel.getTileM().changeMap("SOUTH");
+                    }
                 }
                 else{
                     notPassing();
