@@ -15,7 +15,7 @@ public class BouclierBois extends Armes{
     protected int prix=10;
 
     public BouclierBois(GamePanel gp){
-        super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/bouclierbois.png")), true, 1,  new ArrayList<Integer>(Arrays.asList(200,500,0)));
+        super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/weapons/bouclierbois.png")), true, 1,  new ArrayList<Integer>(Arrays.asList(200,500,0)));
 
 
         try{

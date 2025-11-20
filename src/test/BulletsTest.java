@@ -17,7 +17,7 @@ class BulletsTest {
     void octorokatk(){
 
         GamePanel gamePanel = new GamePanel();
-        KeyHandler keyHandler = new KeyHandler();
+        KeyHandler keyHandler = new KeyHandler(gamePanel);
         Players sender = new Octorok(gamePanel);
         Players receiver = new JeanGuy(gamePanel, keyHandler);
 

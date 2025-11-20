@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayersTest {
 
     GamePanel gamePanel = new GamePanel();
-    KeyHandler keyHandler = new KeyHandler();
+    KeyHandler keyHandler = new KeyHandler(gamePanel);
 
     JeanGuy jeanGuy = new JeanGuy(gamePanel, keyHandler);
 
