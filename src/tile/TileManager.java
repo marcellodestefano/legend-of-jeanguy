@@ -1,7 +1,7 @@
 package tile;
 
 import com.sun.source.doctree.SystemPropertyTree;
-import entities.players.JeanGuy;
+import entities.players.*;
 import main.GamePanel;
 import utils.CollisionsMap;
 
@@ -27,6 +27,7 @@ public class TileManager {
     private ArrayList<Tile> pathTiles = new ArrayList<>();
     private ArrayList<Tile> chunkTiles = new ArrayList<>();
     private ArrayList<String> info = new ArrayList<>();
+
     public TileManager(GamePanel gp, JeanGuy jeanGuy) {
         this.gp = gp;
         this.jeanGuy = jeanGuy;
@@ -37,7 +38,7 @@ public class TileManager {
         currentZone = "map_minimum";
         folderName = "exterior.txt";
         getTileImage();
-        loadChunk(currentZone, folderName,null);
+        loadChunk(currentZone, folderName);
     }
 
     public ArrayList<Tile> getPathTiles(){
@@ -106,6 +107,7 @@ public class TileManager {
 
             tile[338] = new Tile();
             tile[338].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/woodfloor.png")));
+            pathTiles.add(tile[338]);
 
             tile[339] = new Tile();
             tile[339].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/entrance1.png")));
@@ -136,6 +138,7 @@ public class TileManager {
 
             tile[611] = new Tile();
             tile[611].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor1.png")));
+            pathTiles.add(tile[611]);
 
             tile[612] = new Tile();
             tile[612].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjonfloor2.png")));
@@ -162,6 +165,7 @@ public class TileManager {
 
             tile[630] = new Tile();
             tile[630].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/stairs.png")));
+            pathTiles.add(tile[630]);
 
             tile[631] = new Tile();
             tile[631].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue1.png")));
@@ -268,7 +272,7 @@ public class TileManager {
 
             tile[651] = new Tile();
             tile[651].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/entrymiddle.png")));
-
+            chunkTiles.add(tile[651]);
             // Exterieur
 
             tile[0] = new Tile();
@@ -458,13 +462,13 @@ public class TileManager {
 
     }
 
+
+
     public void changeMap(String order){
 
         String lastLine = null;
         try {
             String mapPath = "/fichiers_maps/" + currentZone + "/"+ folderName;
-            System.out.println(this.currentZone);
-            System.out.println(this.folderName);
 
             InputStream is = getClass().getResourceAsStream(mapPath);
             if (is != null) {
@@ -473,7 +477,7 @@ public class TileManager {
             while ((line = br.readLine()) != null) {
                 lastLine = line;
             }
-            System.out.println(lastLine);
+
             assert lastLine != null;
             String[] infos = lastLine.split(",");
             this.info.addAll(Arrays.asList(infos));
@@ -483,13 +487,10 @@ public class TileManager {
                     index = i;
                 }
             }
-            lastLine = null;
             if (index!=-1) {
                 this.currentZone = info.get(index + 1);
                 this.folderName = info.get(index + 2);
-                System.out.println(this.currentZone);
-                System.out.println(this.folderName);
-                loadChunk(currentZone, folderName, lastLine);
+                loadChunk(currentZone, folderName);
             }
 
             }
@@ -499,8 +500,9 @@ public class TileManager {
         }
     }
 
-    public void loadChunk(String zone, String folderName, String lastLine) {
-        System.out.println(lastLine);
+
+
+    public void loadChunk(String zone, String folderName) {
         try {
             String mapPath = "/fichiers_maps/" + zone + "/"+ folderName;
             InputStream is = getClass().getResourceAsStream(mapPath);
@@ -522,7 +524,8 @@ public class TileManager {
                     row++;
                 }
 
-            this.info.clear();
+                gp.setInfo(info);
+                gp.setAddplayers(true);
             br.close();
             currentZone = zone;
 
@@ -532,6 +535,9 @@ public class TileManager {
         }
     }
 
+    public void clearInfo(){
+        this.info.clear();
+    }
 
 
 

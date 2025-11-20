@@ -64,6 +64,8 @@ public class CollisionsMap {
         } else if(mapTiles[col][rowEnd]==46 && mapTiles[colEnd][rowEnd]==46){
             return "merchant";
 
+        }else if(mapTiles[col][rowEnd]==339 && mapTiles[colEnd][rowEnd]==340){
+            return "exitmerchant";
         }
         return "block";
     }

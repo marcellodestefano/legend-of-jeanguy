@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
     private String message = "";
     private boolean messageOn = false;
     private int messageCounter = 0;
+    private boolean addplayers = false;
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this, jeanGuy);
     public ArrayList<Equipements> equipements = new ArrayList<>();
     public ArrayList<Bullets> bullets = new ArrayList<>();
+    protected ArrayList<String> info;
 
 
 
@@ -46,13 +48,51 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void prepareGame() {
-
         personnages.add(jeanGuy);
+
+
+    }
+    public void instateMonsters(){
+        String npcs= null;
+        int index=-1;
+        System.out.println("Inst Mons "+info.size());;
+        for (int i =0; i < info.size();i++) {
+            if (info.get(i).equals("NPC")){
+                index = i;
+            }
+        }
+        if (index!=-1) {
+            npcs = info.get(index + 1);
+            System.out.println(npcs);
+            for(int i=0; i < npcs.length();i++){
+                if (npcs.charAt(i) == 'G'){
+                    Gumba gumba = new Gumba(this);
+                    personnages.add(gumba);
+                }
+                if (npcs.charAt(i) == 'B'){
+                    Bat bat = new Bat(this);
+                    personnages.add(bat);
+                }
+                if (npcs.charAt(i) == 'M'){
+                    MaskGuy maskGuy = new MaskGuy(this);
+                    personnages.add(maskGuy);
+                }
+                if (npcs.charAt(i) == 'O'){
+                    Octorok octorok = new Octorok(this);
+                    personnages.add(octorok);
+                }
+
+            }
+        }
         for(Players np : personnages){
             if (np instanceof NonPlayable enemy){
                 enemy.cible(jeanGuy);
             }
         }
+
+        this.addplayers = false;
+        this.info.clear();
+        tileM.clearInfo();
 
     }
 
@@ -62,7 +102,14 @@ public class GamePanel extends JPanel implements Runnable {
         messageCounter = 0;
     }
 
+    public void setInfo(ArrayList<String> info){
+        this.info = info;
+        System.out.println("set "+info);
+    }
 
+    public void setAddplayers(boolean addplayers) {
+        this.addplayers = addplayers;
+    }
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -112,6 +159,11 @@ public class GamePanel extends JPanel implements Runnable {
                 messageCounter = 0;
             }
         }
+
+        if(addplayers){
+            instateMonsters();
+        }
+//        System.out.println(personnages.size());
 
         bullets.removeIf(b -> !(b.getIsActive()=="ok"));
         personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));

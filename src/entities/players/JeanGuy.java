@@ -409,11 +409,17 @@ public class JeanGuy extends Playable {
                     if (respass.equals("chunk")){
                         String nextCunk = chooseDirection();
                         gamePanel.getTileM().changeMap(nextCunk);
+                        System.out.println("hi");
                     }
                     if (respass.equals("merchant")){
                         position.set(0, gamePanel.screenWidth/2);
-                        position.set(1, gamePanel.screenHeight-2*gamePanel.tileSize);
+                        position.set(1,gamePanel.screenHeight-3*gamePanel.tileSize);
                         gamePanel.getTileM().changeMap("MERCHANT");
+                    }
+                    if (respass.equals("exitmerchant")){
+                        position.set(0, 4*gamePanel.tileSize);
+                        position.set(1,gamePanel.screenHeight-3*gamePanel.tileSize);
+                        gamePanel.getTileM().changeMap("SOUTH");
                     }
                 }
                 else{
