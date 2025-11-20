@@ -115,14 +115,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Recrée Jean-Guy avec le bon skin
         jeanGuy = new JeanGuy(this, keyHandler);
-
+        tileM = new TileManager(this, jeanGuy);
 
         // Vide et remplit les listes
         personnages.clear();
         equipements.clear();
         bullets.clear();
-        tileM.clearInfo();
-        tileM.restartPosition();
 
 
         personnages.add(jeanGuy);
@@ -220,7 +218,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             UI.update();
-
             bullets.removeIf(b -> !(b.getIsActive()=="ok"));
             personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
             equipements.removeIf(e -> e.isRamasser());

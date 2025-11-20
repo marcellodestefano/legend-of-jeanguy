@@ -6,7 +6,9 @@ import main.GamePanel;
 import utils.CollisionsMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
+import java.awt.desktop.SystemSleepListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,10 +45,6 @@ public class TileManager {
 
     public ArrayList<Tile> getPathTiles(){
         return this.pathTiles;
-    }
-    public void restartPosition(){
-        this.currentZone = "map_minimum";
-        this.folderName = "exterior.txt";
     }
 
     public ArrayList<Tile> getChunkTiles(){
