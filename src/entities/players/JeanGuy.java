@@ -56,14 +56,72 @@ public class JeanGuy extends Playable {
                         "/assets/player/Gauche2.png","/assets/player/Droite1.png","/assets/player/Droite2.png","/assets/playerdeath/linkdeath.png"));
 
         this.keyHandler = keyHandler;
+
+        if (keyHandler.redJeanGuy == true){
+            redJG();
+        }
+
         this.getPlayerImage();
 
 
     }
 
+    public void redJG(){
+
+        this.spritesPaths.set(0, "/assets/redplayer/redsprite/haut1.png");
+        this.spritesPaths.set(1, "/assets/redplayer/redsprite/haut2.png");
+        this.spritesPaths.set(2, "/assets/redplayer/redsprite/bas1.png");
+        this.spritesPaths.set(3, "/assets/redplayer/redsprite/bas2.png");
+        this.spritesPaths.set(4, "/assets/redplayer/redsprite/gauche1.png");
+        this.spritesPaths.set(5, "/assets/redplayer/redsprite/gauche2.png");
+        this.spritesPaths.set(6, "/assets/redplayer/redsprite/droite1.png");
+        this.spritesPaths.set(7, "/assets/redplayer/redsprite/droite2.png");
+        this.spritesPaths.set(8, "/assets/redplayer/reddeath/reddeath.png");
+
+        this.defenseSprites.set(0, "/assets/redplayer/redshield/up1.png");
+        this.defenseSprites.set(1, "/assets/redplayer/redshield/up2.png");
+        this.defenseSprites.set(2, "/assets/redplayer/redshield/down1.png");
+        this.defenseSprites.set(3, "/assets/redplayer/redshield/down2.png");
+        this.defenseSprites.set(4, "/assets/redplayer/redshield/left1.png");
+        this.defenseSprites.set(5, "/assets/redplayer/redshield/left2.png");
+        this.defenseSprites.set(6, "/assets/redplayer/redshield/right1.png");
+        this.defenseSprites.set(7, "/assets/redplayer/redshield/right2.png");
+
+        this.attackSprites.set(0, "/assets/redplayer/redattack/attackup.png");
+        this.attackSprites.set(1, "/assets/redplayer/redattack/attackdown.png");
+        this.attackSprites.set(2, "/assets/redplayer/redattack/attackleft.png");
+        this.attackSprites.set(3, "/assets/redplayer/redattack/attackright.png");
+    }
+
 
 
     public void rammasserBouclier(){
+
+        if (keyHandler.redJeanGuy == true){
+            this.spritesPaths.set(0, "/assets/redplayer/redblocking/up1.png");
+            this.spritesPaths.set(1, "/assets/redplayer/redblocking/up2.png");
+            this.spritesPaths.set(2, "/assets/redplayer/redblocking/down1.png");
+            this.spritesPaths.set(3, "/assets/redplayer/redblocking/down2.png");
+            this.spritesPaths.set(4, "/assets/redplayer/redblocking/left1.png");
+            this.spritesPaths.set(5, "/assets/redplayer/redblocking/left2.png");
+            this.spritesPaths.set(6, "/assets/redplayer/redblocking/right1.png");
+            this.spritesPaths.set(7, "/assets/redplayer/redblocking/right2.png");
+            //bouclier
+            try {
+                this.defup1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(0))));
+                this.defup2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(1))));
+                this.defdown1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(2))));
+                this.defdown2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(3))));
+                this.defleft1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(4))));
+                this.defleft2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(5))));
+                this.defright1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(6))));
+                this.defright2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(7))));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            this.getPlayerImage();
+        }
+        else{
         this.spritesPaths.set(0, "/assets/playershield/Haut1.png");
         this.spritesPaths.set(1, "/assets/playershield/Haut2.png");
         this.spritesPaths.set(2, "/assets/playershield/Bas1.png");
@@ -86,7 +144,7 @@ public class JeanGuy extends Playable {
             e.printStackTrace();
         }
         this.getPlayerImage();
-    }
+    }}
 
 
 

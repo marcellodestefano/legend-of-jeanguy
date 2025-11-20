@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
     TileManager tileM = new TileManager(this);
-    public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
+    public JeanGuy jeanGuy;
     BouclierBois bbo = new BouclierBois(this);
     Coeur coeur = new Coeur(this);
     CoeurMax coeurmax = new CoeurMax(this);
@@ -46,12 +46,12 @@ public class GamePanel extends JPanel implements Runnable {
     public int GameState;
     public final int titleState = 0;
     public final int playState = 1;
-    public final int selectState = 2;
-    public final int pauseState = 3;
-    public final int commandState = 4;
+    public final int pauseState = 2;
+    public final int commandState = 3;
 
-    int playerX = jeanGuy.getPosition().get(0);
-    int playerY = jeanGuy.getPosition().get(1);
+
+    int playerX = 200;
+    int playerY = 200;
 
 
     public GamePanel() {
@@ -60,15 +60,14 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
-        setupGame();
-        prepareGame();
-    }
-
-    public void setupGame(){
-        GameState = titleState;
     }
 
     public void prepareGame() {
+        GameState = titleState;
+        UI.titleScreenState = 0;
+
+        jeanGuy = new JeanGuy(this, keyHandler);
+
         personnages.add(maskGuy);
         personnages.add(jeanGuy);
         personnages.add(bat);
@@ -83,7 +82,6 @@ public class GamePanel extends JPanel implements Runnable {
                 enemy.cible(jeanGuy);
             }
         }
-
     }
 
     public void checkChunkTransition() {
@@ -147,6 +145,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
 
         if(GameState == playState){
+
+            if(jeanGuy != null) {
+                playerX = jeanGuy.getPosition().get(0);
+                playerY = jeanGuy.getPosition().get(1);
+            }
+
             for (Players p : personnages) {
                 p.update();
 

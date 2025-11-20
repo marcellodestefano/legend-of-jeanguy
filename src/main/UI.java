@@ -11,10 +11,12 @@ public class UI {
     Graphics2D g2;
     Font zeldaFont, arial_40, arial_80B;
     BufferedImage titleImage;
+    BufferedImage redJeanGuy;
     protected String message = "";
     protected boolean messageOn = false;
     private int messageCounter = 0;
     public int commandNum = 0;
+    public int titleScreenState = 0; // 0 = Main title / 1 = Selection of character skin
 
     public UI(GamePanel gp){
         this.gp = gp;
@@ -29,6 +31,12 @@ public class UI {
 
         try {
             titleImage = ImageIO.read(getClass().getResourceAsStream("/assets/playerblocking/down2.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            redJeanGuy = ImageIO.read(getClass().getResourceAsStream("/assets/redplayer/redblocking/down2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,47 +77,91 @@ public class UI {
 
     public void drawTitleScreen(){
 
-        g2.setFont(zeldaFont.deriveFont(25f));
-        String text = "The Legend of Jean-Guy";
-        int x = getXcentered(text);
-        int y = gp.tileSize*3;
+        if(titleScreenState == 0){
+
+            g2.setFont(zeldaFont.deriveFont(25f));
+            String text = "The Legend of Jean-Guy";
+            int x = getXcentered(text);
+            int y = gp.tileSize*3;
 
 
-        g2.setColor(Color.WHITE);
-        g2.drawString(text,x,y);
+            g2.setColor(Color.WHITE);
+            g2.drawString(text,x,y);
 
-        // Image de jean guy
+            // Image de jean guy
 
-        x = gp.screenWidth/2;
-        y = gp.tileSize*2;
-        g2.drawImage(titleImage, 330, 200, 125, 125, null);
+            x = gp.screenWidth/2;
+            y = gp.tileSize*2;
+            g2.drawImage(titleImage, 330, 200, 125, 125, null);
 
-        // MENU
+            // MENU
 
-        g2.setFont(zeldaFont.deriveFont(25f));
+            g2.setFont(zeldaFont.deriveFont(25f));
 
-        text = "START GAME";
-        x = getXcentered(text);
-        y = gp.tileSize*9;
-        g2.drawString(text,x,y);
-        if(commandNum == 0){
-            g2.drawString(">", x-gp.tileSize, y);
+            text = "START GAME";
+            x = getXcentered(text);
+            y = gp.tileSize*9;
+            g2.drawString(text,x,y);
+            if(commandNum == 0){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
+
+            text = "COMMANDS";
+            x = getXcentered(text);
+            y = gp.tileSize*10;
+            g2.drawString(text,x,y);
+            if(commandNum == 1){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
+
+            text = "QUIT";
+            x = getXcentered(text);
+            y = gp.tileSize*11;
+            g2.drawString(text,x,y);
+            if(commandNum == 2){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
         }
+        if(titleScreenState == 1){
 
-        text = "COMMANDS";
-        x = getXcentered(text);
-        y = gp.tileSize*10;
-        g2.drawString(text,x,y);
-        if(commandNum == 1){
-            g2.drawString(">", x-gp.tileSize, y);
-        }
+            // SKIN SELECTION SCREEN
+            g2.setFont(zeldaFont.deriveFont(25f));
+            String text = "Select your Jean-Guy skin !";
+            int x = getXcentered(text);
+            int y = gp.tileSize*3;
+            g2.setColor(Color.WHITE);
+            g2.drawString(text,x,y);
 
-        text = "QUIT";
-        x = getXcentered(text);
-        y = gp.tileSize*11;
-        g2.drawString(text,x,y);
-        if(commandNum == 2){
-            g2.drawString(">", x-gp.tileSize, y);
+            // Dessiner jean guy
+
+            x = gp.screenWidth/2;
+            y = gp.tileSize;
+            g2.drawImage(titleImage, 150, 200, 125, 125, null);
+            if(commandNum == 0){
+                g2.setFont(zeldaFont.deriveFont(50f));
+                g2.drawString("^", 140 + 125/2 - 15, 400);
+            }
+
+            // Dessiner red jean guy
+
+            x = gp.screenWidth/2;
+            y = gp.tileSize;
+            g2.drawImage(redJeanGuy, 500, 200, 125, 125, null);
+            if(commandNum == 1){
+                g2.setFont(zeldaFont.deriveFont(50f));
+                g2.drawString("^", 490 + 125/2 - 15, 400);
+            }
+
+            // Dessiner back to the main title
+
+            g2.setFont(zeldaFont.deriveFont(20f));
+            text = "Back to the main title";
+            x = getXcentered(text);
+            y = gp.tileSize*9;
+            g2.drawString(text,x,y);
+            if(commandNum == 2){
+                g2.drawString(">", x-gp.tileSize, y);
+            }
         }
     }
 

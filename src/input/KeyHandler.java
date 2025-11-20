@@ -10,6 +10,7 @@ public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, atkPressed, defPressed;
+    public boolean redJeanGuy = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -27,24 +28,52 @@ public class KeyHandler implements KeyListener {
         // TITLE STATE
 
         if(gp.GameState == gp.titleState){
-            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
-                gp.UI.commandNum--;
-            }
-            if(code == KeyEvent.VK_S && gp.UI.commandNum < 2){
-                gp.UI.commandNum++;
-            }
-            if(code == KeyEvent.VK_ENTER){
-                if(gp.UI.commandNum == 0){
-                    gp.GameState = gp.playState;
-                }
-                if(gp.UI.commandNum == 4){
-                    gp.GameState = gp.commandState;
-                }
-                if(gp.UI.commandNum == 2){
-                    System.exit(0);
-                }
-            }
 
+            if(gp.UI.titleScreenState == 0){
+                if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                    gp.UI.commandNum--;
+                }
+                if(code == KeyEvent.VK_S && gp.UI.commandNum < 2){
+                    gp.UI.commandNum++;
+                }
+                if(code == KeyEvent.VK_ENTER){
+                    if(gp.UI.commandNum == 0){
+                        gp.UI.titleScreenState = 1;
+                        gp.UI.commandNum = 0;
+                    }
+                    if(gp.UI.commandNum == 1){
+                        gp.GameState = gp.commandState;
+                    }
+                    if(gp.UI.commandNum == 2){
+                        gp.UI.titleScreenState = 0;   // Retour au menu principal
+                        gp.UI.commandNum = 0;
+                    }
+                }
+            }
+            else if(gp.UI.titleScreenState == 1){
+                if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                    gp.UI.commandNum--;
+                }
+                if(code == KeyEvent.VK_S && gp.UI.commandNum < 2){
+                    gp.UI.commandNum++;
+                }
+                if(code == KeyEvent.VK_ENTER){
+                    if(gp.UI.commandNum == 0){
+                        this.redJeanGuy = false;
+                        gp.prepareGame();
+                        gp.GameState = gp.playState; // Insérer playstate avec jeanguy vert
+                    }
+                    if(gp.UI.commandNum == 1){
+                        this.redJeanGuy = true;
+                        gp.prepareGame();
+                        gp.GameState = gp.playState; // Insérer playstate avec jeanguy rouge
+                    }
+                    if(gp.UI.commandNum == 2){
+                        gp.UI.titleScreenState = 0;
+                        gp.UI.commandNum = 0;
+                    }
+                }
+            }
         }
 
         // PAUSE STATE
