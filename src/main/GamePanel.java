@@ -32,15 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public JeanGuy jeanGuy = new JeanGuy(this, keyHandler);
     TileManager tileM = new TileManager(this, jeanGuy);
-    BouclierBois bbo = new BouclierBois(this);
-    Coeur coeur = new Coeur(this);
-    CoeurMax coeurmax = new CoeurMax(this);
     public ArrayList<Equipements> equipements = new ArrayList<>();
-    MaskGuy maskGuy = new MaskGuy(this);
-    MaskGuy maskGuy2 = new MaskGuy(this);
-    Octorok octorok = new Octorok(this);
-    Bat bat = new Bat(this);
-    Gumba gumba = new Gumba(this);
     public ArrayList<Bullets> bullets = new ArrayList<>();
 
 

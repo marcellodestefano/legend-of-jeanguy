@@ -62,6 +62,57 @@ public class TileManager {
 
         try{
 
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/blackvoid.jpg")));
+
+            tile[313] = new Tile();
+            tile[313].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/bottomcommode.png")));
+
+            tile[314] = new Tile();
+            tile[314].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/bottomleft.png")));
+
+            tile[315] = new Tile();
+            tile[315].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/bottommiddle.png")));
+
+            tile[316] = new Tile();
+            tile[316].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/bottomright.png")));
+
+            tile[317] = new Tile();
+            tile[317].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/caisse.png")));
+
+            tile[318] = new Tile();
+            tile[318].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/left.png")));
+
+            tile[319] = new Tile();
+            tile[319].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/leftrock.png")));
+
+            tile[321] = new Tile();
+            tile[321].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/right.png")));
+
+            tile[322] = new Tile();
+            tile[322].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/rightrock.png")));
+
+            tile[324] = new Tile();
+            tile[324].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topcommode.png")));
+
+            tile[325] = new Tile();
+            tile[325].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topleft.png")));
+
+            tile[326] = new Tile();
+            tile[326].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topmiddle.png")));
+
+            tile[337] = new Tile();
+            tile[337].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topright.png")));
+
+            tile[338] = new Tile();
+            tile[338].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/woodfloor.png")));
+
+            tile[339] = new Tile();
+            tile[339].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/entrance1.png")));
+
+            tile[340] = new Tile();
+            tile[340].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/entrance2.png")));
+
 
             // Donjon map 1
 
@@ -313,7 +364,7 @@ public class TileManager {
 
             tile[46] = new Tile();
             tile[46].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/baseforhouse/BrownDoor.png")));
-            chunkTiles.add(tile[46]);
+
 
             tile[81] = new Tile();
             tile[81].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/entrancedonjon/left1.png")));
@@ -412,6 +463,9 @@ public class TileManager {
         String lastLine = null;
         try {
             String mapPath = "/fichiers_maps/" + currentZone + "/"+ folderName;
+            System.out.println(this.currentZone);
+            System.out.println(this.folderName);
+
             InputStream is = getClass().getResourceAsStream(mapPath);
             if (is != null) {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -423,19 +477,20 @@ public class TileManager {
             assert lastLine != null;
             String[] infos = lastLine.split(",");
             this.info.addAll(Arrays.asList(infos));
-            int index=0;
+            int index=-1;
             for (int i =0; i < info.size();i++) {
                 if (info.get(i).equals(order)){
                     index = i;
                 }
             }
             lastLine = null;
-            this.currentZone = info.get(index+1);
-            this.folderName = info.get(index+2);
-            System.out.println(this.currentZone);
-            System.out.println(this.folderName);
-            loadChunk(currentZone,folderName, lastLine);
-
+            if (index!=-1) {
+                this.currentZone = info.get(index + 1);
+                this.folderName = info.get(index + 2);
+                System.out.println(this.currentZone);
+                System.out.println(this.folderName);
+                loadChunk(currentZone, folderName, lastLine);
+            }
 
             }
 

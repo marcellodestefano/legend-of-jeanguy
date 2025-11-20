@@ -327,6 +327,31 @@ public class JeanGuy extends Playable {
         }
         return false;
     }
+    public String chooseDirection(){
+        if (((gamePanel.screenWidth/2)-(2*gamePanel.tileSize))<=position.get(0)&&((gamePanel.screenWidth/2)+(2*gamePanel.tileSize))>=position.get(0)){
+            if (position.get(1)>gamePanel.screenHeight/2){
+                position.set(1, 2*gamePanel.tileSize);
+                return "SOUTH";
+            }
+            else if(position.get(1)<gamePanel.screenHeight/2){
+                System.out.println(position.get(1));
+                position.set(1, gamePanel.screenHeight-3*gamePanel.tileSize);
+                return "NORTH";
+            }
+
+        }
+        else if(((gamePanel.screenHeight/2)-(2*gamePanel.tileSize))<=position.get(1)&&((gamePanel.screenHeight/2)+(2*gamePanel.tileSize))>=position.get(1)){
+            if (position.get(0)>gamePanel.screenWidth/2){
+                position.set(0, gamePanel.tileSize);
+                return "EAST";
+            }
+            else if(position.get(0)<gamePanel.screenWidth/2){
+                position.set(0, gamePanel.screenWidth-gamePanel.tileSize);
+                return "WEST";
+            }
+        }
+        return null;
+    }
 
     public boolean canAttack(){
         return attackSpeed==0;
@@ -382,7 +407,13 @@ public class JeanGuy extends Playable {
                     direction = normalMovement();
                     lastdir = direction;
                     if (respass.equals("chunk")){
-                        gamePanel.getTileM().changeMap("NORTH");
+                        String nextCunk = chooseDirection();
+                        gamePanel.getTileM().changeMap(nextCunk);
+                    }
+                    if (respass.equals("merchant")){
+                        position.set(0, gamePanel.screenWidth/2);
+                        position.set(1, gamePanel.screenHeight-2*gamePanel.tileSize);
+                        gamePanel.getTileM().changeMap("MERCHANT");
                     }
                 }
                 else{

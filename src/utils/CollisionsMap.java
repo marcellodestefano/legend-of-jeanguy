@@ -54,14 +54,18 @@ public class CollisionsMap {
 
 
 
-
-        if (pathTiles.contains(tiles[mapTiles[col][rowEnd]])&&pathTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
-            return "path";
-        } else if (chunkTiles.contains(tiles[mapTiles[col][rowEnd]]) && chunkTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
+        if(posXend>=gp.screenWidth - gp.tileSize || posX<=0 || posY<=0 || posYend>=gp.screenHeight - gp.tileSize){
             return "chunk";
-        } else {
-            return "block";
         }
+        else if(pathTiles.contains(tiles[mapTiles[col][rowEnd]])&&pathTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
+            return "path";
+        } else if(chunkTiles.contains(tiles[mapTiles[col][rowEnd]]) && chunkTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
+            return "chunk";
+        } else if(mapTiles[col][rowEnd]==46 && mapTiles[colEnd][rowEnd]==46){
+            return "merchant";
+
+        }
+        return "block";
     }
 
 }
