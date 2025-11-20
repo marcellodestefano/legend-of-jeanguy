@@ -7,10 +7,7 @@ import entities.equipements.soins.Coeur;
 import entities.equipements.soins.CoeurMax;
 import input.KeyHandler;
 import main.GamePanel;
-import utils.AttackCollisions;
-import utils.CollisionDistance;
-import utils.CollisionEquipement;
-import utils.DropItems;
+import utils.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -147,9 +144,6 @@ public class JeanGuy extends Playable {
     }}
 
 
-
-
-
     @Override
     public void getPlayerImage() {
         try{
@@ -246,17 +240,21 @@ public class JeanGuy extends Playable {
         return false;
     }
 
-    public void notPassing(String lastdir){
-        if (lastdir=="down"){
-            this.position.set(1, this.position.get(1)-1);
-        }else if (lastdir=="up"){
-            this.position.set(1, this.position.get(1)+2);
+    public void notPassing(){
+        if (keyHandler.downPressed){
+            this.direction = "down";
+            this.lastdir = "down";
+        }if (keyHandler.upPressed){
+            this.direction = "up";
+            this.lastdir = "up";
+        }if (keyHandler.leftPressed){
+            this.direction = "left";
+            this.lastdir = "left";
+        }if (keyHandler.rightPressed){
+            this.direction = "right";
+            this.lastdir = "right";
         }
-        else if (lastdir=="left"){
-            this.position.set(0, this.position.get(0)+1);
-        }else if (lastdir=="right"){
-            this.position.set(0, this.position.get(0)-1);
-        }
+    
     }
 
     public String defenseMovement(){
@@ -396,6 +394,11 @@ public class JeanGuy extends Playable {
         return defenseSpeed==0;
     }
 
+
+    public KeyHandler getKeyHandler(){
+        return this.keyHandler;
+    }
+
     @Override
     public void update() {
         direction = lastdir;
@@ -420,9 +423,8 @@ public class JeanGuy extends Playable {
                 this.setKillable(true);
                 boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
                 if (!pass){
-                    notPassing(lastdir);
+                    notPassing();
                 }
-
                 if(canBlock() && canDefend() && keyHandler.defPressed){
                     direction = defenseMovement();
                     lastDef = direction;
@@ -432,9 +434,13 @@ public class JeanGuy extends Playable {
                     lastAtk = direction;
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
                     sendDamage(receiver);
-                }else{
+                }
+                else if (!(CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles()).equals("block"))){
                     direction = normalMovement();
                     lastdir = direction;
+                }
+                else{
+                    notPassing();
                 }
                 if (spriteCounter > 12) {
                     if (spriteNum == 1) {
@@ -452,8 +458,6 @@ public class JeanGuy extends Playable {
     
     @Override
     public void draw(Graphics2D g2) {
-
-
         BufferedImage image = null;
         BufferedImage image2 = null;
         switch(direction) {
@@ -664,8 +668,9 @@ public class JeanGuy extends Playable {
                 ramasse.setRamasser();
             }
 
-
         }
+
+
         if (this.cpdmg==0){
             dmgdir=null;
 

@@ -54,12 +54,12 @@ public class GamePanel extends JPanel implements Runnable {
     int playerY = 200;
 
 
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
-        this.setFocusable(true);
         prepareGame();
     }
 
@@ -166,6 +166,10 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
+    public TileManager getTileM() {
+        return tileM;
+    }
+
     @Override
     public void run() {
         long currentTime;
@@ -186,6 +190,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+
+        for (Players p : personnages) {
+            p.update();
 
         if(GameState == playState){
 
@@ -249,12 +256,11 @@ public class GamePanel extends JPanel implements Runnable {
         for (Equipements e : equipements) {
             e.draw(g2);
         }
-
-        for (Players p : personnages) {
-            p.draw(g2);
-        }
         for (Bullets b: bullets){
             b.draw(g2);
+        }
+        for (Players p : personnages) {
+            p.draw(g2);
         }
 
         UI.draw(g2);
