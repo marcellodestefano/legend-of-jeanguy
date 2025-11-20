@@ -37,9 +37,8 @@ public class KeyHandler implements KeyListener {
                 if(gp.UI.commandNum == 0){
                     gp.GameState = gp.playState;
                 }
-                if(gp.UI.commandNum == 1){
-                    // ajouter menu setting
-                    // gp.GameState = gp.Settings;
+                if(gp.UI.commandNum == 4){
+                    gp.GameState = gp.commandState;
                 }
                 if(gp.UI.commandNum == 2){
                     System.exit(0);

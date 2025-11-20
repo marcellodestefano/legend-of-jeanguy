@@ -50,6 +50,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 3;
     public final int commandState = 4;
 
+    int playerX = jeanGuy.getPosition().get(0);
+    int playerY = jeanGuy.getPosition().get(1);
 
 
     public GamePanel() {
@@ -82,6 +84,39 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+    }
+
+    public void checkChunkTransition() {
+
+        int screenWidth = maxScreenCol * tileSize;
+        int screenHeight = maxScreenRow * tileSize;
+
+        if(playerX > screenWidth) {
+            tileM.changeChunk("EAST");
+            playerX = tileSize;
+        }
+
+        else if(playerX < 0) {
+            tileM.changeChunk("WEST");
+            playerX = screenWidth - tileSize * 2;
+        }
+
+        else if(playerY < 0) {
+            tileM.changeChunk("NORTH");
+            playerY = screenHeight - tileSize * 2;
+        }
+
+        else if(playerY > screenHeight) {
+            tileM.changeChunk("SOUTH");
+            playerY = tileSize;
+        }
+    }
+
+    public void checkZoneTransition() {
+        int playerTileX = playerX / tileSize;
+        int playerTileY = playerY / tileSize;
+
+        // ici ça servira pour rentrer dans le shop
     }
 
 
@@ -133,7 +168,17 @@ public class GamePanel extends JPanel implements Runnable {
         if(GameState == pauseState){
         }
 
+        for(Equipements e : equipements){
+            e.update();
+        }
+        bullets.removeIf(b -> !(b.getIsActive()=="ok"));
+        personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
+        equipements.removeIf(e -> e.isRamasser());
+
+        checkChunkTransition();
+        checkZoneTransition();
     }
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

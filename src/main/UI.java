@@ -113,6 +113,36 @@ public class UI {
         }
     }
 
+    public void drawCommandScreen(){
+
+        g2.setFont(zeldaFont.deriveFont(25f));
+        String text = "The Legend of Jean-Guy";
+        int x = getXcentered(text);
+        int y = gp.tileSize*3;
+
+
+        g2.setColor(Color.WHITE);
+        g2.drawString(text,x,y);
+
+        // Image de jean guy
+
+        x = gp.screenWidth/2;
+        y = gp.tileSize*2;
+        g2.drawImage(titleImage, 330, 200, 125, 125, null);
+
+        // MENU
+
+        g2.setFont(zeldaFont.deriveFont(25f));
+
+        text = "BACK";
+        x = getXcentered(text);
+        y = gp.tileSize*11;
+        g2.drawString(text,x,y);
+        if(commandNum == 2){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+    }
+
     public void drawMessage(){
         if (messageOn) {
             g2.setFont(zeldaFont);
