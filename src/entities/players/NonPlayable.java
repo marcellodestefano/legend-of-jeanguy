@@ -7,6 +7,7 @@ import entities.equipements.soins.CoeurMax;
 import main.GamePanel;
 import utils.AlgorithmMovement;
 import utils.Collisions;
+import utils.CollisionsNpcMap;
 
 import java.util.*;
 
@@ -33,7 +34,7 @@ public abstract class NonPlayable extends Players{
 
     public void startPosition(){
         this.position.set(0, 400);
-        this.position.set(1, 50+this.id*100);
+        this.position.set(1, 100+(this.id%4)*100);
 
 
         this.possibleDrops = new ArrayList<Equipements>();
@@ -75,6 +76,9 @@ public abstract class NonPlayable extends Players{
         this.cpdmg--;
     }
 
+    public boolean canPass(String respass){
+        return respass=="path";
+    }
 
 
     @Override
@@ -89,28 +93,28 @@ public abstract class NonPlayable extends Players{
     public void update() {
         String dir = AlgorithmMovement.movements(gamePanel,this, cible);
         String atk = Collisions.collisions(gamePanel.personnages, this.direction, this, gamePanel.tileSize);
-
+        String respass = CollisionsNpcMap.collisionsNpcMap(this,dir ,gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
         if(!(this.isDead())){
             if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
                 if (cible.isKillable()){
                 cible.receiveDamage(this, this.damage,atk);
             }}
-            if (dir.contains("up")) {
+            if (dir.contains("up")&&canPass(respass)) {
                 direction = "up";
                 spriteCounter++;
                 position.set(1, Math.max(0,position.get(1) - checkSpeed()));
             }
-            if (dir.contains("down")) {
+            if (dir.contains("down")&&canPass(respass)) {
                 direction = "down";
                 spriteCounter++;
                 position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
             }
-            if (dir.contains("left")) {
+            if (dir.contains("left")&&canPass(respass)) {
                 direction = "left";
                 spriteCounter++;
                 position.set(0, Math.max(0,position.get(0) - checkSpeed()));
             }
-            if (dir.contains("right")) {
+            if (dir.contains("right")&&canPass(respass)) {
                 direction = "right";
                 spriteCounter++;
                 position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
