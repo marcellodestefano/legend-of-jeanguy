@@ -86,6 +86,7 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_ENTER){
                 if(gp.UI.commandNum == 0){
+                    gp.UI.titleScreenState = 0;
                     gp.GameState = gp.titleState;
                 }
                 if(gp.UI.commandNum == 1){

@@ -100,6 +100,11 @@ public class GamePanel extends JPanel implements Runnable {
 
             }
         }
+        for (Players p : personnages) {
+            if ((p instanceof NonPlayable)) {
+                ((NonPlayable) p).cible(jeanGuy);
+            }
+        }
         this.addplayers = false;
         this.info.clear();
         tileM.clearInfo();
@@ -107,13 +112,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void startGame() {
+
         // Recrée Jean-Guy avec le bon skin
         jeanGuy = new JeanGuy(this, keyHandler);
+
 
         // Vide et remplit les listes
         personnages.clear();
         equipements.clear();
         bullets.clear();
+        tileM.clearInfo();
+        tileM.restartPosition();
+
 
         personnages.add(jeanGuy);
 
@@ -122,8 +132,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void resetGame() {
 
         tileM = new TileManager(this, jeanGuy);
-
-
 
         // Reset les positions
         playerX = 200;
@@ -192,10 +200,6 @@ public class GamePanel extends JPanel implements Runnable {
                 UI.commandNum = 0;
             }
 
-        if(addplayers){
-            instateMonsters();
-        }
-//        System.out.println(personnages.size());
 
         bullets.removeIf(b -> !(b.getIsActive()=="ok"));
         personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
@@ -209,6 +213,10 @@ public class GamePanel extends JPanel implements Runnable {
 
             for(Equipements e : equipements){
                 e.update();
+            }
+
+            if(addplayers){
+                instateMonsters();
             }
 
             UI.update();

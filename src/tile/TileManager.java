@@ -44,6 +44,10 @@ public class TileManager {
     public ArrayList<Tile> getPathTiles(){
         return this.pathTiles;
     }
+    public void restartPosition(){
+        this.currentZone = "map_minimum";
+        this.folderName = "exterior.txt";
+    }
 
     public ArrayList<Tile> getChunkTiles(){
         return this.chunkTiles;
