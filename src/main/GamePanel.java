@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int commandState = 3;
-
+    public final int gameOverState = 4;
 
     int playerX = 200;
     int playerY = 200;
@@ -60,29 +60,71 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        prepareGame();
     }
 
     public void prepareGame() {
         GameState = titleState;
         UI.titleScreenState = 0;
+    }
 
+    public void startGame() {
+        // Recrée Jean-Guy avec le bon skin
         jeanGuy = new JeanGuy(this, keyHandler);
+
+        // Recrée tous les ennemis
+        maskGuy = new MaskGuy(this);
+        maskGuy2 = new MaskGuy(this);
+        octorok = new Octorok(this);
+        bat = new Bat(this);
+        gumba = new Gumba(this);
+
+        // Recrée tous les équipements
+        bbo = new BouclierBois(this);
+        coeur = new Coeur(this);
+        coeurmax = new CoeurMax(this);
+
+        // Vide et remplit les listes
+        personnages.clear();
+        equipements.clear();
+        bullets.clear();
 
         personnages.add(maskGuy);
         personnages.add(jeanGuy);
         personnages.add(bat);
         personnages.add(gumba);
         personnages.add(octorok);
+
         equipements.add(bbo);
         equipements.add(coeur);
         equipements.add(coeurmax);
 
+        // Configure les ennemis pour cibler Jean-Guy
         for(Players np : personnages){
             if (np instanceof NonPlayable enemy){
                 enemy.cible(jeanGuy);
             }
         }
     }
+
+    public void resetGame() {
+        // Reset le TileManager (retour à la première map)
+        tileM = new TileManager(this);
+
+        // Reset les positions
+        playerX = 200;
+        playerY = 200;
+
+        // Recrée tout le jeu
+        startGame();
+
+        // Reset l'UI
+        UI.gameOverAlpha = 0;
+        UI.gameOverCounter = 0;
+        UI.commandNum = 0;
+    }
+
+
 
     public void checkChunkTransition() {
 
@@ -142,6 +184,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
     }
+
     public void update() {
 
         if(GameState == playState){
@@ -151,9 +194,14 @@ public class GamePanel extends JPanel implements Runnable {
                 playerY = jeanGuy.getPosition().get(1);
             }
 
+
+            if(jeanGuy != null && jeanGuy.isDead()) {
+                GameState = gameOverState;
+                UI.commandNum = 0;
+            }
+
             for (Players p : personnages) {
                 p.update();
-
             }
             for (Bullets b: bullets){
                 b.update();
@@ -168,19 +216,19 @@ public class GamePanel extends JPanel implements Runnable {
             bullets.removeIf(b -> !(b.getIsActive()=="ok"));
             personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
             equipements.removeIf(e -> e.isRamasser());
-        }
-        if(GameState == pauseState){
-        }
 
-        for(Equipements e : equipements){
-            e.update();
+            checkChunkTransition();
+            checkZoneTransition();
         }
-        bullets.removeIf(b -> !(b.getIsActive()=="ok"));
-        personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
-        equipements.removeIf(e -> e.isRamasser());
-
-        checkChunkTransition();
-        checkZoneTransition();
+        else if(GameState == pauseState){
+            UI.update();
+        }
+        else if(GameState == gameOverState){
+            UI.update();
+        }
+        else if(GameState == titleState){
+            UI.update();
+        }
     }
 
 

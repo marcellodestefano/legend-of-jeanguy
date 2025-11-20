@@ -45,8 +45,7 @@ public class KeyHandler implements KeyListener {
                         gp.GameState = gp.commandState;
                     }
                     if(gp.UI.commandNum == 2){
-                        gp.UI.titleScreenState = 0;   // Retour au menu principal
-                        gp.UI.commandNum = 0;
+                        System.exit(0);
                     }
                 }
             }
@@ -60,12 +59,12 @@ public class KeyHandler implements KeyListener {
                 if(code == KeyEvent.VK_ENTER){
                     if(gp.UI.commandNum == 0){
                         this.redJeanGuy = false;
-                        gp.prepareGame();
+                        gp.startGame();
                         gp.GameState = gp.playState; // Insérer playstate avec jeanguy vert
                     }
                     if(gp.UI.commandNum == 1){
                         this.redJeanGuy = true;
-                        gp.prepareGame();
+                        gp.startGame();
                         gp.GameState = gp.playState; // Insérer playstate avec jeanguy rouge
                     }
                     if(gp.UI.commandNum == 2){
@@ -107,6 +106,30 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_ENTER){
                 if(gp.UI.commandNum == 0){
                     gp.GameState = gp.titleState;
+                }
+            }
+        }
+
+        if(gp.GameState == gp.gameOverState){
+            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                gp.UI.commandNum--;
+            }
+            if(code == KeyEvent.VK_S && gp.UI.commandNum < 2){
+                gp.UI.commandNum++;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.UI.commandNum == 0){
+                    gp.resetGame();
+                    gp.GameState = gp.playState;
+                }
+                if(gp.UI.commandNum == 1){
+                    gp.resetGame();
+                    gp.GameState = gp.titleState;
+                    gp.UI.titleScreenState = 0;
+                    gp.UI.commandNum = 0;
+                }
+                if(gp.UI.commandNum == 2){
+                    System.exit(0);
                 }
             }
         }
