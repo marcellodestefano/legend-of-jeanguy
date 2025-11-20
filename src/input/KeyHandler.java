@@ -1,11 +1,20 @@
 package input;
+import main.GamePanel;
+import main.UI;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+    GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, atkPressed, defPressed;
+    public boolean redJeanGuy = false;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -15,6 +24,126 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+
+        // TITLE STATE
+
+        if(gp.GameState == gp.titleState){
+
+            if(gp.UI.titleScreenState == 0){
+                if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                    gp.UI.commandNum--;
+                }
+                if(code == KeyEvent.VK_S && gp.UI.commandNum < 2){
+                    gp.UI.commandNum++;
+                }
+                if(code == KeyEvent.VK_ENTER){
+                    if(gp.UI.commandNum == 0){
+                        gp.UI.titleScreenState = 1;
+                        gp.UI.commandNum = 0;
+                    }
+                    if(gp.UI.commandNum == 1){
+                        gp.GameState = gp.commandState;
+                    }
+                    if(gp.UI.commandNum == 2){
+                        System.exit(0);
+                    }
+                }
+            }
+            else if(gp.UI.titleScreenState == 1){
+                if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                    gp.UI.commandNum--;
+                }
+                if(code == KeyEvent.VK_S && gp.UI.commandNum < 2){
+                    gp.UI.commandNum++;
+                }
+                if(code == KeyEvent.VK_ENTER){
+                    if(gp.UI.commandNum == 0){
+                        this.redJeanGuy = false;
+                        gp.startGame();
+                        gp.GameState = gp.playState; // Insérer playstate avec jeanguy vert
+                    }
+                    if(gp.UI.commandNum == 1){
+                        this.redJeanGuy = true;
+                        gp.startGame();
+                        gp.GameState = gp.playState; // Insérer playstate avec jeanguy rouge
+                    }
+                    if(gp.UI.commandNum == 2){
+                        gp.UI.titleScreenState = 0;
+                        gp.UI.commandNum = 0;
+                    }
+                }
+            }
+        }
+
+        // PAUSE STATE
+
+        if(gp.GameState == gp.pauseState){
+            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                gp.UI.commandNum--;
+            }
+            if(code == KeyEvent.VK_S && gp.UI.commandNum < 1){
+                gp.UI.commandNum++;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.UI.commandNum == 0){
+                    gp.GameState = gp.titleState;
+                }
+                if(gp.UI.commandNum == 1){
+                    System.exit(0);
+                }
+            }
+        }
+
+        // COMMAND STATE
+
+        if(gp.GameState == gp.commandState){
+            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                gp.UI.commandNum--;
+            }
+            if(code == KeyEvent.VK_S && gp.UI.commandNum < 1){
+                gp.UI.commandNum++;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.UI.commandNum == 0){
+                    gp.GameState = gp.titleState;
+                }
+            }
+        }
+
+        if(gp.GameState == gp.gameOverState){
+            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                gp.UI.commandNum--;
+            }
+            if(code == KeyEvent.VK_S && gp.UI.commandNum < 2){
+                gp.UI.commandNum++;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.UI.commandNum == 0){
+                    gp.resetGame();
+                    gp.GameState = gp.playState;
+                }
+                if(gp.UI.commandNum == 1){
+                    gp.resetGame();
+                    gp.GameState = gp.titleState;
+                    gp.UI.titleScreenState = 0;
+                    gp.UI.commandNum = 0;
+                }
+                if(gp.UI.commandNum == 2){
+                    System.exit(0);
+                }
+            }
+        }
+
+
+        // PLAY STATE
+
+        if(code == KeyEvent.VK_ESCAPE){
+            if(gp.GameState == gp.playState){
+                gp.GameState = gp.pauseState;
+            } else if (gp.GameState == gp.pauseState){
+                gp.GameState = gp.playState;
+            }
+        }
 
         if(code == KeyEvent.VK_Q){
             leftPressed = true;
@@ -34,6 +163,7 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_K){
             defPressed = true;
         }
+
     }
 
     @Override
