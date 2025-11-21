@@ -1,6 +1,7 @@
 package main;
 import entities.bullets.Bullets;
 import entities.equipements.Equipements;
+import entities.equipements.armes.BouclierBois;
 import entities.players.JeanGuy;
 import input.*;
 import javax.swing.*;
@@ -67,43 +68,45 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void instantiateMonsters(){
         String npcs= null;
-        int index=-1;
-        for (int i =0; i < info.size();i++) {
-            if (info.get(i).equals("NPC")){
-                index = i;
+        npcs = info.get(tileM.getIndex() + 1);
+        for(int i=0; i < npcs.length();i++){
+            if (npcs.charAt(i) == 'G'){
+                Gumba gumba = new Gumba(this);
+                personnages.add(gumba);
             }
-        }
-        if (index!=-1) {
-            npcs = info.get(index + 1);
-            for(int i=0; i < npcs.length();i++){
-                if (npcs.charAt(i) == 'G'){
-                    Gumba gumba = new Gumba(this);
-                    personnages.add(gumba);
-                }
-                if (npcs.charAt(i) == 'B'){
-                    Bat bat = new Bat(this);
-                    personnages.add(bat);
-                }
-                if (npcs.charAt(i) == 'M'){
-                    MaskGuy maskGuy = new MaskGuy(this);
-                    personnages.add(maskGuy);
-                }
-                if (npcs.charAt(i) == 'O'){
-                    Octorok octorok = new Octorok(this);
-                    personnages.add(octorok);
-                }
-                if (npcs.charAt(i) == 'P'){
-                    Odette odette = new Odette(this);
-                    personnages.add(odette);
-                }
+            if (npcs.charAt(i) == 'B'){
+                Bat bat = new Bat(this);
+                personnages.add(bat);
+            }
+            if (npcs.charAt(i) == 'M'){
+                MaskGuy maskGuy = new MaskGuy(this);
+                personnages.add(maskGuy);
+            }
+            if (npcs.charAt(i) == 'O'){
+                Octorok octorok = new Octorok(this);
+                personnages.add(octorok);
+            }
+            if (npcs.charAt(i) == 'P'){
+                Odette odette = new Odette(this);
+                personnages.add(odette);
+            }
+            if (npcs.charAt(i) == 'S'){
+                Marchand marchand = new Marchand(this);
+                personnages.add(marchand);
+            }
+            if (npcs.charAt(i) == 'A'){
+                BouclierBois bouclierBois = new BouclierBois(this);
+                equipements.add(bouclierBois);
+            }
 
-            }
         }
+
         for (Players p : personnages) {
             if ((p instanceof NonPlayable)) {
                 ((NonPlayable) p).cible(jeanGuy);
             }
         }
+
         this.addplayers = false;
         this.info.clear();
         tileM.clearInfo();
@@ -193,6 +196,13 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
     }
+
+    public void noEquipementsOutChunk(){
+        for (Equipements e : equipements) {
+            e.setRamasser();
+
+        }
+    }
     public boolean getVictory() {
         return this.victory;
     }
@@ -233,10 +243,6 @@ public class GamePanel extends JPanel implements Runnable {
                 UI.commandNum = 0;
             }
 
-
-        bullets.removeIf(b -> !(b.getIsActive()=="ok"));
-        personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
-        equipements.removeIf(e -> e.isRamasser());
             for (Players p : personnages) {
                 p.update();
             }

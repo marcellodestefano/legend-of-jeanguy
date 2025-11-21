@@ -29,6 +29,7 @@ public class TileManager {
     private ArrayList<Tile> pathTiles = new ArrayList<>();
     private ArrayList<Tile> chunkTiles = new ArrayList<>();
     private ArrayList<String> info = new ArrayList<>();
+    private int index;
 
     public TileManager(GamePanel gp, JeanGuy jeanGuy) {
         this.gp = gp;
@@ -57,6 +58,10 @@ public class TileManager {
 
     public Tile[] getTiles(){
         return this.tile;
+    }
+
+    public int getIndex(){
+        return this.index;
     }
 
 
@@ -486,7 +491,7 @@ public class TileManager {
             String[] infos = lastLine.split(",");
             info.clear();
             this.info.addAll(Arrays.asList(infos));
-            int index=-1;
+            this.index=-1;
             for (int i =0; i < info.size();i++) {
                 if (info.get(i).equals(order)){
                     index = i;
@@ -498,8 +503,11 @@ public class TileManager {
                 loadChunk(currentZone, folderName);
                 gp.noMonstersOutChunk();
                 gp.noBulletsoutChunk();
+                gp.noEquipementsOutChunk();
+                System.out.println(index);
                 if (info.size()>index+3 && info.get(index+3).equals("NPC")) {
                     gp.setAddplayers(true);
+                    this.index=index+3;
                 }
 
             }

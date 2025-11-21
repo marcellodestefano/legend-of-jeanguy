@@ -43,7 +43,7 @@ public abstract class NonPlayable extends Players{
             int x;
             int y;
             x = r.nextInt(gamePanel.screenWidth - gamePanel.tileSize)+1;
-            y = r.nextInt(gamePanel.screenHeight - gamePanel.tileSize)+1;
+            y = r.nextInt(gamePanel.screenHeight/2)+1;
             position.set(0, x);
             position.set(1, y);
         }
