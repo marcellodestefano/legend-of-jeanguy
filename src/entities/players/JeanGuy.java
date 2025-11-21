@@ -392,7 +392,7 @@ public class JeanGuy extends Playable {
         return false;
     }
     public String chooseDirection(){
-        if (((gamePanel.screenWidth/2)-(2*gamePanel.tileSize))<=position.get(0)&&((gamePanel.screenWidth/2)+(2*gamePanel.tileSize))>=position.get(0)){
+        if ((gamePanel.tileSize<=position.get(0)&&position.get(0)<=gamePanel.getWidth()-gamePanel.tileSize)){
             if (position.get(1)>gamePanel.screenHeight/2){
                 position.set(1, 2*gamePanel.tileSize);
                 return "SOUTH";
@@ -403,7 +403,7 @@ public class JeanGuy extends Playable {
             }
 
         }
-        else if(((gamePanel.screenHeight/2)-(2*gamePanel.tileSize))<=position.get(1)&&((gamePanel.screenHeight/2)+(2*gamePanel.tileSize))>=position.get(1)){
+        else if(gamePanel.tileSize<=position.get(1) && gamePanel.getHeight()-gamePanel.tileSize>=position.get(1)){
             if (position.get(0)>gamePanel.screenWidth/2){
                 position.set(0, gamePanel.tileSize);
                 return "EAST";
