@@ -158,6 +158,12 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+    public void noBulletsoutChunk(){
+        for (Bullets b : bullets) {
+            b.setChangeChunk(false);
+
+        }
+    }
 
     @Override
     public void run() {

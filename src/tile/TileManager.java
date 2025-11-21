@@ -493,12 +493,12 @@ public class TileManager {
                 this.currentZone = info.get(index + 1);
                 this.folderName = info.get(index + 2);
                 loadChunk(currentZone, folderName);
+                gp.noMonstersOutChunk();
+                gp.noBulletsoutChunk();
                 if (info.size()>index+3 && info.get(index+3).equals("NPC")) {
                     gp.setAddplayers(true);
                 }
-                else{
-                    gp.noMonstersOutChunk();
-                }
+
             }
 
             }

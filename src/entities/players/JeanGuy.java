@@ -214,10 +214,11 @@ public class JeanGuy extends Playable {
     }
 
     @Override
-    public void receiveDamage (NonPlayable sender, int damage, String dir){
+    public void receiveDamage (Players sender, int damage, String dir){
         if(!(defense(dir))){
             this.hp = Math.max(0,this.hp-=damage);
             this.dmgdir = dir;
+            System.out.println("hi");
             this.cpdmg = 12;
             this.setKillable(false);
         }
@@ -446,6 +447,7 @@ public class JeanGuy extends Playable {
             if (isGettingDamage()){
                 direction = dmgdir;
                 cpdmg--;
+                System.out.println(direction);
                 if (respass.equals("path")){
                     damageMovement(direction);
                 }

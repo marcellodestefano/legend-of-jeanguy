@@ -28,19 +28,17 @@ public abstract class NonPlayable extends Players{
         id = counter++;
         this.name = name + this.id;
         oldspeed = speed;
+        this.possibleDrops = new ArrayList<>();
+
+        possibleDrops.add(new Coeur(gamePanel));
+        possibleDrops.add(new CoeurMax(gamePanel));
         this.startPosition();
     }
 
 
     public void startPosition(){
-        this.position.set(0, 400);
-        this.position.set(1, 100+(this.id%4)*100);
-
-
-        this.possibleDrops = new ArrayList<Equipements>();
-
-        possibleDrops.add(new Coeur(gamePanel));
-        possibleDrops.add(new CoeurMax(gamePanel));
+        position.set(0, 200);
+        position.set(1, 200);
     }
 
 
