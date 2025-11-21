@@ -135,7 +135,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setInfo(ArrayList<String> info){
         this.info = info;
-        System.out.println("set "+info);
     }
 
     public void setAddplayers(boolean addplayers) {

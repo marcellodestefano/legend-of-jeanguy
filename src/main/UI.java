@@ -30,7 +30,6 @@ public class UI {
             zeldaFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font/the-legend-of-zelda-nes.ttf")).deriveFont(17f);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-            System.out.println("Font not found! We apply Arial !");
             zeldaFont = new Font("Arial", Font.PLAIN, 40);
         }
 

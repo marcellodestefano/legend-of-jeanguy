@@ -218,7 +218,6 @@ public class JeanGuy extends Playable {
         if(!(defense(dir))){
             this.hp = Math.max(0,this.hp-=damage);
             this.dmgdir = dir;
-            System.out.println("hi");
             this.cpdmg = 12;
             this.setKillable(false);
         }
@@ -399,7 +398,6 @@ public class JeanGuy extends Playable {
                 return "SOUTH";
             }
             else if(position.get(1)<gamePanel.screenHeight/2){
-                System.out.println(position.get(1));
                 position.set(1, gamePanel.screenHeight-3*gamePanel.tileSize);
                 return "NORTH";
             }
@@ -455,7 +453,6 @@ public class JeanGuy extends Playable {
             if (isGettingDamage()){
                 direction = dmgdir;
                 cpdmg--;
-                System.out.println(direction);
                 if (respass.equals("path")){
                     damageMovement(direction);
                 }

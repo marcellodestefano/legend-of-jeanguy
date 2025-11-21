@@ -482,6 +482,7 @@ public class TileManager {
 
             assert lastLine != null;
             String[] infos = lastLine.split(",");
+            info.clear();
             this.info.addAll(Arrays.asList(infos));
             int index=-1;
             for (int i =0; i < info.size();i++) {
