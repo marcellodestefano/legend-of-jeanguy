@@ -64,6 +64,9 @@ public abstract class Players implements Actions{
         return this.position;
 
     }
+    public List<String> getSpritePaths(){
+        return this.spritesPaths;
+    }
     public int getAttackSpeed(){
         return this.attackSpeed;
     }
@@ -73,6 +76,10 @@ public abstract class Players implements Actions{
 
     public int getHp() {
         return this.hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public float getSpeed() {

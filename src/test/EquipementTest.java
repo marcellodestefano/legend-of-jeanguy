@@ -7,6 +7,7 @@ import entities.equipements.soins.Coeur;
 import entities.equipements.soins.CoeurMax;
 import main.GamePanel;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ public class EquipementTest {
     public void epeeBois() {
         GamePanel gamePanel = new GamePanel();
         EpeeBois epee = new EpeeBois(gamePanel);
-        System.out.println(epee.getPrix());
-        System.out.println(epee.getId());
-        System.out.println(epee.getUnite());
-        System.out.println(epee.getName());
+        assertEquals(0, epee.getPrix());
+        assertEquals(0, epee.getId());
+        assertEquals(1, epee.getUnite());
+        assertEquals("EpeeBois", epee.getName());
         System.out.println(epee.getSpritePath());
         System.out.println(epee.isRamasser());
         System.out.println(epee.getPosition());

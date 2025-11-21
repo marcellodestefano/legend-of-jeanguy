@@ -51,12 +51,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void prepareGame() {
-        personnages.add(maskGuy);
+
         personnages.add(jeanGuy);
-        personnages.add(bat);
-        personnages.add(gumba);
-        personnages.add(octorok);
-        equipements.add(bbo);
 
         for(Players np : personnages){
             if (np instanceof NonPlayable enemy){
@@ -71,6 +67,26 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    public int getOriginalTileSize(){
+        return originalTileSize;
+    }
+
+    public int getScale(){
+        return scale;
+    }
+
+    public Thread getGameThread() {
+        return gameThread;
+    }
+
+    public void setGameThread(Thread gameThread) {
+        this.gameThread = gameThread;
+    }
+
+    public int getFPS() {
+        return FPS;
     }
 
     @Override
@@ -92,6 +108,11 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update() {
+        for(Players np : personnages){
+            if (np instanceof NonPlayable enemy){
+                enemy.cible(jeanGuy);
+            }
+        }
         for (Players p : personnages) {
             p.update();
 

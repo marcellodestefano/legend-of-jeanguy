@@ -46,6 +46,11 @@ public abstract class NonPlayable extends Players{
     public void cible(Playable cible){
         this.cible = cible;
     }
+
+    public Playable getCible(){
+        return this.cible;
+    }
+
     public int getId() {
         return id;
     }
@@ -73,6 +78,10 @@ public abstract class NonPlayable extends Players{
     }
     public void setCpdmg(){
         this.cpdmg--;
+    }
+
+    public List<Equipements> getPossibleDrops(){
+        return this.possibleDrops;
     }
 
 
