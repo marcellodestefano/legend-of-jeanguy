@@ -15,6 +15,7 @@ public class UI {
     BufferedImage arrows;
     BufferedImage attackDefense;
     BufferedImage echapEnter;
+    BufferedImage heartFull, heartEmpty;
     protected String message = "";
     protected boolean messageOn = false;
     private int messageCounter = 0;
@@ -63,6 +64,13 @@ public class UI {
             e.printStackTrace();
         }
 
+        try {
+            heartFull = ImageIO.read(getClass().getResourceAsStream("/assets/hud/hud36-removebg-preview.png"));
+            heartEmpty = ImageIO.read(getClass().getResourceAsStream("/assets/hud/hud38-removebg-preview.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
     }
@@ -100,6 +108,7 @@ public class UI {
             drawTitleScreen();
         }
         if(gp.GameState == gp.playState){
+            drawPlayerLife();
             drawMessage();
         }
         if(gp.GameState == gp.pauseState){
@@ -308,6 +317,31 @@ public class UI {
             g2.drawString(message, x, y);
         }
     }
+
+    public void drawPlayerLife(){
+
+        int x = gp.tileSize / 2;  // position de départ en X
+        int y = gp.tileSize / 2;  // position de départ en Y
+
+        int heartWidth = 40;
+        int heartHeight = 40;
+
+        // Dessine les cœurs selon la vie actuelle et max
+        for(int i = 0; i < gp.jeanGuy.getHpMax(); i++){
+
+            // Si i < vie actuelle : cœur plein
+            if(i < gp.jeanGuy.getHp()){
+                g2.drawImage(heartFull, x, y, heartWidth, heartHeight, null);
+            }
+            // Sinon : cœur vide
+            else {
+                g2.drawImage(heartEmpty, x, y, heartWidth, heartHeight, null);
+            }
+
+            x += heartWidth + 5;  // espace entre les cœurs
+        }
+    }
+
 
 
     public void drawPauseScreen(){

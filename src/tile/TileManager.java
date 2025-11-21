@@ -64,7 +64,6 @@ public class TileManager {
     public void getTileImage() {
 
         try{
-
             tile[8] = new Tile();
             tile[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/blackvoid.jpg")));
 
