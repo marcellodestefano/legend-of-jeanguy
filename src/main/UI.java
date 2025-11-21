@@ -23,6 +23,8 @@ public class UI {
     public int titleScreenState = 0; // 0 = Main title / 1 = Selection of character skin
     protected int gameOverAlpha = 0;  // Transparence (0 = invisible, 255 = opaque)
     protected int gameOverCounter = 0;
+    protected int victoryAlpha = 0;
+    protected int victoryCounter = 0;
 
     public UI(GamePanel gp){
         this.gp = gp;
@@ -103,6 +105,16 @@ public class UI {
             gameOverAlpha = 0;
             gameOverCounter = 0;
         }
+
+        if(gp.GameState == gp.victoryState){
+            victoryCounter++;
+            if(victoryCounter <= 120){
+                victoryAlpha = Math.min(255, victoryAlpha + 4);
+            }
+        } else {
+            victoryAlpha = 0;
+            victoryCounter = 0;
+        }
     }
 
     public void draw(Graphics2D g2){
@@ -131,7 +143,35 @@ public class UI {
 
     public void drawVictoryScreen(){
 
+        g2.setColor(new Color(0, 0, 0, Math.min(200, victoryAlpha)));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
+        g2.setFont(zeldaFont.deriveFont(80f));
+        g2.setColor(new Color(255, 215, 0, victoryAlpha)); // Doré avec transparence
+        String text = "VICTORY";
+        int x = getXcentered(text);
+        int y = gp.screenHeight / 2;
+        g2.drawString(text, x, y);
+
+        if(victoryAlpha >= 255){
+            g2.setFont(zeldaFont.deriveFont(25f));
+            g2.setColor(Color.WHITE);
+
+            text = "MAIN MENU";
+            x = getXcentered(text);
+            y = gp.tileSize * 10;
+            g2.drawString(text, x, y);
+            if(commandNum == 0){
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+            text = "QUIT";
+            x = getXcentered(text);
+            y = gp.tileSize * 11;
+            g2.drawString(text, x, y);
+            if(commandNum == 1){
+                g2.drawString(">", x - gp.tileSize, y);
+            }}
     }
 
     public void drawTitleScreen(){
