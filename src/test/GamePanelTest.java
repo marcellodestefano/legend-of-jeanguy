@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GamePanelTest {
 
     GamePanel gamePanel =  new GamePanel();
-    KeyHandler keyHandler = new KeyHandler();
+    KeyHandler keyHandler = new KeyHandler(gamePanel);
 
     @Test
     @DisplayName("Test des constantes de taille")
