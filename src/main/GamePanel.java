@@ -148,7 +148,26 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public TileManager getTileM() {
-        return tileM;
+        return tileM;}
+
+    public int getOriginalTileSize(){
+        return originalTileSize;
+    }
+
+    public int getScale(){
+        return scale;
+    }
+
+    public Thread getGameThread() {
+        return gameThread;
+    }
+
+    public void setGameThread(Thread gameThread) {
+        this.gameThread = gameThread;
+    }
+
+    public int getFPS() {
+        return FPS;
     }
 
     public void noMonstersOutChunk(){
@@ -246,7 +265,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // TITLE SCREEN
 
-        if(GameState == titleState){
+        if(GameState == titleState || GameState == commandState){
             UI.draw(g2);
         }
         else{ // Play state

@@ -12,6 +12,9 @@ public class UI {
     Font zeldaFont, arial_40, arial_80B;
     BufferedImage titleImage;
     BufferedImage redJeanGuy;
+    BufferedImage arrows;
+    BufferedImage attackDefense;
+    BufferedImage echapEnter;
     protected String message = "";
     protected boolean messageOn = false;
     private int messageCounter = 0;
@@ -33,6 +36,24 @@ public class UI {
 
         try {
             titleImage = ImageIO.read(getClass().getResourceAsStream("/assets/playerblocking/down2.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            arrows = ImageIO.read(getClass().getResourceAsStream("/assets/CommandState/unnamed__2_-removebg-preview.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            attackDefense = ImageIO.read(getClass().getResourceAsStream("/assets/CommandState/attacco_e_difesa_1-removebg-preview.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            echapEnter = ImageIO.read(getClass().getResourceAsStream("/assets/CommandState/unnamed__1_-removebg-preview.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,6 +108,9 @@ public class UI {
         }
         if(gp.GameState == gp.gameOverState){  // AJOUTE CETTE SECTION
             drawGameOverScreen();
+        }
+        if(gp.GameState == gp.commandState){
+            drawCommandScreen();
         }
     }
 
@@ -183,29 +207,41 @@ public class UI {
     public void drawCommandScreen(){
 
         g2.setFont(zeldaFont.deriveFont(25f));
-        String text = "The Legend of Jean-Guy";
+        String text = "COMMANDS";
         int x = getXcentered(text);
         int y = gp.tileSize*3;
+        g2.setColor(Color.WHITE);
+        g2.drawString(text,x,y);
 
 
         g2.setColor(Color.WHITE);
         g2.drawString(text,x,y);
 
-        // Image de jean guy
+        // Image de flèches
 
         x = gp.screenWidth/2;
         y = gp.tileSize*2;
-        g2.drawImage(titleImage, 330, 200, 125, 125, null);
+        g2.drawImage(arrows, 75, 200, 250, 250, null);
 
-        // MENU
+        // Image de commandes attaque defense
 
-        g2.setFont(zeldaFont.deriveFont(25f));
+        x = gp.screenWidth/2;
+        y = gp.tileSize*2;
+        g2.drawImage(attackDefense, 400, 150, 250, 250, null);
+
+
+        // Image entrée + echap
+
+        x = gp.screenWidth/2;
+        y = gp.tileSize*2;
+        g2.drawImage(echapEnter, 400, 275, 250, 250, null);
+
 
         text = "BACK";
         x = getXcentered(text);
         y = gp.tileSize*11;
         g2.drawString(text,x,y);
-        if(commandNum == 2){
+        if(commandNum == 0){
             g2.drawString(">", x-gp.tileSize, y);
         }
     }

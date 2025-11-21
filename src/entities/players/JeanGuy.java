@@ -422,6 +422,14 @@ public class JeanGuy extends Playable {
         return this.dmgdir;
     }
 
+    public void setAttackSpeed(int attackSpeed){
+        this.attackSpeed = attackSpeed;
+    }
+
+    public void setCpAtk(int cpAtk){
+        this.cpAtk = cpAtk;
+    }
+
     public boolean canAttack(){
         return attackSpeed==0;
     }
@@ -469,7 +477,7 @@ public class JeanGuy extends Playable {
                     direction = defenseMovement();
                     lastDef = direction;
                 }
-                else if(canAttack() && keyHandler.atkPressed) {
+                else if(canAttack() && keyHandler.atkPressed) { // Quand est-ce que jg peut attaker
                     direction = atkMovement();
                     lastAtk = direction;
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
