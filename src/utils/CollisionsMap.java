@@ -11,40 +11,50 @@ import java.util.ArrayList;
 public class CollisionsMap {
     public static String collisionsMap(JeanGuy jeanGuy, ArrayList<Tile> pathTiles, ArrayList<Tile> chunkTiles, int[][] mapTiles, GamePanel gp, Tile[] tiles) {
         int posX, posY, posXend, posYend;
-        int row, col, rowEnd, colEnd;
+        int col, rowEnd, colEnd;
+
 
         posX = jeanGuy.getPosition().get(0)+4;
         posY = jeanGuy.getPosition().get(1);
         posXend = jeanGuy.getPosition().get(0)+gp.tileSize-4;
         posYend = jeanGuy.getPosition().get(1)+gp.tileSize;
 
-        row = (posY)/(gp.tileSize);
         col = (posX)/(gp.tileSize);
         rowEnd = (posYend)/(gp.tileSize);
         colEnd = (posXend)/(gp.tileSize);
 
+        if(!jeanGuy.isGettingDamage()){
         if (jeanGuy.getKeyHandler().upPressed ) {
-            row = (posY - (int) jeanGuy.getSpeed())/(gp.tileSize);
-
-            rowEnd = (posYend- (int) jeanGuy.getSpeed())/(gp.tileSize);
+            rowEnd = (posYend- jeanGuy.checkSpeed())/(gp.tileSize);
 
         }
-        if(jeanGuy.getKeyHandler().downPressed) {
-            row = (posY + (int) jeanGuy.getSpeed())/(gp.tileSize);
-
-            rowEnd = (posYend + (int) jeanGuy.getSpeed())/(gp.tileSize);
+        if(jeanGuy.getKeyHandler().downPressed ) {
+            rowEnd = (posYend + jeanGuy.checkSpeed())/(gp.tileSize);
 
         }
         if(jeanGuy.getKeyHandler().leftPressed) {
-
-            col = (posX- (int) jeanGuy.getSpeed())/(gp.tileSize);
-
-            colEnd = (posXend - (int) jeanGuy.getSpeed())/(gp.tileSize);
+            col = (posX- jeanGuy.checkSpeed())/(gp.tileSize);
+            colEnd = (posXend -  jeanGuy.checkSpeed())/(gp.tileSize);
         }
         if(jeanGuy.getKeyHandler().rightPressed) {
-            col = (posX + (int) jeanGuy.getSpeed())/(gp.tileSize);
-
-            colEnd = (posXend+ (int) jeanGuy.getSpeed())/(gp.tileSize);
+            col = (posX + jeanGuy.checkSpeed())/(gp.tileSize);
+            colEnd = (posXend + jeanGuy.checkSpeed())/(gp.tileSize);
+        }}
+        else{
+            if(jeanGuy.getDmgdir().contains("up")){
+                rowEnd = (posYend- jeanGuy.checkSpeed())/(gp.tileSize);
+            }
+            if(jeanGuy.getDmgdir().contains("down")){
+                rowEnd = (posYend + jeanGuy.checkSpeed())/(gp.tileSize);
+            }
+            if(jeanGuy.getDmgdir().contains("left")){
+                col = (posX- jeanGuy.checkSpeed())/(gp.tileSize);
+                colEnd = (posXend -  jeanGuy.checkSpeed())/(gp.tileSize);
+            }
+            if(jeanGuy.getDmgdir().contains("right")){
+                col = (posX + jeanGuy.checkSpeed())/(gp.tileSize);
+                colEnd = (posXend + jeanGuy.checkSpeed())/(gp.tileSize);
+            }
         }
 
 
@@ -60,7 +70,7 @@ public class CollisionsMap {
         } else if(mapTiles[col][rowEnd]==46 && mapTiles[colEnd][rowEnd]==46){
             return "merchant";
 
-        }else if(mapTiles[col][rowEnd]==339 && mapTiles[colEnd][rowEnd]==340){
+        }else if(mapTiles[col][rowEnd]==339 || mapTiles[colEnd][rowEnd]==340){
             return "exitmerchant";
         }
         return "block";

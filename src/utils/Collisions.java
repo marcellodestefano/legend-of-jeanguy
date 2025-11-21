@@ -11,7 +11,6 @@ public class Collisions {
         int posXend = posX + tileSize;
         int posY = toCheck.getPosition().get(1);
         int posYend = posY + tileSize;
-        int salle = toCheck.getPosition().get(2);
 
         if (direction.equals("up")) {
             for (Players player : players) {

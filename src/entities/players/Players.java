@@ -97,6 +97,10 @@ public abstract class Players implements Actions{
         return this.Dead;
     }
 
+    public void setDead(boolean dead) {
+        this.Dead = dead;
+    }
+
 
     public boolean isKillable() {
         return this.killable;
@@ -120,7 +124,7 @@ public abstract class Players implements Actions{
     public void receiveDamage(int damage, String dir){
         this.hp = Math.max(0, this.hp-damage);
     }
-    public void receiveDamage(NonPlayable sender, int damage, String dir){}
+    public void receiveDamage(Players sender, int damage, String dir){}
 
 
     public boolean attack(Players cible){

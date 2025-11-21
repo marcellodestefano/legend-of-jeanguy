@@ -214,10 +214,11 @@ public class JeanGuy extends Playable {
     }
 
     @Override
-    public void receiveDamage (NonPlayable sender, int damage, String dir){
+    public void receiveDamage (Players sender, int damage, String dir){
         if(!(defense(dir))){
             this.hp = Math.max(0,this.hp-=damage);
             this.dmgdir = dir;
+            System.out.println("hi");
             this.cpdmg = 12;
             this.setKillable(false);
         }
@@ -255,6 +256,12 @@ public class JeanGuy extends Playable {
             this.lastdir = "right";
         }
     
+    }
+    public int checkSpeed(){
+        if (cpdmg!=0){
+            return 5;
+        }
+        return speed;
     }
 
     public String defenseMovement(){
@@ -411,6 +418,10 @@ public class JeanGuy extends Playable {
         return null;
     }
 
+    public String getDmgdir(){
+        return this.dmgdir;
+    }
+
     public void setAttackSpeed(int attackSpeed){
         this.attackSpeed = attackSpeed;
     }
@@ -418,8 +429,6 @@ public class JeanGuy extends Playable {
     public void setCpAtk(int cpAtk){
         this.cpAtk = cpAtk;
     }
-
-    public String getDmgdir(){return dmgdir;}
 
     public boolean canAttack(){
         return attackSpeed==0;
@@ -436,6 +445,7 @@ public class JeanGuy extends Playable {
 
     @Override
     public void update() {
+        String respass = CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
         direction = lastdir;
         if (this.isDead()){
             direction = "dead";
@@ -445,7 +455,10 @@ public class JeanGuy extends Playable {
             if (isGettingDamage()){
                 direction = dmgdir;
                 cpdmg--;
-                damageMovement(direction);
+                System.out.println(direction);
+                if (respass.equals("path")){
+                    damageMovement(direction);
+                }
             }else if (isAttacking()){
                 direction = lastAtk;
                 cpAtk--;
@@ -457,7 +470,6 @@ public class JeanGuy extends Playable {
             else{
                 this.setKillable(true);
                 boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
-                String respass = CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
                 if (!pass){
                     notPassing();
                 }
@@ -477,7 +489,6 @@ public class JeanGuy extends Playable {
                     if (respass.equals("chunk")){
                         String nextCunk = chooseDirection();
                         gamePanel.getTileM().changeMap(nextCunk);
-                        System.out.println("hi");
                     }
                     if (respass.equals("merchant")){
                         position.set(0, gamePanel.screenWidth/2);

@@ -8,6 +8,7 @@ import main.GamePanel;
 import utils.AlgorithmMovement;
 import utils.Collisions;
 import utils.CollisionsNpcMap;
+import utils.CreationMonstres;
 
 import java.util.*;
 
@@ -28,19 +29,24 @@ public abstract class NonPlayable extends Players{
         id = counter++;
         this.name = name + this.id;
         oldspeed = speed;
+        this.possibleDrops = new ArrayList<>();
+
+        possibleDrops.add(new Coeur(gamePanel));
+        possibleDrops.add(new CoeurMax(gamePanel));
         this.startPosition();
     }
 
 
     public void startPosition(){
-        this.position.set(0, 400);
-        this.position.set(1, 100+(this.id%4)*100);
-
-
-        this.possibleDrops = new ArrayList<Equipements>();
-
-        possibleDrops.add(new Coeur(gamePanel));
-        possibleDrops.add(new CoeurMax(gamePanel));
+        while (!CreationMonstres.creationMonstres(this.gamePanel,this)) {
+            Random r = new Random();
+            int x;
+            int y;
+            x = r.nextInt(gamePanel.screenWidth - gamePanel.tileSize)+1;
+            y = r.nextInt(gamePanel.screenHeight - gamePanel.tileSize)+1;
+            position.set(0, x);
+            position.set(1, y);
+        }
     }
 
 

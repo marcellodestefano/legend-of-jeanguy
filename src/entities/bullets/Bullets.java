@@ -23,6 +23,7 @@ public abstract class Bullets {
     protected String isActive = "ok";
     protected int diffX, diffY;
     protected double ipten, speedX, speedY;
+    protected boolean changeChunk=true;
 
 
     public Bullets(GamePanel gamePanel, Players sender, Players receiver, List<String> spritesPaths,int damage, int speed ) {
@@ -47,6 +48,10 @@ public abstract class Bullets {
 
     }
 
+    public void setChangeChunk(boolean changeChunk) {
+        this.changeChunk = changeChunk;
+    }
+
     public void calcSpeed(){
         if (receiver != null) {
             this.diffX = receiver.getPosition().get(0) - sender.getPosition().get(0);
@@ -68,6 +73,8 @@ public abstract class Bullets {
         this.isActive = act;
     }
 
+
+
     public String getIsActive(){
         return this.isActive;
     }
@@ -88,18 +95,21 @@ public abstract class Bullets {
         }else if(isActive.equals("touche")) {
             if (Math.abs(speedX)>=Math.abs(speedY)){
                 if(speedX>=0){
-                    receiver.receiveDamage(this.damage, "right-player");
+                    receiver.receiveDamage(this.sender,this.damage, "right-player");
                 } else {
-                    receiver.receiveDamage(this.damage, "left-player");
+                    receiver.receiveDamage(this.sender,this.damage, "left-player");
                 }
             }
             else if (Math.abs(speedX)<Math.abs(speedY)) {
                 if(speedY>=0){
-                    receiver.receiveDamage(this.damage, "down-player");
+                    receiver.receiveDamage(this.sender,this.damage, "down-player");
                 } else {
-                    receiver.receiveDamage(this.damage, "up-player");
+                    receiver.receiveDamage(this.sender, this.damage, "up-player");
                 }
             }
+        }
+        if (!changeChunk) {
+            this.isActive = "changeChunk";
         }
     }
 

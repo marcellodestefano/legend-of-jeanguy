@@ -1,9 +1,6 @@
 package main;
 import entities.bullets.Bullets;
 import entities.equipements.Equipements;
-import entities.equipements.armes.BouclierBois;
-import entities.equipements.soins.Coeur;
-import entities.equipements.soins.CoeurMax;
 import entities.players.JeanGuy;
 import input.*;
 import javax.swing.*;
@@ -24,18 +21,12 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow;
     public ArrayList<Players> personnages = new ArrayList<>();
     final int FPS = 60;
-    private String message = "";
-    private boolean messageOn = false;
-    private int messageCounter = 0;
     private boolean addplayers = false;
 
     KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
     public JeanGuy jeanGuy;
     TileManager tileM = new TileManager(this, jeanGuy);
-    BouclierBois bbo = new BouclierBois(this);
-    Coeur coeur = new Coeur(this);
-    CoeurMax coeurmax = new CoeurMax(this);
     public ArrayList<Equipements> equipements = new ArrayList<>();
     public ArrayList<Bullets> bullets = new ArrayList<>();
     protected ArrayList<String> info;
@@ -68,10 +59,9 @@ public class GamePanel extends JPanel implements Runnable {
         UI.titleScreenState = 0;
     }
 
-    public void instateMonsters(){
+    public void instantiateMonsters(){
         String npcs= null;
         int index=-1;
-        System.out.println("Inst Mons "+info.size());;
         for (int i =0; i < info.size();i++) {
             if (info.get(i).equals("NPC")){
                 index = i;
@@ -79,7 +69,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
         if (index!=-1) {
             npcs = info.get(index + 1);
-            System.out.println(npcs);
             for(int i=0; i < npcs.length();i++){
                 if (npcs.charAt(i) == 'G'){
                     Gumba gumba = new Gumba(this);
@@ -181,6 +170,20 @@ public class GamePanel extends JPanel implements Runnable {
         return FPS;
     }
 
+    public void noMonstersOutChunk(){
+        for (Players p : personnages) {
+            if(!(p instanceof Playable)){
+                p.setDead(true);
+            }
+        }
+    }
+    public void noBulletsoutChunk(){
+        for (Bullets b : bullets) {
+            b.setChangeChunk(false);
+
+        }
+    }
+
     @Override
     public void run() {
         long currentTime;
@@ -233,7 +236,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if(addplayers){
-                instateMonsters();
+                instantiateMonsters();
             }
 
             UI.update();
