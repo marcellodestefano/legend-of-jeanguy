@@ -1,0 +1,50 @@
+tile[08] = new Tile();
+tile[08].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/path/blackvoid.png")));
+ 
+tile[313] = new Tile();
+tile[313].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/bottomcommode.png")));
+ 
+tile[314] = new Tile();
+tile[314].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/bottomleft.png")));
+ 
+tile[315] = new Tile();
+tile[315].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/bottommiddle.png")));
+ 
+tile[316] = new Tile();
+tile[316].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/bottomright.png")));
+ 
+tile[317] = new Tile();
+tile[317].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/caisse.png")));
+ 
+tile[318] = new Tile();
+tile[318].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/left.png")));
+ 
+tile[319] = new Tile();
+tile[319].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/leftrock.png")));
+ 
+tile[321] = new Tile();
+tile[321].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/right.png")));
+ 
+tile[322] = new Tile();
+tile[322].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/rightrock.png")));
+ 
+tile[324] = new Tile();
+tile[324].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topcommode.png")));
+ 
+tile[325] = new Tile();
+tile[325].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topleft.png")));
+ 
+tile[326] = new Tile();
+tile[326].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topmiddle.png")));
+ 
+tile[337] = new Tile();
+tile[337].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topright.png")));
+ 
+tile[338] = new Tile();
+tile[338].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/woodfloor.png")));
+ 
+tile[339] = new Tile();
+tile[339].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/entrance1.png")));
+ 
+tile[340] = new Tile();
+tile[340].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/entrance2.png")));
