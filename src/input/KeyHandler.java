@@ -43,6 +43,7 @@ public class KeyHandler implements KeyListener {
                     }
                     if(gp.UI.commandNum == 1){
                         gp.GameState = gp.commandState;
+                        gp.UI.commandNum = 0;
                     }
                     if(gp.UI.commandNum == 2){
                         System.exit(0);
@@ -60,12 +61,12 @@ public class KeyHandler implements KeyListener {
                     if(gp.UI.commandNum == 0){
                         this.redJeanGuy = false;
                         gp.startGame();
-                        gp.GameState = gp.playState; // Insérer playstate avec jeanguy vert
+                        gp.GameState = gp.playState;
                     }
                     if(gp.UI.commandNum == 1){
                         this.redJeanGuy = true;
                         gp.startGame();
-                        gp.GameState = gp.playState; // Insérer playstate avec jeanguy rouge
+                        gp.GameState = gp.playState;
                     }
                     if(gp.UI.commandNum == 2){
                         gp.UI.titleScreenState = 0;
@@ -77,7 +78,7 @@ public class KeyHandler implements KeyListener {
 
         // PAUSE STATE
 
-        if(gp.GameState == gp.pauseState){
+        else if(gp.GameState == gp.pauseState){
             if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
                 gp.UI.commandNum--;
             }
@@ -88,6 +89,7 @@ public class KeyHandler implements KeyListener {
                 if(gp.UI.commandNum == 0){
                     gp.UI.titleScreenState = 0;
                     gp.GameState = gp.titleState;
+                    gp.UI.commandNum = 0;
                 }
                 if(gp.UI.commandNum == 1){
                     System.exit(0);
@@ -97,21 +99,15 @@ public class KeyHandler implements KeyListener {
 
         // COMMAND STATE
 
-        if(gp.GameState == gp.commandState){
-            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
-                gp.UI.commandNum--;
-            }
-            if(code == KeyEvent.VK_S && gp.UI.commandNum < 1){
-                gp.UI.commandNum++;
-            }
+        else if(gp.GameState == gp.commandState){
             if(code == KeyEvent.VK_ENTER){
-                if(gp.UI.commandNum == 0){
                     gp.GameState = gp.titleState;
-                }
+                    gp.UI.commandNum = 0;
             }
         }
 
-        if(gp.GameState == gp.gameOverState){
+        // GAMEOVER STATE
+        else if(gp.GameState == gp.gameOverState){
             if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
                 gp.UI.commandNum--;
             }
@@ -121,7 +117,7 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_ENTER){
                 if(gp.UI.commandNum == 0){
                     gp.resetGame();
-                    gp.GameState = gp.playState;
+                    gp.GameState = gp.titleState;
                 }
                 if(gp.UI.commandNum == 1){
                     gp.resetGame();

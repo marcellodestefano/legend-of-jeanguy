@@ -159,7 +159,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public TileManager getTileM() {
-        return tileM;
+        return tileM;}
+
     public int getOriginalTileSize(){
         return originalTileSize;
     }
@@ -261,7 +262,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // TITLE SCREEN
 
-        if(GameState == titleState){
+        if(GameState == titleState || GameState == commandState){
             UI.draw(g2);
         }
         else{ // Play state
