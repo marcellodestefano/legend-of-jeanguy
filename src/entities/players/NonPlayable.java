@@ -8,6 +8,7 @@ import main.GamePanel;
 import utils.AlgorithmMovement;
 import utils.Collisions;
 import utils.CollisionsNpcMap;
+import utils.CreationMonstres;
 
 import java.util.*;
 
@@ -37,8 +38,15 @@ public abstract class NonPlayable extends Players{
 
 
     public void startPosition(){
-        position.set(0, 200);
-        position.set(1, 200);
+        while (!CreationMonstres.creationMonstres(this.gamePanel,this)) {
+            Random r = new Random();
+            int x;
+            int y;
+            x = r.nextInt(gamePanel.screenWidth - gamePanel.tileSize)+1;
+            y = r.nextInt(gamePanel.screenHeight - gamePanel.tileSize)+1;
+            position.set(0, x);
+            position.set(1, y);
+        }
     }
 
 
