@@ -81,6 +81,9 @@ public class UI {
                 messageCounter = 0;
             }
         }
+        if (gp.getVictory()){
+            gp.GameState = gp.victoryState;
+        }
 
         if(gp.GameState == gp.gameOverState){
             gameOverCounter++;
@@ -111,6 +114,14 @@ public class UI {
         if(gp.GameState == gp.commandState){
             drawCommandScreen();
         }
+        if(gp.GameState == gp.victoryState){
+            drawVictoryScreen();
+        }
+    }
+
+    public void drawVictoryScreen(){
+
+
     }
 
     public void drawTitleScreen(){

@@ -215,7 +215,7 @@ public class JeanGuy extends Playable {
 
     @Override
     public void receiveDamage (Players sender, int damage, String dir){
-        if(!(defense(dir))){
+        if(!(defense(dir))&&killable){
             this.hp = Math.max(0,this.hp-=damage);
             this.dmgdir = dir;
             this.cpdmg = 12;

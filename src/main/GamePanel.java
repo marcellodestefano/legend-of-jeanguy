@@ -12,6 +12,7 @@ import entities.players.*;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
+//    private Panel panel = new Panel();
     final int originalTileSize = 16;
     final int scale = 3; //for now
     public final int tileSize = originalTileSize * scale;
@@ -22,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
     public ArrayList<Players> personnages = new ArrayList<>();
     final int FPS = 60;
     private boolean addplayers = false;
+    private boolean victory=false;
 
     KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
@@ -40,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int commandState = 3;
     public final int gameOverState = 4;
-
+    public final int victoryState = 5;
     int playerX = 200;
     int playerY = 200;
 
@@ -57,6 +59,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void prepareGame() {
         GameState = titleState;
         UI.titleScreenState = 0;
+    }
+
+    public void setVictory(boolean victory) {
+        this.victory = victory;
     }
 
     public void instantiateMonsters(){
@@ -86,6 +92,10 @@ public class GamePanel extends JPanel implements Runnable {
                     Octorok octorok = new Octorok(this);
                     personnages.add(octorok);
                 }
+                if (npcs.charAt(i) == 'P'){
+                    Odette odette = new Odette(this);
+                    personnages.add(odette);
+                }
 
             }
         }
@@ -110,6 +120,7 @@ public class GamePanel extends JPanel implements Runnable {
         personnages.clear();
         equipements.clear();
         bullets.clear();
+        setVictory(false);
 
 
         personnages.add(jeanGuy);
@@ -181,6 +192,9 @@ public class GamePanel extends JPanel implements Runnable {
             b.setChangeChunk(false);
 
         }
+    }
+    public boolean getVictory() {
+        return this.victory;
     }
 
     @Override
