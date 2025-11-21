@@ -1,9 +1,6 @@
 package main;
 import entities.bullets.Bullets;
 import entities.equipements.Equipements;
-import entities.equipements.armes.BouclierBois;
-import entities.equipements.soins.Coeur;
-import entities.equipements.soins.CoeurMax;
 import entities.players.JeanGuy;
 import input.*;
 import javax.swing.*;

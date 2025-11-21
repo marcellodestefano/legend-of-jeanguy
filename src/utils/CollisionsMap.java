@@ -13,6 +13,7 @@ public class CollisionsMap {
         int posX, posY, posXend, posYend;
         int col, rowEnd, colEnd;
 
+
         posX = jeanGuy.getPosition().get(0)+4;
         posY = jeanGuy.getPosition().get(1);
         posXend = jeanGuy.getPosition().get(0)+gp.tileSize-4;
@@ -22,7 +23,7 @@ public class CollisionsMap {
         rowEnd = (posYend)/(gp.tileSize);
         colEnd = (posXend)/(gp.tileSize);
 
-
+        if(!jeanGuy.isGettingDamage()){
         if (jeanGuy.getKeyHandler().upPressed ) {
             rowEnd = (posYend- jeanGuy.checkSpeed())/(gp.tileSize);
 
@@ -38,6 +39,22 @@ public class CollisionsMap {
         if(jeanGuy.getKeyHandler().rightPressed) {
             col = (posX + jeanGuy.checkSpeed())/(gp.tileSize);
             colEnd = (posXend + jeanGuy.checkSpeed())/(gp.tileSize);
+        }}
+        else{
+            if(jeanGuy.getDmgdir().contains("up")){
+                rowEnd = (posYend- jeanGuy.checkSpeed())/(gp.tileSize);
+            }
+            if(jeanGuy.getDmgdir().contains("down")){
+                rowEnd = (posYend + jeanGuy.checkSpeed())/(gp.tileSize);
+            }
+            if(jeanGuy.getDmgdir().contains("left")){
+                col = (posX- jeanGuy.checkSpeed())/(gp.tileSize);
+                colEnd = (posXend -  jeanGuy.checkSpeed())/(gp.tileSize);
+            }
+            if(jeanGuy.getDmgdir().contains("right")){
+                col = (posX + jeanGuy.checkSpeed())/(gp.tileSize);
+                colEnd = (posXend + jeanGuy.checkSpeed())/(gp.tileSize);
+            }
         }
 
 

@@ -417,6 +417,10 @@ public class JeanGuy extends Playable {
         return null;
     }
 
+    public String getDmgdir(){
+        return this.dmgdir;
+    }
+
     public boolean canAttack(){
         return attackSpeed==0;
     }
