@@ -33,9 +33,6 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public JeanGuy jeanGuy;
     TileManager tileM = new TileManager(this, jeanGuy);
-    BouclierBois bbo = new BouclierBois(this);
-    Coeur coeur = new Coeur(this);
-    CoeurMax coeurmax = new CoeurMax(this);
     public ArrayList<Equipements> equipements = new ArrayList<>();
     public ArrayList<Bullets> bullets = new ArrayList<>();
     protected ArrayList<String> info;
@@ -68,10 +65,9 @@ public class GamePanel extends JPanel implements Runnable {
         UI.titleScreenState = 0;
     }
 
-    public void instateMonsters(){
+    public void instantiateMonsters(){
         String npcs= null;
         int index=-1;
-        System.out.println("Inst Mons "+info.size());;
         for (int i =0; i < info.size();i++) {
             if (info.get(i).equals("NPC")){
                 index = i;
@@ -79,7 +75,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
         if (index!=-1) {
             npcs = info.get(index + 1);
-            System.out.println(npcs);
             for(int i=0; i < npcs.length();i++){
                 if (npcs.charAt(i) == 'G'){
                     Gumba gumba = new Gumba(this);
@@ -162,6 +157,14 @@ public class GamePanel extends JPanel implements Runnable {
         return tileM;
     }
 
+    public void noMonstersOutChunk(){
+        for (Players p : personnages) {
+            if(!(p instanceof Playable)){
+                p.setDead(true);
+            }
+        }
+    }
+
     @Override
     public void run() {
         long currentTime;
@@ -214,7 +217,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if(addplayers){
-                instateMonsters();
+                instantiateMonsters();
             }
 
             UI.update();

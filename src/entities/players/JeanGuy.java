@@ -256,6 +256,12 @@ public class JeanGuy extends Playable {
         }
     
     }
+    public int checkSpeed(){
+        if (cpdmg!=0){
+            return 5;
+        }
+        return speed;
+    }
 
     public String defenseMovement(){
         spriteCounter++;
@@ -426,6 +432,7 @@ public class JeanGuy extends Playable {
 
     @Override
     public void update() {
+        String respass = CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
         direction = lastdir;
         if (this.isDead()){
             direction = "dead";
@@ -435,7 +442,9 @@ public class JeanGuy extends Playable {
             if (isGettingDamage()){
                 direction = dmgdir;
                 cpdmg--;
-                damageMovement(direction);
+                if (respass.equals("path")){
+                    damageMovement(direction);
+                }
             }else if (isAttacking()){
                 direction = lastAtk;
                 cpAtk--;
@@ -447,7 +456,6 @@ public class JeanGuy extends Playable {
             else{
                 this.setKillable(true);
                 boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
-                String respass = CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
                 if (!pass){
                     notPassing();
                 }
@@ -467,7 +475,6 @@ public class JeanGuy extends Playable {
                     if (respass.equals("chunk")){
                         String nextCunk = chooseDirection();
                         gamePanel.getTileM().changeMap(nextCunk);
-                        System.out.println("hi");
                     }
                     if (respass.equals("merchant")){
                         position.set(0, gamePanel.screenWidth/2);

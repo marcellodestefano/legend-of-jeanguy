@@ -90,6 +90,10 @@ public abstract class Players implements Actions{
         return this.Dead;
     }
 
+    public void setDead(boolean dead) {
+        this.Dead = dead;
+    }
+
 
     public boolean isKillable() {
         return this.killable;

@@ -5,6 +5,7 @@ import entities.bullets.Bullets;
 import entities.bullets.Octorokatk;
 import main.GamePanel;
 import utils.AlgorithmMovementRange;
+import utils.CollisionsNpcMap;
 
 
 import javax.imageio.ImageIO;
@@ -56,28 +57,29 @@ public class Octorok extends NonPlayable{
         }
 
         if(!this.isDead()){
-            if (dir.contains("up")) {
+            String respass = CollisionsNpcMap.collisionsNpcMap(this,dir ,gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
+            if (dir.contains("up")&&canPass(respass)) {
                 direction = "up";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
                     position.set(1, Math.max(0,position.get(1) - checkSpeed()));
                 }
             }
-            if (dir.contains("down")) {
+            if (dir.contains("down")&&canPass(respass)) {
                 direction = "down";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
                     position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
                 }
             }
-            if (dir.contains("left")) {
+            if (dir.contains("left")&&canPass(respass)) {
                 direction = "left";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
                     position.set(0, Math.max(0,position.get(0) - checkSpeed()));
                 }
             }
-            if (dir.contains("right")) {
+            if (dir.contains("right")&&canPass(respass)) {
                 direction = "right";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
