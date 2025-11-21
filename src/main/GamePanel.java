@@ -1,6 +1,7 @@
 package main;
 import entities.bullets.Bullets;
 import entities.equipements.Equipements;
+import entities.equipements.armes.BouclierBois;
 import entities.players.JeanGuy;
 import input.*;
 import javax.swing.*;
@@ -74,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         if (index!=-1) {
+            System.out.println(info);
             npcs = info.get(index + 1);
             for(int i=0; i < npcs.length();i++){
                 if (npcs.charAt(i) == 'G'){
@@ -96,6 +98,14 @@ public class GamePanel extends JPanel implements Runnable {
                     Odette odette = new Odette(this);
                     personnages.add(odette);
                 }
+                if (npcs.charAt(i) == 'S'){
+                    Marchand marchand = new Marchand(this);
+                    personnages.add(marchand);
+                }
+                if (npcs.charAt(i) == 'A'){
+                    BouclierBois bouclierBois = new BouclierBois(this);
+                    equipements.add(bouclierBois);
+                }
 
             }
         }
@@ -104,6 +114,7 @@ public class GamePanel extends JPanel implements Runnable {
                 ((NonPlayable) p).cible(jeanGuy);
             }
         }
+
         this.addplayers = false;
         this.info.clear();
         tileM.clearInfo();
@@ -193,6 +204,13 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
     }
+
+    public void noEquipementsOutChunk(){
+        for (Equipements e : equipements) {
+            e.setRamasser();
+
+        }
+    }
     public boolean getVictory() {
         return this.victory;
     }
@@ -233,10 +251,6 @@ public class GamePanel extends JPanel implements Runnable {
                 UI.commandNum = 0;
             }
 
-
-        bullets.removeIf(b -> !(b.getIsActive()=="ok"));
-        personnages.removeIf(p -> p.isDead() &&  !(p instanceof JeanGuy));
-        equipements.removeIf(e -> e.isRamasser());
             for (Players p : personnages) {
                 p.update();
             }

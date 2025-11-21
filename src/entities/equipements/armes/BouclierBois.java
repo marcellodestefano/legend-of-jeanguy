@@ -15,11 +15,16 @@ public class BouclierBois extends Armes{
     protected int prix=10;
 
     public BouclierBois(GamePanel gp){
-        super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/weapons/bouclierbois.png")), true, 1,  new ArrayList<Integer>(Arrays.asList(200,500,0)));
+        super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/weapons/bouclierbois.png")), true, 1,  new ArrayList<Integer>(Arrays.asList(0,0,0)));
 
 
+        getSpriteImage();
+        startPosition();
+    }
+
+    public void getSpriteImage(){
         try{
-            equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
+            this.equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -27,6 +32,11 @@ public class BouclierBois extends Armes{
 
     public int getPrix(){
         return prix;
+    }
+
+    public void startPosition(){
+        this.position.set(0,220);
+        this.position.set(1,285);
     }
 
     @Override
