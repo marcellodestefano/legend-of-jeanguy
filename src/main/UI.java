@@ -15,7 +15,7 @@ public class UI {
     BufferedImage arrows;
     BufferedImage attackDefense;
     BufferedImage echapEnter;
-    BufferedImage heartFull, heartEmpty;
+    BufferedImage heartFull, heartEmpty, gems;
     protected String message = "";
     protected boolean messageOn = false;
     private int messageCounter = 0;
@@ -67,6 +67,7 @@ public class UI {
         try {
             heartFull = ImageIO.read(getClass().getResourceAsStream("/assets/hud/hud36-removebg-preview.png"));
             heartEmpty = ImageIO.read(getClass().getResourceAsStream("/assets/hud/hud38-removebg-preview.png"));
+            gems = ImageIO.read(getClass().getResourceAsStream("/assets/hud/hud1-removebg-preview.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -320,25 +321,38 @@ public class UI {
 
     public void drawPlayerLife(){
 
-        int x = gp.tileSize / 2;  // position de départ en X
-        int y = gp.tileSize / 2;  // position de départ en Y
+        int x = gp.tileSize / 2;
+        int y = gp.tileSize / 2;
 
         int heartWidth = 40;
         int heartHeight = 40;
 
-        // Dessine les cœurs selon la vie actuelle et max
+
         for(int i = 0; i < gp.jeanGuy.getHpMax(); i++){
 
-            // Si i < vie actuelle : cœur plein
+
             if(i < gp.jeanGuy.getHp()){
                 g2.drawImage(heartFull, x, y, heartWidth, heartHeight, null);
             }
-            // Sinon : cœur vide
+
             else {
                 g2.drawImage(heartEmpty, x, y, heartWidth, heartHeight, null);
             }
 
-            x += heartWidth + 5;  // espace entre les cœurs
+            x += heartWidth + 5;
+
+            int gemX = gp.tileSize / 2;
+            int gemY = y + heartHeight + 10;
+            int gemSize = 40;
+
+
+            g2.drawImage(gems, gemX, gemY, gemSize, gemSize, null);
+
+
+            g2.setFont(zeldaFont.deriveFont(20f));
+            g2.setColor(Color.white);
+            String argentText = ":" + gp.jeanGuy.getArgent();
+            g2.drawString(argentText, gemX + gemSize + 5, gemY + gemSize - 10);
         }
     }
 
