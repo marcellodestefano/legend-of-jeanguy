@@ -58,6 +58,10 @@ public abstract class Bullets {
         }
 
     }
+    public void setPosition(double x, double y){
+        this.position.set(0,x);
+        this.position.set(1,y);
+    }
 
     public void setIsActive() {
         String act = BulletCollisions.bulletCollisions(gamePanel, this, gamePanel.jeanGuy);
