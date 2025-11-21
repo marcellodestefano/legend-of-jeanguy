@@ -193,6 +193,9 @@ public class TileManager {
             tile[640] = new Tile();
             tile[640].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/topleftcornerwall.png")));
 
+            tile[643] = new Tile();
+            tile[643].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/toprightcorner.png")));
+
             tile[644] = new Tile();
             tile[644].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/toprightcornerwall.png")));
 
