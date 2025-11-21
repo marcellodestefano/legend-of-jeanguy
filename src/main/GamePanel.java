@@ -267,6 +267,9 @@ public class GamePanel extends JPanel implements Runnable {
         else if(GameState == titleState){
             UI.update();
         }
+        else if (GameState == victoryState){
+            UI.update();
+        }
     }
 
 

@@ -106,6 +106,25 @@ public class KeyHandler implements KeyListener {
             }
         }
 
+        else if(gp.GameState == gp.victoryState){
+            if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
+                gp.UI.commandNum--;
+            }
+            if(code == KeyEvent.VK_S && gp.UI.commandNum < 1){
+                gp.UI.commandNum++;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.UI.commandNum == 0){
+                    gp.resetGame();
+                    gp.UI.titleScreenState = 0;
+                    gp.GameState = gp.titleState;
+                }
+                if(gp.UI.commandNum == 1){
+                    System.exit(0);
+                }
+            }
+        }
+
         // GAMEOVER STATE
         else if(gp.GameState == gp.gameOverState){
             if(code == KeyEvent.VK_Z && gp.UI.commandNum > 0){
@@ -160,32 +179,31 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_K){
             defPressed = true;
         }
-
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
 
-        if(code == KeyEvent.VK_Q){
+        if (code == KeyEvent.VK_Q) {
             leftPressed = false;
         }
-        if(code == KeyEvent.VK_S){
+        if (code == KeyEvent.VK_S) {
             downPressed = false;
         }
-        if(code == KeyEvent.VK_D){
+        if (code == KeyEvent.VK_D) {
             rightPressed = false;
         }
-        if(code == KeyEvent.VK_Z){
+        if (code == KeyEvent.VK_Z) {
             upPressed = false;
         }
-        if(code == KeyEvent.VK_J){
+        if (code == KeyEvent.VK_J) {
             atkPressed = false;
         }
-        if(code == KeyEvent.VK_K){
+        if (code == KeyEvent.VK_K) {
             defPressed = false;
         }
-
     }
 }
