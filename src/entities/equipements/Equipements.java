@@ -26,6 +26,7 @@ public abstract class Equipements {
         this.gp = gp;
         this.position =position;
         id = id++;
+
     }
 
     public int getId() {
@@ -48,7 +49,11 @@ public abstract class Equipements {
         return this.ramasser;
     }
 
-    public void getPlayerImage() {
+    public void setisRamasser(boolean changeChunk) {
+        this.ramasser = changeChunk;
+    }
+
+    public void getSpriteImage() {
         try {
             this.equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
         } catch (Exception e) {
