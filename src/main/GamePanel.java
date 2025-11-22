@@ -57,6 +57,38 @@ public class GamePanel extends JPanel implements Runnable {
         prepareGame();
     }
 
+    public void incrementMenuCommand() {
+        UI.commandNum++;
+    }
+
+    public void decrementMenuCommand() {
+        UI.commandNum--;
+    }
+
+    public void setMenuCommand(int value) {
+        UI.commandNum = value;
+    }
+
+    public int getMenuCommand() {
+        return UI.commandNum;
+    }
+
+    public void setTitleScreenState(int state) {
+        UI.titleScreenState = state;
+    }
+
+    public int getTitleScreenState() {
+        return UI.titleScreenState;
+    }
+
+    public void setGameState(int state) {
+        this.GameState = state;
+    }
+
+    public int getGameState() {
+        return this.GameState;
+    }
+
     public void prepareGame() {
         GameState = titleState;
         UI.titleScreenState = 0;
@@ -119,7 +151,7 @@ public class GamePanel extends JPanel implements Runnable {
         jeanGuy = new JeanGuy(this, keyHandler);
         tileM = new TileManager(this, jeanGuy);
 
-        // Vide et remplit les listes
+        // Vide les listes
         personnages.clear();
         equipements.clear();
         bullets.clear();

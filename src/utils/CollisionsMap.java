@@ -24,19 +24,19 @@ public class CollisionsMap {
         colEnd = (posXend)/(gp.tileSize);
 
         if(!jeanGuy.isGettingDamage()){
-        if (jeanGuy.getKeyHandler().upPressed ) {
+        if (jeanGuy.getKeyHandler().isUpPressed() ) {
             rowEnd = (posYend- jeanGuy.checkSpeed())/(gp.tileSize);
 
         }
-        if(jeanGuy.getKeyHandler().downPressed ) {
+        if(jeanGuy.getKeyHandler().isDownPressed() ) {
             rowEnd = (posYend + jeanGuy.checkSpeed())/(gp.tileSize);
 
         }
-        if(jeanGuy.getKeyHandler().leftPressed) {
+        if(jeanGuy.getKeyHandler().isLeftPressed()) {
             col = (posX- jeanGuy.checkSpeed())/(gp.tileSize);
             colEnd = (posXend -  jeanGuy.checkSpeed())/(gp.tileSize);
         }
-        if(jeanGuy.getKeyHandler().rightPressed) {
+        if(jeanGuy.getKeyHandler().isRightPressed()) {
             col = (posX + jeanGuy.checkSpeed())/(gp.tileSize);
             colEnd = (posXend + jeanGuy.checkSpeed())/(gp.tileSize);
         }}

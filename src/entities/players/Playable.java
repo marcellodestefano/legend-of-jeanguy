@@ -175,16 +175,16 @@ public abstract class Playable extends Players{
     }
 
     public void notPassing(){
-        if (keyHandler.downPressed){
+        if (keyHandler.isDownPressed()){
             this.direction = "down";
             this.lastdir = "down";
-        }if (keyHandler.upPressed){
+        }if (keyHandler.isUpPressed()){
             this.direction = "up";
             this.lastdir = "up";
-        }if (keyHandler.leftPressed){
+        }if (keyHandler.isLeftPressed()){
             this.direction = "left";
             this.lastdir = "left";
-        }if (keyHandler.rightPressed){
+        }if (keyHandler.isRightPressed()){
             this.direction = "right";
             this.lastdir = "right";
         }
@@ -201,16 +201,16 @@ public abstract class Playable extends Players{
         spriteCounter++;
         cpDef=10;
         defenseSpeed=30;
-        if(keyHandler.upPressed) {
+        if(keyHandler.isUpPressed()) {
             return "defup";
         }
-        else if (keyHandler.downPressed) {
+        else if (keyHandler.isDownPressed()) {
             return "defdown";
         }
-        else if (keyHandler.leftPressed) {
+        else if (keyHandler.isLeftPressed()) {
             return "defleft";
         }
-        else if (keyHandler.rightPressed) {
+        else if (keyHandler.isRightPressed()) {
             return "defright";
         }
         return "def"+lastdir;
@@ -241,28 +241,28 @@ public abstract class Playable extends Players{
         spriteCounter++;
         attackSpeed=30;
         cpAtk=5;
-        if (keyHandler.upPressed && keyHandler.leftPressed) {
+        if (keyHandler.isUpPressed() && keyHandler.isLeftPressed()) {
             return "atkleftup";
         }
-        else if (keyHandler.upPressed && keyHandler.rightPressed) {
+        else if (keyHandler.isUpPressed() && keyHandler.isRightPressed()) {
             return "atkrightup";
         }
-        else if (keyHandler.upPressed) {
+        else if (keyHandler.isUpPressed()) {
             return "atkup";
         }
-        else if (keyHandler.downPressed && keyHandler.leftPressed) {
+        else if (keyHandler.isDownPressed() && keyHandler.isLeftPressed()) {
             return "atkleftdown";
         }
-        else if (keyHandler.downPressed && keyHandler.rightPressed) {
+        else if (keyHandler.isDownPressed() && keyHandler.isRightPressed()) {
             return "atkrightdown";
         }
-        else if (keyHandler.rightPressed ) {
+        else if (keyHandler.isRightPressed()) {
             return "atkright";
         }
-        else if (keyHandler.leftPressed ) {
+        else if (keyHandler.isLeftPressed()) {
             return "atkleft";
         }
-        else if (keyHandler.downPressed ) {
+        else if (keyHandler.isDownPressed()) {
             return "atkdown";
         }
         return "atk"+lastdir;
@@ -296,22 +296,22 @@ public abstract class Playable extends Players{
     public String normalMovement() {
 
         String going = lastdir;
-        if (keyHandler.upPressed) {
+        if (keyHandler.isUpPressed()) {
             spriteCounter++;
             position.set(1, position.get(1) - speed);
             going =  "up";
         }
-        if (keyHandler.downPressed) {
+        if (keyHandler.isDownPressed()) {
             spriteCounter++;
             position.set(1, position.get(1) + speed);
             going =  "down";
         }
-        if (keyHandler.leftPressed) {
+        if (keyHandler.isLeftPressed()) {
             spriteCounter++;
             position.set(0, position.get(0) - speed);
             going = "left";
         }
-        if (keyHandler.rightPressed) {
+        if (keyHandler.isRightPressed()) {
             spriteCounter++;
             position.set(0, position.get(0) + speed);
             going = "right";
@@ -425,11 +425,11 @@ public abstract class Playable extends Players{
                 if (ramasse !=null){
                     ramasser(ramasse);
                 }
-                if(canBlock() && canDefend() && keyHandler.defPressed){
+                if(canBlock() && canDefend() && keyHandler.isDefPressed()){
                     direction = defenseMovement();
                     lastDef = direction;
                 }
-                else if(canAttack() && keyHandler.atkPressed) { // Quand est-ce que jg peut attaker
+                else if(canAttack() && keyHandler.isAtkPressed()) { // Quand est-ce que jg peut attaker
                     direction = atkMovement();
                     lastAtk = direction;
                     Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
