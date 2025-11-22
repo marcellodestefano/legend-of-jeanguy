@@ -36,13 +36,7 @@ public class BouclierBois extends Armes{
 
     public void startPosition(){
         this.position.set(0,220);
-        this.position.set(1,285);
-    }
-
-    @Override
-    public void update(){
-
-    }
+        this.position.set(1,285);}
 
     @Override
     public void draw(Graphics2D g2) {
