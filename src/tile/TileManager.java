@@ -504,7 +504,6 @@ public class TileManager {
                 gp.noMonstersOutChunk();
                 gp.noBulletsoutChunk();
                 gp.noEquipementsOutChunk();
-                System.out.println(index);
                 if (info.size()>index+3 && info.get(index+3).equals("NPC")) {
                     gp.setAddplayers(true);
                     this.index=index+3;
