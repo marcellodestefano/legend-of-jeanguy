@@ -42,8 +42,7 @@ public class Odette extends NonPlayable {
     }
 
     protected void descendEscaliers(){
-        System.out.println("hi");
-        position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + 1));
+        position.set(1, Math.min(gamePanel.getHeight() - gamePanel.getTileSize(),position.get(1) + 1));
     }
 
 
@@ -54,7 +53,7 @@ public class Odette extends NonPlayable {
             cpDesEsc--;
         }
         else{
-        String win = Collisions.collisions(gamePanel.personnages, this.direction, this, gamePanel.tileSize);
+        String win = Collisions.collisions(gamePanel.getPersonnages(), this.direction, this, gamePanel.getTileSize());
         String dir = AlgorithmMovement.movements(gamePanel,this, cible);
         String respass = CollisionsNpcMap.collisionsNpcMap(this,dir ,gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
 
@@ -71,7 +70,7 @@ public class Odette extends NonPlayable {
         if (dir.contains("down")&&canPass(respass)) {
             direction = "down";
             spriteCounter++;
-            position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
+            position.set(1, Math.min(gamePanel.getHeight() - gamePanel.getTileSize(),position.get(1) + checkSpeed()));
         }
         if (dir.contains("left")&&canPass(respass)) {
             direction = "left";
@@ -81,7 +80,7 @@ public class Odette extends NonPlayable {
         if (dir.contains("right")&&canPass(respass)) {
             direction = "right";
             spriteCounter++;
-            position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
+            position.set(0, Math.min(gamePanel.getWidth() - gamePanel.getTileSize(),position.get(0) + checkSpeed()));
         }
 
 
@@ -106,7 +105,7 @@ public class Odette extends NonPlayable {
             image = move2;
         }
 
-        g2.drawImage(image, position.get(0), position.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, position.get(0), position.get(1), gamePanel.getTileSize(), gamePanel.getTileSize(), null);
 
 
     }

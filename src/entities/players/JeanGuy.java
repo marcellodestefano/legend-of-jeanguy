@@ -136,7 +136,7 @@ public class JeanGuy extends Playable {
             this.rammasserBouclier();
         }
         else if (ramasse instanceof BouclierBois && this.getArgent() <= ((BouclierBois) ramasse).getPrix()){
-            gamePanel.UI.showMessage("Tu n'as pas assez d'argent ! Prix : " + ((BouclierBois) ramasse).getPrix());
+            gamePanel.getmyUI().showMessage("Tu n'as pas assez d'argent ! Prix : " + ((BouclierBois) ramasse).getPrix());
         }
         else if (ramasse instanceof CoeurMax){
             this.ramasserCoeurMax();

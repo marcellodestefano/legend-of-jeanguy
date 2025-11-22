@@ -14,36 +14,36 @@ public class CollisionsNpcMap {
 
         posX = npc.getPosition().get(0)+4;
         posY = npc.getPosition().get(1);
-        posXend = npc.getPosition().get(0)+gp.tileSize-4;
-        posYend = npc.getPosition().get(1)+gp.tileSize;
+        posXend = npc.getPosition().get(0)+gp.getTileSize()-4;
+        posYend = npc.getPosition().get(1)+gp.getTileSize();
 
-        row = (posY)/(gp.tileSize);
-        col = (posX)/(gp.tileSize);
-        rowEnd = (posYend)/(gp.tileSize);
-        colEnd = (posXend)/(gp.tileSize);
+        row = (posY)/(gp.getTileSize());
+        col = (posX)/(gp.getTileSize());
+        rowEnd = (posYend)/(gp.getTileSize());
+        colEnd = (posXend)/(gp.getTileSize());
 
         if (direction.contains("up") ) {
-            row = (posY - (int) npc.getSpeed())/(gp.tileSize);
+            row = (posY - (int) npc.getSpeed())/(gp.getTileSize());
 
-            rowEnd = (posYend- (int) npc.getSpeed())/(gp.tileSize);
+            rowEnd = (posYend- (int) npc.getSpeed())/(gp.getTileSize());
 
         }
         if(direction.contains("down") ) {
-            row = (posY + (int) npc.getSpeed())/(gp.tileSize);
+            row = (posY + (int) npc.getSpeed())/(gp.getTileSize());
 
-            rowEnd = (posYend + (int) npc.getSpeed())/(gp.tileSize);
+            rowEnd = (posYend + (int) npc.getSpeed())/(gp.getTileSize());
 
         }
         if(direction.contains("left")) {
 
-            col = (posX- (int) npc.getSpeed())/(gp.tileSize);
+            col = (posX- (int) npc.getSpeed())/(gp.getTileSize());
 
-            colEnd = (posXend - (int) npc.getSpeed())/(gp.tileSize);
+            colEnd = (posXend - (int) npc.getSpeed())/(gp.getTileSize());
         }
         if(direction.contains("right")) {
-            col = (posX + (int) npc.getSpeed())/(gp.tileSize);
+            col = (posX + (int) npc.getSpeed())/(gp.getTileSize());
 
-            colEnd = (posXend+ (int) npc.getSpeed())/(gp.tileSize);
+            colEnd = (posXend+ (int) npc.getSpeed())/(gp.getTileSize());
         }
         if(pathTiles.contains(tiles[mapTiles[col][rowEnd]])&&pathTiles.contains(tiles[mapTiles[colEnd][rowEnd]])) {
             return "path";

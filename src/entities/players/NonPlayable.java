@@ -42,8 +42,8 @@ public abstract class NonPlayable extends Players{
             Random r = new Random();
             int x;
             int y;
-            x = r.nextInt(gamePanel.screenWidth - gamePanel.tileSize)+1;
-            y = r.nextInt(gamePanel.screenHeight/2)+1;
+            x = r.nextInt(gamePanel.getScreenWidth() - gamePanel.getTileSize())+1;
+            y = r.nextInt(gamePanel.getScreenHeight()/2)+1;
             position.set(0, x);
             position.set(1, y);
         }
@@ -107,7 +107,7 @@ public abstract class NonPlayable extends Players{
     @Override
     public void update() {
         String dir = AlgorithmMovement.movements(gamePanel,this, cible);
-        String atk = Collisions.collisions(gamePanel.personnages, this.direction, this, gamePanel.tileSize);
+        String atk = Collisions.collisions(gamePanel.getPersonnages(), this.direction, this, gamePanel.getTileSize());
         String respass = CollisionsNpcMap.collisionsNpcMap(this,dir ,gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
         if(!(this.isDead())){
             if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
@@ -122,7 +122,7 @@ public abstract class NonPlayable extends Players{
             if (dir.contains("down")&&canPass(respass)) {
                 direction = "down";
                 spriteCounter++;
-                position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
+                position.set(1, Math.min(gamePanel.getHeight() - gamePanel.getTileSize(),position.get(1) + checkSpeed()));
             }
             if (dir.contains("left")&&canPass(respass)) {
                 direction = "left";
@@ -132,7 +132,7 @@ public abstract class NonPlayable extends Players{
             if (dir.contains("right")&&canPass(respass)) {
                 direction = "right";
                 spriteCounter++;
-                position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
+                position.set(0, Math.min(gamePanel.getWidth() - gamePanel.getTileSize(),position.get(0) + checkSpeed()));
             }
 
             if (spriteCounter > 12) {

@@ -86,7 +86,7 @@ public class MaskGuy extends NonPlayable{
                 }
                 break;
         }
-        g2.drawImage(image, position.get(0), position.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, position.get(0), position.get(1), gamePanel.getTileSize(), gamePanel.getTileSize(), null);
     };
 
 

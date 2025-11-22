@@ -13,7 +13,6 @@ public abstract class Soins extends Equipements{
     public Soins(GamePanel gp, boolean drop, int dropPercentage, String name, int unite, List<String> spritePath, ArrayList<Integer> position){
         super(gp, drop, name, unite, spritePath, position);
         this.dropPercentage = dropPercentage;
-        System.out.println(dropPercentage + name);
     }
 
     public static int getDropPercentage() {

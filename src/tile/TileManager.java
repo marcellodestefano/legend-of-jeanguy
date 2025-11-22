@@ -36,7 +36,7 @@ public class TileManager {
         this.jeanGuy = jeanGuy;
 
         tile = new Tile[1000];
-        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+        mapTileNum = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
 
         currentZone = "map_minimum";
         folderName = "exterior.txt";
@@ -529,12 +529,12 @@ public class TileManager {
             if(is != null) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 int row = 0;
-                while (row < gp.maxScreenRow) {
+                while (row < gp.getMaxScreenRow()) {
                     String line = br.readLine();
 
                     String numbers[] = line.split(",");
 
-                    for(int col = 0 ; col < gp.maxScreenCol && col < numbers.length; col++) {
+                    for(int col = 0 ; col < gp.getMaxScreenCol() && col < numbers.length; col++) {
                         String numStr = numbers[col].trim();
                         int num = Integer.parseInt(numStr);
                         mapTileNum[col][row] = num;
@@ -563,19 +563,19 @@ public class TileManager {
         int x = 0;
         int y = 0;
 
-        while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+        while (col < gp.getMaxScreenCol() && row < gp.getMaxScreenRow()) {
             int tileNum = mapTileNum[col][row];
             if (!(tile[tileNum] == null)) {
-                g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(tile[tileNum].image, x, y, gp.getTileSize(), gp.getTileSize(), null);
 
                 col++;
-                x += gp.tileSize;
+                x += gp.getTileSize();
 
-                if (col == gp.maxScreenCol) {
+                if (col == gp.getMaxScreenCol()) {
                     col = 0;
                     x = 0;
                     row++;
-                    y += gp.tileSize;
+                    y += gp.getTileSize();
                 }
             }
         }

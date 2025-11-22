@@ -37,12 +37,12 @@ public class AlgorithmMovementRange {
             if (Math.abs(diffx) >= Math.abs(diffy)) {
                 if (diffx > 0) {
                     direction = "right";
-                    if (Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize).equals("ok")) {
+                    if (Collisions.collisions(gamePanel.getPersonnages(), direction, enemy, gamePanel.getTileSize()).equals("ok")) {
                         return "right";
                     }
                 } else {
                     direction = "left";
-                    if (Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize).equals("ok")) {
+                    if (Collisions.collisions(gamePanel.getPersonnages(), direction, enemy, gamePanel.getTileSize()).equals("ok")) {
                         return "left";
                     }
 
@@ -50,13 +50,13 @@ public class AlgorithmMovementRange {
             } else if (Math.abs(diffy) > Math.abs(diffx)) {
                 if (diffy > 0) {
                     direction = "down";
-                    if (Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize).equals("ok")) {
+                    if (Collisions.collisions(gamePanel.getPersonnages(), direction, enemy, gamePanel.getTileSize()).equals("ok")) {
                         return "down";
                     }
 
                 } else {
                     direction = "up";
-                    if (Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize).equals("ok")) {
+                    if (Collisions.collisions(gamePanel.getPersonnages(), direction, enemy, gamePanel.getTileSize()).equals("ok")) {
                         return "up";
                     }
 
