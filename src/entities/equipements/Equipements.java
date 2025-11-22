@@ -66,6 +66,9 @@ public abstract class Equipements {
 
     public void draw(Graphics2D g) {
     }
+
+    public void update(){}
 }
+
 
 

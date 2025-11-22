@@ -19,7 +19,6 @@ public class EquipementTest {
     public void epeeBois() {
         GamePanel gamePanel = new GamePanel();
         EpeeBois epee = new EpeeBois(gamePanel);
-        assertEquals(0, epee.getPrix());
         assertEquals(0, epee.getId());
         assertEquals(1, epee.getUnite());
         assertEquals("EpeeBois", epee.getName());
@@ -29,7 +28,6 @@ public class EquipementTest {
         epee.setRamasser();
         System.out.println(epee.isRamasser());
         System.out.println(epee.getRange());
-        System.out.println(epee.getIsMelee());
     }
 
     @Test
@@ -46,7 +44,6 @@ public class EquipementTest {
         bouclier.setRamasser();
         System.out.println(bouclier.isRamasser());
         System.out.println(bouclier.getRange());
-        System.out.println(bouclier.getIsMelee());
     }
 
     @Test

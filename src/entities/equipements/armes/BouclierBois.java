@@ -17,7 +17,6 @@ public class BouclierBois extends Armes{
     public BouclierBois(GamePanel gp){
         super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/weapons/bouclierbois.png")), true, 1,  new ArrayList<Integer>(Arrays.asList(0,0,0)));
 
-
         getSpriteImage();
         startPosition();
     }
