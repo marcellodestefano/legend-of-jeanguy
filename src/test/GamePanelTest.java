@@ -28,16 +28,16 @@ class GamePanelTest {
     void testTileSizeConstants() {
         assertEquals(16, gamePanel.getOriginalTileSize());
         assertEquals(3, gamePanel.getScale());
-        assertEquals(48, gamePanel.tileSize);
+        assertEquals(48, gamePanel.getTileSize());
     }
 
     @Test
     @DisplayName("Test des dimensions de l'écran")
     void testScreenDimensions() {
-        assertEquals(16, gamePanel.maxScreenCol);
-        assertEquals(12, gamePanel.maxScreenRow);
-        assertEquals(768, gamePanel.screenWidth);
-        assertEquals(576, gamePanel.screenHeight);
+        assertEquals(16, gamePanel.getMaxScreenCol());
+        assertEquals(12, gamePanel.getMaxScreenRow());
+        assertEquals(768, gamePanel.getScreenWidth());
+        assertEquals(576, gamePanel.getScreenHeight());
     }
 
     @Test
@@ -97,26 +97,26 @@ class GamePanelTest {
 
         Players enemy = new Gumba(gamePanel);
 
-        gamePanel.personnages.add(enemy);
+        gamePanel.getPersonnages().add(enemy);
 
         enemy.setHp(0);
         assertTrue(enemy.isDead());
         gamePanel.update();
 
-        assertEquals(1, gamePanel.personnages.size());
+        assertEquals(1, gamePanel.getPersonnages().size());
     }
 
     @Test
     @DisplayName("JeanGuy mort n'est pas supprimé")
     void testUpdateDoesNotRemoveDeadJeanGuy() {
 
-        assertEquals(1, gamePanel.personnages.size());
+        assertEquals(1, gamePanel.getPersonnages().size());
 
-        gamePanel.personnages.get(0).setHp(0);
+        gamePanel.getPersonnages().get(0).setHp(0);
 
         gamePanel.update();
 
-        assertEquals(1, gamePanel.personnages.size());
+        assertEquals(1, gamePanel.getPersonnages().size());
     }
 
     @Test
@@ -124,13 +124,13 @@ class GamePanelTest {
     void testUpdateRemovesCollectedEquipment() {
         Equipements equip = new BouclierBois(gamePanel);
 
-        gamePanel.equipements.add(equip);
+        gamePanel.getEquipements().add(equip);
 
         equip.setRamasser();
 
         gamePanel.update();
 
-        assertFalse(gamePanel.equipements.contains(equip),
+        assertFalse(gamePanel.getEquipements().contains(equip),
                 "L'équipement ramassé devrait être supprimé");
     }
 

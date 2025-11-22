@@ -24,6 +24,6 @@ public class CoeurMax extends Soins{
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(equipementImage, this.position.get(0), this.position.get(1), gp.tileSize, gp.tileSize, null);
+        g2.drawImage(equipementImage, this.position.get(0), this.position.get(1), gp.getTileSize(), gp.getTileSize(), null);
     }
 }

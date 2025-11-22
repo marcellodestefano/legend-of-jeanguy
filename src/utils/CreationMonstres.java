@@ -15,27 +15,27 @@ public class CreationMonstres {
 
         posX = npc.getPosition().get(0)+4;
         posY = npc.getPosition().get(1);
-        posXend = npc.getPosition().get(0)+gp.tileSize-4;
-        posYend = npc.getPosition().get(1)+gp.tileSize;
+        posXend = npc.getPosition().get(0)+gp.getTileSize()-4;
+        posYend = npc.getPosition().get(1)+gp.getTileSize();
 
         ArrayList<Tile> pathTiles =  gp.getTileM().getPathTiles();
         int[][] mapTiles = gp.getTileM().getMapTiles();
         Tile[] tiles = gp.getTileM().getTiles();
 
-        row = (posY)/(gp.tileSize);
-        col = (posX)/(gp.tileSize);
-        rowEnd = (posYend)/(gp.tileSize);
-        colEnd = (posXend)/(gp.tileSize);
+        row = (posY)/(gp.getTileSize());
+        col = (posX)/(gp.getTileSize());
+        rowEnd = (posYend)/(gp.getTileSize());
+        colEnd = (posXend)/(gp.getTileSize());
 
         if(!(pathTiles.contains(tiles[mapTiles[col][rowEnd]]) && pathTiles.contains(tiles[mapTiles[colEnd][rowEnd]]))){
             return false;
         }
-        for (Players p : gp.personnages){
+        for (Players p : gp.getPersonnages()){
             if(p!=npc){
-                if(p.getPosition().get(0)<npc.getPosition().get(0)+gp.tileSize &&
-                        p.getPosition().get(0)+gp.tileSize>npc.getPosition().get(0) &&
-                        p.getPosition().get(1)<npc.getPosition().get(1)+gp.tileSize &&
-                        p.getPosition().get(1)+gp.tileSize>npc.getPosition().get(1)){
+                if(p.getPosition().get(0)<npc.getPosition().get(0)+gp.getTileSize() &&
+                        p.getPosition().get(0)+gp.getTileSize()>npc.getPosition().get(0) &&
+                        p.getPosition().get(1)<npc.getPosition().get(1)+gp.getTileSize() &&
+                        p.getPosition().get(1)+gp.getTileSize()>npc.getPosition().get(1)){
                     return false;
                 }
             }

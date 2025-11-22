@@ -40,15 +40,15 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
 
-        if (gp.getGameState() == gp.titleState) {
+        if (gp.getGameState() == gp.getTitleState()) {
             handleTitleState(code);
-        } else if (gp.getGameState() == gp.pauseState) {
+        } else if (gp.getGameState() == gp.getPauseState()) {
             handlePauseState(code);
-        } else if (gp.getGameState() == gp.commandState) {
+        } else if (gp.getGameState() == gp.getCommandState()) {
             handleCommandState(code);
-        } else if (gp.getGameState() == gp.victoryState) {
+        } else if (gp.getGameState() == gp.getVictoryState()) {
             handleVictoryState(code);
-        } else if (gp.getGameState() == gp.gameOverState) {
+        } else if (gp.getGameState() == gp.getGameOverState()) {
             handleGameOverState(code);
         }
 
@@ -92,7 +92,7 @@ public class KeyHandler implements KeyListener {
             gp.setMenuCommand(0);
         } else if (command == 1) {
 
-            gp.setGameState(gp.commandState);
+            gp.setGameState(gp.getCommandState());
             gp.setMenuCommand(0);
         } else if (command == 2) {
 
@@ -131,7 +131,7 @@ public class KeyHandler implements KeyListener {
     private void startGameWithCharacter(boolean isRed) {
         this.redJeanGuy = isRed;
         gp.startGame();
-        gp.setGameState(gp.playState);
+        gp.setGameState(gp.getPlayState());
     }
 
     private void handlePauseState(int code) {
@@ -149,7 +149,7 @@ public class KeyHandler implements KeyListener {
     private void executePauseMenuAction() {
         if (gp.getMenuCommand() == 0) {
             gp.setTitleScreenState(0);
-            gp.setGameState(gp.titleState);
+            gp.setGameState(gp.getTitleState());
             gp.setMenuCommand(0);
         } else if (gp.getMenuCommand() == 1) {
             System.exit(0);
@@ -158,7 +158,7 @@ public class KeyHandler implements KeyListener {
 
     private void handleCommandState(int code) {
         if (code == KeyEvent.VK_ENTER) {
-            gp.setGameState(gp.titleState);
+            gp.setGameState(gp.getTitleState());
             gp.setMenuCommand(0);
         }
     }
@@ -182,7 +182,7 @@ public class KeyHandler implements KeyListener {
 
             gp.resetGame();
             gp.setTitleScreenState(0);
-            gp.setGameState(gp.titleState);
+            gp.setGameState(gp.getTitleState());
         } else if (gp.getMenuCommand() == 1) {
 
             System.exit(0);
@@ -209,7 +209,7 @@ public class KeyHandler implements KeyListener {
 
         if (command == 0 || command == 1) {
             gp.resetGame();
-            gp.setGameState(gp.titleState);
+            gp.setGameState(gp.getTitleState());
 
             if (command == 1) {
                 gp.setTitleScreenState(0);
@@ -224,10 +224,10 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             int currentState = gp.getGameState();
 
-            if (currentState == gp.playState) {
-                gp.setGameState(gp.pauseState);
-            } else if (currentState == gp.pauseState) {
-                gp.setGameState(gp.playState);
+            if (currentState == gp.getPlayState()) {
+                gp.setGameState(gp.getPauseState());
+            } else if (currentState == gp.getPauseState()) {
+                gp.setGameState(gp.getPlayState());
             }
         }
     }

@@ -69,7 +69,7 @@ public abstract class Bullets {
     }
 
     public void setIsActive() {
-        String act = BulletCollisions.bulletCollisions(gamePanel, this, gamePanel.jeanGuy);
+        String act = BulletCollisions.bulletCollisions(gamePanel, this, gamePanel.getJeanGuy());
         this.isActive = act;
     }
 
@@ -114,7 +114,7 @@ public abstract class Bullets {
     }
 
     public void draw(Graphics g2){
-        g2.drawImage(this.image, (int) Math.round(position.get(0)), (int) Math.round(position.get(1)), gamePanel.tileSize, gamePanel.tileSize,null);
+        g2.drawImage(this.image, (int) Math.round(position.get(0)), (int) Math.round(position.get(1)), gamePanel.getTileSize(), gamePanel.getTileSize(),null);
 
     }
 }

@@ -14,38 +14,38 @@ import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
 //    private Panel panel = new Panel();
-    final int originalTileSize = 16;
-    final int scale = 3; //for now
-    public final int tileSize = originalTileSize * scale;
-    public final int maxScreenCol = 16;
-    public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol;
-    public final int screenHeight = tileSize * maxScreenRow;
-    public ArrayList<Players> personnages = new ArrayList<>();
-    final int FPS = 60;
+    private final int originalTileSize = 16;
+    private final int scale = 3; //for now
+    private final int tileSize = originalTileSize * scale;
+    private final int maxScreenCol = 16;
+    private  final int maxScreenRow = 12;
+    private  final int screenWidth = tileSize * maxScreenCol;
+    private  final int screenHeight = tileSize * maxScreenRow;
+    private  ArrayList<Players> personnages = new ArrayList<>();
+    private final int FPS = 60;
     private boolean addplayers = false;
     private boolean victory=false;
 
     KeyHandler keyHandler = new KeyHandler(this);
     Thread gameThread;
-    public JeanGuy jeanGuy;
-    TileManager tileM = new TileManager(this, jeanGuy);
-    public ArrayList<Equipements> equipements = new ArrayList<>();
-    public ArrayList<Bullets> bullets = new ArrayList<>();
-    protected ArrayList<String> info;
-    public UI UI = new UI(this);
+    private JeanGuy jeanGuy;
+    private TileManager tileM = new TileManager(this, jeanGuy);
+    private  ArrayList<Equipements> equipements = new ArrayList<>();
+    private ArrayList<Bullets> bullets = new ArrayList<>();
+    private ArrayList<String> info;
+    private UI UI = new UI(this);
 
     // GAME STATE
 
-    public int GameState;
-    public final int titleState = 0;
-    public final int playState = 1;
-    public final int pauseState = 2;
-    public final int commandState = 3;
-    public final int gameOverState = 4;
-    public final int victoryState = 5;
-    int playerX = 200;
-    int playerY = 200;
+    private int GameState;
+    private final int titleState = 0;
+    private final int playState = 1;
+    private final int pauseState = 2;
+    private final int commandState = 3;
+    private final int gameOverState = 4;
+    private final int victoryState = 5;
+    private int playerX = 200;
+    private int playerY = 200;
 
 
 
@@ -58,31 +58,43 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void incrementMenuCommand() {
-        UI.commandNum++;
+        UI.plusCommandNum();
     }
 
     public void decrementMenuCommand() {
-        UI.commandNum--;
+        UI.minusCommandNum();
     }
 
     public void setMenuCommand(int value) {
-        UI.commandNum = value;
+        UI.setCommandNum(value);
     }
 
     public int getMenuCommand() {
-        return UI.commandNum;
+        return UI.getCommandNum();
+    }
+
+    public int getScreenWidth() {
+        return this.screenWidth;
+    }
+
+    public int getScreenHeight(){
+        return this.screenHeight;
     }
 
     public void setTitleScreenState(int state) {
-        UI.titleScreenState = state;
+        UI.setTitleScreenState(state);
     }
 
     public int getTitleScreenState() {
-        return UI.titleScreenState;
+        return UI.getTitleScreenState();
     }
 
     public void setGameState(int state) {
         this.GameState = state;
+    }
+
+    public int getTileSize(){
+        return this.tileSize;
     }
 
     public int getGameState() {
@@ -91,7 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void prepareGame() {
         GameState = titleState;
-        UI.titleScreenState = 0;
+        UI.setTitleScreenState(0);
     }
 
     public void setVictory(boolean victory) {
@@ -162,6 +174,63 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    public int getTitleState(){
+        return this.titleState;
+    }
+    public int getPauseState(){
+        return this.pauseState;
+    }
+    public int getCommandState(){
+        return this.commandState;
+
+    }
+    public int getGameOverState(){
+        return this.gameOverState;
+    }
+
+    public int getVictoryState(){
+        return this.victoryState;
+    }
+    public int getPlayState(){
+        return this.playState;
+    }
+    public ArrayList<Equipements> getEquipements(){
+        return this.equipements;
+    }
+    public ArrayList<Players> getPersonnages(){
+        return this.personnages;
+    }
+    public ArrayList<Bullets> getBullets(){
+        return this.bullets;
+    }
+
+    public UI getmyUI(){
+        return this.UI;
+    }
+    public int getMaxScreenCol(){
+        return this.maxScreenCol;
+    }
+    public int getMaxScreenRow(){
+        return this.maxScreenRow;
+    }
+
+
+
+
+
+    public int getPlayerX(){
+        return this.playerX;
+    }
+    public int getPlayerY(){
+        return this.playerY;
+    }
+
+
+
+    public Playable getJeanGuy(){
+        return this.jeanGuy;
+    }
+
     public void resetGame() {
 
         tileM = new TileManager(this, jeanGuy);
@@ -176,7 +245,7 @@ public class GamePanel extends JPanel implements Runnable {
         // Reset l'UI
         UI.gameOverAlpha = 0;
         UI.gameOverCounter = 0;
-        UI.commandNum = 0;
+        UI.setCommandNum(0);
     }
 
     public void setInfo(ArrayList<String> info){
@@ -272,7 +341,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             if(jeanGuy != null && jeanGuy.isDead()) {
                 GameState = gameOverState;
-                UI.commandNum = 0;
+                UI.setCommandNum(0);
             }
 
             for (Players p : personnages) {

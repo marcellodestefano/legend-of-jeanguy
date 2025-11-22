@@ -221,11 +221,11 @@ public abstract class Playable extends Players{
         if (dir.equals("up-player")) {
             position.set(1, Math.max(0,position.get(1) - 5));
         }else if (dir.equals("down-player")) {
-            position.set(1, Math.min(gamePanel.getHeight()-gamePanel.tileSize, position.get(1) + 5));
+            position.set(1, Math.min(gamePanel.getHeight()-gamePanel.getTileSize(), position.get(1) + 5));
         }else if (dir.equals("left-player")) {
             position.set(0, Math.max(0,position.get(0) - 5));
         }else if (dir.equals("right-player")) {
-            position.set(0, Math.min(gamePanel.getWidth()- gamePanel.tileSize,position.get(0) + 5));
+            position.set(0, Math.min(gamePanel.getWidth()- gamePanel.getTileSize(),position.get(0) + 5));
         }
         spriteCounter++;
     }
@@ -328,24 +328,24 @@ public abstract class Playable extends Players{
         return false;
     }
     public String chooseDirection(){
-        if ((gamePanel.tileSize<=position.get(0)&&position.get(0)<=gamePanel.getWidth()-gamePanel.tileSize)){
-            if (position.get(1)>gamePanel.screenHeight/2){
-                position.set(1, 2*gamePanel.tileSize);
+        if ((gamePanel.getTileSize()<=position.get(0)&&position.get(0)<=gamePanel.getWidth()-gamePanel.getTileSize())){
+            if (position.get(1)>gamePanel.getScreenHeight()/2){
+                position.set(1, 2*gamePanel.getTileSize());
                 return "SOUTH";
             }
-            else if(position.get(1)<gamePanel.screenHeight/2){
-                position.set(1, gamePanel.screenHeight-3*gamePanel.tileSize);
+            else if(position.get(1)<gamePanel.getScreenHeight()/2){
+                position.set(1, gamePanel.getScreenHeight()-3*gamePanel.getTileSize());
                 return "NORTH";
             }
 
         }
-        else if(gamePanel.tileSize<=position.get(1) && gamePanel.getHeight()-gamePanel.tileSize>=position.get(1)){
-            if (position.get(0)>gamePanel.screenWidth/2){
-                position.set(0, gamePanel.tileSize);
+        else if(gamePanel.getTileSize()<=position.get(1) && gamePanel.getHeight()-gamePanel.getTileSize()>=position.get(1)){
+            if (position.get(0)>gamePanel.getScreenWidth()/2){
+                position.set(0, gamePanel.getTileSize());
                 return "EAST";
             }
-            else if(position.get(0)<gamePanel.screenWidth/2){
-                position.set(0, gamePanel.screenWidth-gamePanel.tileSize);
+            else if(position.get(0)<gamePanel.getScreenWidth()/2){
+                position.set(0, gamePanel.getScreenWidth()-gamePanel.getTileSize());
                 return "WEST";
             }
         }
@@ -417,8 +417,8 @@ public abstract class Playable extends Players{
             }
             else{
                 this.setKillable(true);
-                Equipements ramasse= CollisionEquipement.collisionEquipement(gamePanel.equipements, this, gamePanel.tileSize);
-                boolean pass = CollisionDistance.collisionDistance(gamePanel.personnages, this, gamePanel.tileSize);
+                Equipements ramasse= CollisionEquipement.collisionEquipement(gamePanel.getEquipements(), this, gamePanel.getTileSize());
+                boolean pass = CollisionDistance.collisionDistance(gamePanel.getPersonnages(), this, gamePanel.getTileSize());
                 if (!pass){
                     notPassing();
                 }
@@ -432,7 +432,7 @@ public abstract class Playable extends Players{
                 else if(canAttack() && keyHandler.isAtkPressed()) { // Quand est-ce que jg peut attaker
                     direction = atkMovement();
                     lastAtk = direction;
-                    Players receiver = AttackCollisions.attackCollisions(gamePanel.personnages, direction, this, gamePanel.tileSize);
+                    Players receiver = AttackCollisions.attackCollisions(gamePanel.getPersonnages(), direction, this, gamePanel.getTileSize());
                     sendDamage(receiver);
                 }
                 else if (!(respass.equals("block"))){
@@ -443,13 +443,13 @@ public abstract class Playable extends Players{
                         gamePanel.getTileM().changeMap(nextCunk);
                     }
                     if (respass.equals("merchant")){
-                        position.set(0, gamePanel.screenWidth/2);
-                        position.set(1,gamePanel.screenHeight-3*gamePanel.tileSize);
+                        position.set(0, gamePanel.getScreenWidth()/2);
+                        position.set(1,gamePanel.getScreenHeight()-3*gamePanel.getTileSize());
                         gamePanel.getTileM().changeMap("MERCHANT");
                     }
                     if (respass.equals("exitmerchant")){
-                        position.set(0, 4*gamePanel.tileSize);
-                        position.set(1,gamePanel.screenHeight-3*gamePanel.tileSize);
+                        position.set(0, 4*gamePanel.getTileSize());
+                        position.set(1,gamePanel.getScreenHeight()-3*gamePanel.getTileSize());
                         gamePanel.getTileM().changeMap("SOUTH");
                     }
                 }
@@ -514,7 +514,7 @@ public abstract class Playable extends Players{
                 if (spriteNum == 2) {
                     image = atkright;
                 }
-                positionImage2.set(0, position.get(0) + gamePanel.tileSize);
+                positionImage2.set(0, position.get(0) + gamePanel.getTileSize());
                 positionImage2.set(1, position.get(1));
                 image2 = weaponsSprites.get(3);
                 break;
@@ -526,7 +526,7 @@ public abstract class Playable extends Players{
                     image = atkup;
                 }
                 positionImage2.set(0, position.get(0));
-                positionImage2.set(1, position.get(1)-gamePanel.tileSize);
+                positionImage2.set(1, position.get(1)-gamePanel.getTileSize());
                 image2 = weaponsSprites.get(0);
                 break;
             case "atkleft":
@@ -537,7 +537,7 @@ public abstract class Playable extends Players{
                     image = atkleft;
                 }
                 image2 = weaponsSprites.get(2);
-                positionImage2.set(0, position.get(0)-gamePanel.tileSize);
+                positionImage2.set(0, position.get(0)-gamePanel.getTileSize());
                 positionImage2.set(1, position.get(1));
                 break;
             case "atkdown":
@@ -549,7 +549,7 @@ public abstract class Playable extends Players{
                 }
                 image2 = weaponsSprites.get(1);
                 positionImage2.set(0, position.get(0));
-                positionImage2.set(1, position.get(1)+gamePanel.tileSize);
+                positionImage2.set(1, position.get(1)+gamePanel.getTileSize());
                 break;
             case "atkleftdown":
                 if (spriteNum == 1) {
@@ -559,8 +559,8 @@ public abstract class Playable extends Players{
                     image = down2;
                 }
                 image2 = weaponsSprites.get(5);
-                positionImage2.set(0, position.get(0)-gamePanel.tileSize);
-                positionImage2.set(1, position.get(1)+gamePanel.tileSize);
+                positionImage2.set(0, position.get(0)-gamePanel.getTileSize());
+                positionImage2.set(1, position.get(1)+gamePanel.getTileSize());
                 break;
             case "atkrightdown":
                 if (spriteNum == 1) {
@@ -570,8 +570,8 @@ public abstract class Playable extends Players{
                     image = down2;
                 }
                 image2 = weaponsSprites.get(7);
-                positionImage2.set(0, position.get(0)+gamePanel.tileSize);
-                positionImage2.set(1, position.get(1)+gamePanel.tileSize);
+                positionImage2.set(0, position.get(0)+gamePanel.getTileSize());
+                positionImage2.set(1, position.get(1)+gamePanel.getTileSize());
                 break;
             case "atkrightup":
                 if (spriteNum == 1) {
@@ -581,8 +581,8 @@ public abstract class Playable extends Players{
                     image = up2;
                 }
                 image2 = weaponsSprites.get(6);
-                positionImage2.set(0, position.get(0)+gamePanel.tileSize);
-                positionImage2.set(1, position.get(1)-gamePanel.tileSize);
+                positionImage2.set(0, position.get(0)+gamePanel.getTileSize());
+                positionImage2.set(1, position.get(1)-gamePanel.getTileSize());
                 break;
             case "atkleftup":
                 if (spriteNum == 1) {
@@ -592,8 +592,8 @@ public abstract class Playable extends Players{
                     image = down2;
                 }
                 image2 = weaponsSprites.get(4);
-                positionImage2.set(0, position.get(0)-gamePanel.tileSize);
-                positionImage2.set(1, position.get(1)-gamePanel.tileSize);
+                positionImage2.set(0, position.get(0)-gamePanel.getTileSize());
+                positionImage2.set(1, position.get(1)-gamePanel.getTileSize());
                 break;
             case "up-player":
                 if (spriteNum == 1) {
@@ -670,9 +670,9 @@ public abstract class Playable extends Players{
             dmgdir=null;
 
         }
-        g2.drawImage(image, position.get(0), position.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, position.get(0), position.get(1), gamePanel.getTileSize(), gamePanel.getTileSize(), null);
         if (image2 != null) {
-            g2.drawImage(image2, positionImage2.get(0), positionImage2.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
+            g2.drawImage(image2, positionImage2.get(0), positionImage2.get(1), gamePanel.getTileSize(), gamePanel.getTileSize(), null);
         }
     };
 

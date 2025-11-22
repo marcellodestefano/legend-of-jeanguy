@@ -53,7 +53,7 @@ public class Octorok extends NonPlayable{
         if (attackSpeed==0){
             attackSpeed=200;
             Bullets b = new Octorokatk(gamePanel, this, cible);
-            gamePanel.bullets.add(b);
+            gamePanel.getBullets().add(b);
         }
 
         if(!this.isDead()){
@@ -69,7 +69,7 @@ public class Octorok extends NonPlayable{
                 direction = "down";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
-                    position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
+                    position.set(1, Math.min(gamePanel.getHeight() - gamePanel.getTileSize(),position.get(1) + checkSpeed()));
                 }
             }
             if (dir.contains("left")&&canPass(respass)) {
@@ -83,7 +83,7 @@ public class Octorok extends NonPlayable{
                 direction = "right";
                 spriteCounter++;
                 if(!(dir.contains("atk"))){
-                    position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
+                    position.set(0, Math.min(gamePanel.getWidth() - gamePanel.getTileSize(),position.get(0) + checkSpeed()));
                 }
             }
             this.attackSpeed--;
@@ -139,7 +139,7 @@ public class Octorok extends NonPlayable{
                 }
                 break;
         }
-        g2.drawImage(image, position.get(0), position.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, position.get(0), position.get(1), gamePanel.getTileSize(), gamePanel.getTileSize(), null);
     };
 }
 

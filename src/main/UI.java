@@ -19,8 +19,8 @@ public class UI {
     protected String message = "";
     protected boolean messageOn = false;
     private int messageCounter = 0;
-    public int commandNum = 0;
-    public int titleScreenState = 0; // 0 = Main title / 1 = Selection of character skin
+    private int commandNum = 0;
+    private int titleScreenState = 0; // 0 = Main title / 1 = Selection of character skin
     protected int gameOverAlpha = 0;  // Transparence (0 = invisible, 255 = opaque)
     protected int gameOverCounter = 0;
     protected int victoryAlpha = 0;
@@ -78,6 +78,28 @@ public class UI {
         arial_80B = new Font("Arial", Font.BOLD, 80);
     }
 
+    public int getCommandNum() {
+        return this.commandNum;
+    }
+    public void plusCommandNum() {
+        this.commandNum ++;
+    }
+    public void minusCommandNum() {
+        this.commandNum --;
+    }
+
+    public void setCommandNum(int commandNum){
+        this.commandNum = commandNum;
+    }
+
+    public int getTitleScreenState() {
+        return this.titleScreenState;
+    }
+
+    public void setTitleScreenState(int titleScreenState) {
+        this.titleScreenState = titleScreenState;
+    }
+
     public void showMessage(String text){
         message = text;
         messageOn = true;
@@ -93,10 +115,10 @@ public class UI {
             }
         }
         if (gp.getVictory()){
-            gp.GameState = gp.victoryState;
+            gp.setGameState(gp.getVictoryState());
         }
 
-        if(gp.GameState == gp.gameOverState){
+        if(gp.getGameState() == gp.getGameOverState()){
             gameOverCounter++;
             if(gameOverCounter <= 120){  // 2 secondes à 60 FPS
                 gameOverAlpha = Math.min(255, gameOverAlpha + 4);  // Augmente progressivement
@@ -106,7 +128,7 @@ public class UI {
             gameOverCounter = 0;
         }
 
-        if(gp.GameState == gp.victoryState){
+        if(gp.getGameState() == gp.getVictoryState()){
             victoryCounter++;
             if(victoryCounter <= 120){
                 victoryAlpha = Math.min(255, victoryAlpha + 4);
@@ -120,23 +142,23 @@ public class UI {
     public void draw(Graphics2D g2){
         this.g2 = g2;
 
-        if(gp.GameState == gp.titleState){
+        if(gp.getGameState() == gp.getTitleState()){
             drawTitleScreen();
         }
-        if(gp.GameState == gp.playState){
+        if(gp.getGameState() == gp.getPlayState()){
             drawPlayerLife();
             drawMessage();
         }
-        if(gp.GameState == gp.pauseState){
+        if(gp.getGameState() == gp.getPauseState()){
             drawPauseScreen();
         }
-        if(gp.GameState == gp.gameOverState){  // AJOUTE CETTE SECTION
+        if(gp.getGameState() == gp.getGameOverState()){  // AJOUTE CETTE SECTION
             drawGameOverScreen();
         }
-        if(gp.GameState == gp.commandState){
+        if(gp.getGameState() == gp.getCommandState()){
             drawCommandScreen();
         }
-        if(gp.GameState == gp.victoryState){
+        if(gp.getGameState() == gp.getVictoryState()){
             drawVictoryScreen();
         }
     }
@@ -144,13 +166,13 @@ public class UI {
     public void drawVictoryScreen(){
 
         g2.setColor(new Color(0, 0, 0, Math.min(200, victoryAlpha)));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.fillRect(0, 0, gp.getScreenWidth(), gp.getScreenHeight());
 
         g2.setFont(zeldaFont.deriveFont(80f));
         g2.setColor(new Color(255, 215, 0, victoryAlpha)); // Doré avec transparence
         String text = "VICTORY";
         int x = getXcentered(text);
-        int y = gp.screenHeight / 2;
+        int y = gp.getScreenHeight() / 2;
         g2.drawString(text, x, y);
 
         if(victoryAlpha >= 255){
@@ -159,18 +181,18 @@ public class UI {
 
             text = "MAIN MENU";
             x = getXcentered(text);
-            y = gp.tileSize * 10;
+            y = gp.getTileSize() * 10;
             g2.drawString(text, x, y);
             if(commandNum == 0){
-                g2.drawString(">", x - gp.tileSize, y);
+                g2.drawString(">", x - gp.getTileSize(), y);
             }
 
             text = "QUIT";
             x = getXcentered(text);
-            y = gp.tileSize * 11;
+            y = gp.getTileSize() * 11;
             g2.drawString(text, x, y);
             if(commandNum == 1){
-                g2.drawString(">", x - gp.tileSize, y);
+                g2.drawString(">", x - gp.getTileSize(), y);
             }}
     }
 
@@ -181,7 +203,7 @@ public class UI {
             g2.setFont(zeldaFont.deriveFont(25f));
             String text = "The Legend of Jean-Guy";
             int x = getXcentered(text);
-            int y = gp.tileSize*3;
+            int y = gp.getTileSize()*3;
 
 
             g2.setColor(Color.WHITE);
@@ -189,8 +211,8 @@ public class UI {
 
             // Image de jean guy
 
-            x = gp.screenWidth/2;
-            y = gp.tileSize*2;
+            x = gp.getScreenWidth()/2;
+            y = gp.getTileSize()*2;
             g2.drawImage(titleImage, 330, 200, 125, 125, null);
 
             // MENU
@@ -199,26 +221,26 @@ public class UI {
 
             text = "START GAME";
             x = getXcentered(text);
-            y = gp.tileSize*9;
+            y = gp.getTileSize()*9;
             g2.drawString(text,x,y);
             if(commandNum == 0){
-                g2.drawString(">", x-gp.tileSize, y);
+                g2.drawString(">", x-gp.getTileSize(), y);
             }
 
             text = "COMMANDS";
             x = getXcentered(text);
-            y = gp.tileSize*10;
+            y = gp.getTileSize()*10;
             g2.drawString(text,x,y);
             if(commandNum == 1){
-                g2.drawString(">", x-gp.tileSize, y);
+                g2.drawString(">", x-gp.getTileSize(), y);
             }
 
             text = "QUIT";
             x = getXcentered(text);
-            y = gp.tileSize*11;
+            y = gp.getTileSize()*11;
             g2.drawString(text,x,y);
             if(commandNum == 2){
-                g2.drawString(">", x-gp.tileSize, y);
+                g2.drawString(">", x-gp.getTileSize(), y);
             }
         }
         if(titleScreenState == 1){
@@ -227,14 +249,14 @@ public class UI {
             g2.setFont(zeldaFont.deriveFont(25f));
             String text = "Select your Jean-Guy skin !";
             int x = getXcentered(text);
-            int y = gp.tileSize*3;
+            int y = gp.getTileSize()*3;
             g2.setColor(Color.WHITE);
             g2.drawString(text,x,y);
 
             // Dessiner jean guy
 
-            x = gp.screenWidth/2;
-            y = gp.tileSize;
+            x = gp.getScreenWidth()/2;
+            y = gp.getTileSize();
             g2.drawImage(titleImage, 150, 200, 125, 125, null);
             if(commandNum == 0){
                 g2.setFont(zeldaFont.deriveFont(50f));
@@ -243,8 +265,8 @@ public class UI {
 
             // Dessiner red jean guy
 
-            x = gp.screenWidth/2;
-            y = gp.tileSize;
+            x = gp.getScreenWidth()/2;
+            y = gp.getTileSize();
             g2.drawImage(redJeanGuy, 500, 200, 125, 125, null);
             if(commandNum == 1){
                 g2.setFont(zeldaFont.deriveFont(50f));
@@ -256,10 +278,10 @@ public class UI {
             g2.setFont(zeldaFont.deriveFont(20f));
             text = "Back to the main title";
             x = getXcentered(text);
-            y = gp.tileSize*9;
+            y = gp.getTileSize()*9;
             g2.drawString(text,x,y);
             if(commandNum == 2){
-                g2.drawString(">", x-gp.tileSize, y);
+                g2.drawString(">", x-gp.getTileSize(), y);
             }
         }
     }
@@ -269,7 +291,7 @@ public class UI {
         g2.setFont(zeldaFont.deriveFont(25f));
         String text = "COMMANDS";
         int x = getXcentered(text);
-        int y = gp.tileSize*3;
+        int y = gp.getTileSize()*3;
         g2.setColor(Color.WHITE);
         g2.drawString(text,x,y);
 
@@ -279,44 +301,44 @@ public class UI {
 
         // Image de flèches
 
-        x = gp.screenWidth/2;
-        y = gp.tileSize*2;
+        x = gp.getScreenWidth()/2;
+        y = gp.getTileSize()*2;
         g2.drawImage(arrows, 75, 200, 250, 250, null);
 
         // Image de commandes attaque defense
 
-        x = gp.screenWidth/2;
-        y = gp.tileSize*2;
+        x = gp.getScreenWidth()/2;
+        y = gp.getTileSize()*2;
         g2.drawImage(attackDefense, 400, 150, 250, 250, null);
 
 
         // Image entrée + echap
 
-        x = gp.screenWidth/2;
-        y = gp.tileSize*2;
+        x = gp.getScreenWidth()/2;
+        y = gp.getTileSize()*2;
         g2.drawImage(echapEnter, 400, 275, 250, 250, null);
 
 
         text = "BACK";
         x = getXcentered(text);
-        y = gp.tileSize*11;
+        y = gp.getTileSize()*11;
         g2.drawString(text,x,y);
         if(commandNum == 0){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.getTileSize(), y);
         }
     }
 
     public void drawGameOverScreen(){
 
         g2.setColor(new Color(0, 0, 0, Math.min(200, gameOverAlpha)));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.fillRect(0, 0, gp.getScreenWidth(), gp.getScreenHeight());
 
 
         g2.setFont(zeldaFont.deriveFont(80f));
         g2.setColor(new Color(255, 0, 0, gameOverAlpha)); // Rouge avec transparence
         String text = "GAME OVER";
         int x = getXcentered(text);
-        int y = gp.screenHeight / 2;
+        int y = gp.getScreenHeight() / 2;
         g2.drawString(text, x, y);
 
 
@@ -326,26 +348,26 @@ public class UI {
 
             text = "RETRY";
             x = getXcentered(text);
-            y = gp.tileSize * 9;
+            y = gp.getTileSize() * 9;
             g2.drawString(text, x, y);
             if(commandNum == 0){
-                g2.drawString(">", x - gp.tileSize, y);
+                g2.drawString(">", x - gp.getTileSize(), y);
             }
 
             text = "MAIN MENU";
             x = getXcentered(text);
-            y = gp.tileSize * 10;
+            y = gp.getTileSize() * 10;
             g2.drawString(text, x, y);
             if(commandNum == 1){
-                g2.drawString(">", x - gp.tileSize, y);
+                g2.drawString(">", x - gp.getTileSize(), y);
             }
 
             text = "QUIT";
             x = getXcentered(text);
-            y = gp.tileSize * 11;
+            y = gp.getTileSize() * 11;
             g2.drawString(text, x, y);
             if(commandNum == 2){
-                g2.drawString(">", x - gp.tileSize, y);
+                g2.drawString(">", x - gp.getTileSize(), y);
             }
         }
     }
@@ -372,17 +394,17 @@ public class UI {
 
     public void drawPlayerLife(){
 
-        int x = gp.tileSize / 2;
-        int y = gp.tileSize / 2;
+        int x = gp.getTileSize() / 2;
+        int y = gp.getTileSize() / 2;
 
         int heartWidth = 40;
         int heartHeight = 40;
 
 
-        for(int i = 0; i < gp.jeanGuy.getHpMax(); i++){
+        for(int i = 0; i < gp.getJeanGuy().getHpMax(); i++){
 
 
-            if(i < gp.jeanGuy.getHp()){
+            if(i < gp.getJeanGuy().getHp()){
                 g2.drawImage(heartFull, x, y, heartWidth, heartHeight, null);
             }
 
@@ -392,7 +414,7 @@ public class UI {
 
             x += heartWidth + 5;
 
-            int gemX = gp.tileSize / 2;
+            int gemX = gp.getTileSize() / 2;
             int gemY = y + heartHeight + 10;
             int gemSize = 40;
 
@@ -402,7 +424,7 @@ public class UI {
 
             g2.setFont(zeldaFont.deriveFont(20f));
             g2.setColor(Color.white);
-            String argentText = ":" + gp.jeanGuy.getArgent();
+            String argentText = ":" + gp.getJeanGuy().getArgent();
             g2.drawString(argentText, gemX + gemSize + 5, gemY + gemSize - 10);
         }
     }
@@ -411,7 +433,7 @@ public class UI {
 
     public void drawPauseScreen(){
         g2.setColor(new Color(0, 0, 0, 150)); // RGB(0,0,0) avec alpha=150 (opacité)
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.fillRect(0, 0, gp.getScreenWidth(), gp.getScreenHeight());
 
         g2.setFont(zeldaFont);
         g2.setColor(Color.white);
@@ -420,7 +442,7 @@ public class UI {
 
         int x = getXcentered(text);
 
-        int y = gp.screenHeight/2;
+        int y = gp.getScreenHeight()/2;
 
         g2.drawString(text,x,y);
 
@@ -428,24 +450,24 @@ public class UI {
 
         text = "RETURN TO MAIN TITLE";
         x = getXcentered(text);
-        y = gp.tileSize*9;
+        y = gp.getTileSize()*9;
         g2.drawString(text,x,y);
         if(commandNum == 0){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.getTileSize(), y);
         }
 
         text = "QUIT";
         x = getXcentered(text);
-        y = gp.tileSize*10;
+        y = gp.getTileSize()*10;
         g2.drawString(text,x,y);
         if(commandNum == 1){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.getTileSize(), y);
         }
     }
 
     public int getXcentered(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenWidth/2 - length/2;
+        int x = gp.getScreenWidth()/2 - length/2;
         return x;
     }
 
