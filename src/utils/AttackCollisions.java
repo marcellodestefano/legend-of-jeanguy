@@ -1,13 +1,14 @@
 package utils;
 
 import entities.players.JeanGuy;
+import entities.players.Playable;
 import entities.players.Players;
 
 import java.util.ArrayList;
 
 public class AttackCollisions {
 
-    public static Players attackCollisions(ArrayList<Players> enemies, String direction, JeanGuy jeanguy, int tileSize){
+    public static Players attackCollisions(ArrayList<Players> enemies, String direction, Playable jeanguy, int tileSize){
         int posX=jeanguy.getPosition().get(0);
         int posY=jeanguy.getPosition().get(1);
         int posXend= posX+tileSize;

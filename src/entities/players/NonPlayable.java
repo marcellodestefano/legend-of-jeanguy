@@ -1,9 +1,14 @@
 package entities.players;
 
 
+import entities.equipements.Equipements;
+import entities.equipements.soins.Coeur;
+import entities.equipements.soins.CoeurMax;
 import main.GamePanel;
 import utils.AlgorithmMovement;
 import utils.Collisions;
+import utils.CollisionsNpcMap;
+import utils.CreationMonstres;
 
 import java.util.*;
 
@@ -14,6 +19,8 @@ public abstract class NonPlayable extends Players{
     protected String dmgdir;
     protected int cpdmg = 0;
     protected int oldspeed, maxvalue=10;
+    private List<Equipements> possibleDrops;
+
 
 
 
@@ -22,13 +29,40 @@ public abstract class NonPlayable extends Players{
         id = counter++;
         this.name = name + this.id;
         oldspeed = speed;
+        this.possibleDrops = new ArrayList<>();
+
+        possibleDrops.add(new Coeur(gamePanel));
+        possibleDrops.add(new CoeurMax(gamePanel));
+        this.startPosition();
     }
+
+
+    public void startPosition(){
+        while (!CreationMonstres.creationMonstres(this.gamePanel,this)) {
+            Random r = new Random();
+            int x;
+            int y;
+            x = r.nextInt(gamePanel.getScreenWidth() - gamePanel.getTileSize())+1;
+            y = r.nextInt(gamePanel.getScreenHeight()/2)+1;
+            position.set(0, x);
+            position.set(1, y);
+        }
+    }
+
+
     public void cible(Playable cible){
         this.cible = cible;
     }
+
+    public Playable getCible(){
+        return this.cible;
+    }
+
     public int getId() {
         return id;
     }
+
+
     public int checkSpeed(){
         if (this.cpdmg!=0){
             return this.speed = 5;
@@ -47,12 +81,20 @@ public abstract class NonPlayable extends Players{
         return this.dmgdir;
     }
     public int getCpdmg(){
-
         return this.cpdmg;
     }
     public void setCpdmg(){
         this.cpdmg--;
     }
+
+    public boolean canPass(String respass){
+        return respass=="path";
+    }
+    public List<Equipements> getPossibleDrops(){
+        return this.possibleDrops;
+    }
+
+
 
     @Override
     public void receiveDamage(int damage, String dir) {
@@ -65,43 +107,42 @@ public abstract class NonPlayable extends Players{
     @Override
     public void update() {
         String dir = AlgorithmMovement.movements(gamePanel,this, cible);
-        String atk = Collisions.collisions(gamePanel.personnages, this.direction, this, gamePanel.tileSize);
-
-        if(this.isDead()){
-
-        }else{
-        if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
-            cible.receiveDamage(this.damage,atk);
-        }
-        if (dir.contains("up")) {
-            direction = "up";
-            spriteCounter++;
-            position.set(1, Math.max(0,position.get(1) - checkSpeed()));
-        }
-        if (dir.contains("down")) {
-            direction = "down";
-            spriteCounter++;
-            position.set(1, Math.min(gamePanel.getHeight() - gamePanel.tileSize,position.get(1) + checkSpeed()));
-        }
-        if (dir.contains("left")) {
-            direction = "left";
-            spriteCounter++;
-            position.set(0, Math.max(0,position.get(0) - checkSpeed()));
-        }
-        if (dir.contains("right")) {
-            direction = "right";
-            spriteCounter++;
-            position.set(0, Math.min(gamePanel.getWidth() - gamePanel.tileSize,position.get(0) + checkSpeed()));
-        }
-
-        if (spriteCounter > 12) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 1;
+        String atk = Collisions.collisions(gamePanel.getPersonnages(), this.direction, this, gamePanel.getTileSize());
+        String respass = CollisionsNpcMap.collisionsNpcMap(this,dir ,gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
+        if(!(this.isDead())){
+            if(atk=="down-player"||atk=="up-player"||atk=="left-player"||atk=="right-player"){
+                if (cible.isKillable()){
+                cible.receiveDamage(this, this.damage,atk);
+            }}
+            if (dir.contains("up")&&canPass(respass)) {
+                direction = "up";
+                spriteCounter++;
+                position.set(1, Math.max(0,position.get(1) - checkSpeed()));
             }
-            spriteCounter = 0;
-        }}
+            if (dir.contains("down")&&canPass(respass)) {
+                direction = "down";
+                spriteCounter++;
+                position.set(1, Math.min(gamePanel.getHeight() - gamePanel.getTileSize(),position.get(1) + checkSpeed()));
+            }
+            if (dir.contains("left")&&canPass(respass)) {
+                direction = "left";
+                spriteCounter++;
+                position.set(0, Math.max(0,position.get(0) - checkSpeed()));
+            }
+            if (dir.contains("right")&&canPass(respass)) {
+                direction = "right";
+                spriteCounter++;
+                position.set(0, Math.min(gamePanel.getWidth() - gamePanel.getTileSize(),position.get(0) + checkSpeed()));
+            }
+
+            if (spriteCounter > 12) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }}
     }
 
 

@@ -15,13 +15,10 @@ public class Gumba extends NonPlayable {
         super(gamePanel,"Gumba#", 1,new ArrayList<Integer>(Arrays.asList(0,0,0)),1,3,2,
                 false, true, 1,true, Arrays.asList("",""),Arrays.asList("/assets/ennemies/gumba/Gumba1.png",
                         "/assets/ennemies/gumba/Gumba2.png","/assets/ennemies/gumba/GumbaDeath.png"));
-        this.startPosition();
+
     }
 
-    public void startPosition(){
-        this.position.set(0, 300);
-        this.position.set(1, 50+this.id*100);
-    }
+
     @Override
     public void getPlayerImage() {
         try{
@@ -47,7 +44,7 @@ public class Gumba extends NonPlayable {
             }
         }
 
-        g2.drawImage(image, position.get(0), position.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, position.get(0), position.get(1), gamePanel.getTileSize(), gamePanel.getTileSize(), null);
 
 
     }

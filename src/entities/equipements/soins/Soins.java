@@ -7,16 +7,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-abstract class Soins extends Equipements{
-    protected int dropPercentage;
+public abstract class Soins extends Equipements{
+    protected static int dropPercentage;
 
-    public Soins(GamePanel gp, boolean drop, String name, int unite, List<String> spritePath, int dropPercentage, ArrayList<Integer> position){
+    public Soins(GamePanel gp, boolean drop, int dropPercentage, String name, int unite, List<String> spritePath, ArrayList<Integer> position){
         super(gp, drop, name, unite, spritePath, position);
         this.dropPercentage = dropPercentage;
-
     }
 
-    public int getDropPercentage() {
+    public static int getDropPercentage() {
         return dropPercentage;
+    }
+
+    public void setPosition(ArrayList<Integer>position){
+        this.position = position;
     }
 }

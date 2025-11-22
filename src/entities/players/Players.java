@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
 
+import entities.equipements.Equipements;
 import input.KeyHandler;
 import main.GamePanel;
 
@@ -27,6 +28,9 @@ public abstract class Players implements Actions{
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
     protected GamePanel gamePanel;
+    protected int cpAtk;
+
+
 
 
 
@@ -60,12 +64,22 @@ public abstract class Players implements Actions{
         return this.position;
 
     }
+    public List<String> getSpritePaths(){
+        return this.spritesPaths;
+    }
+    public int getAttackSpeed(){
+        return this.attackSpeed;
+    }
     public int getRange() {
         return this.range;
     }
 
     public int getHp() {
         return this.hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public float getSpeed() {
@@ -83,6 +97,10 @@ public abstract class Players implements Actions{
         return this.Dead;
     }
 
+    public void setDead(boolean dead) {
+        this.Dead = dead;
+    }
+
 
     public boolean isKillable() {
         return this.killable;
@@ -93,6 +111,14 @@ public abstract class Players implements Actions{
 
     public List<String> getSoundPaths() {
         return this.soundPaths;
+    }
+
+    public String getDirection() {
+        return this.direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
 
@@ -106,6 +132,7 @@ public abstract class Players implements Actions{
     public void receiveDamage(int damage, String dir){
         this.hp = Math.max(0, this.hp-damage);
     }
+    public void receiveDamage(Players sender, int damage, String dir){}
 
 
     public boolean attack(Players cible){
@@ -119,51 +146,17 @@ public abstract class Players implements Actions{
 
     public void getPlayerImage() {
     }
+
+    public void checkDrop(Players players){}
+
+    public void dropItem(Equipements equipements){}
+
     public void update(){
 
     }
 
 
-    public void draw(Graphics2D g2) {
-
-//        BufferedImage image = null;
-//            switch(direction) {
-//                case "up":
-//                    if (spriteNum == 1) {
-//                        image = up1;
-//                    }
-//                    if (spriteNum == 2) {
-//                        image = up2;
-//                    }
-//                    break;
-//                case "down":
-//                    if (spriteNum == 1) {
-//                        image = down1;
-//                    }
-//                    if (spriteNum == 2) {
-//                        image = down2;
-//                    }
-//                    break;
-//                case "left":
-//                    if (spriteNum == 1) {
-//                        image = left1;
-//                    }
-//                    if (spriteNum == 2) {
-//                        image = left2;
-//                    }
-//                    break;
-//                case "right":
-//                    if (spriteNum == 1) {
-//                        image = right1;
-//                    }
-//                    if (spriteNum == 2) {
-//                        image = right2;
-//                    }
-//                    break;
-//            }
-//            g2.drawImage(image, position.get(0), position.get(1), gamePanel.tileSize, gamePanel.tileSize, null);
-        };
-
+    public void draw(Graphics2D g2) {}
 
 }
 

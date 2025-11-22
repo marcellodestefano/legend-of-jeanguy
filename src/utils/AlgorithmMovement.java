@@ -23,41 +23,33 @@ public class AlgorithmMovement {
             if (Math.abs(diffx) >= Math.abs(diffy)) {
                 if (diffx > 0) {
                     direction = "left";
-                    if(Collisions.collisions(gamePanel.personnages, direction,enemy , gamePanel.tileSize)=="ok"){
+                    if(Collisions.collisions(gamePanel.getPersonnages(), direction,enemy , gamePanel.getTileSize())=="ok"){
                         return "left";
-                    }else{
-                        return "none";
                     }
                 } else {
                     direction = "right";
-                    if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
+                    if(Collisions.collisions(gamePanel.getPersonnages(), direction, enemy, gamePanel.getTileSize())=="ok"){
                         return "right";
-                    }else{
-                        return "none";
                     }
 
                 }
             } else if (Math.abs(diffy) > Math.abs(diffx)) {
                 if (diffy > 0) {
                     direction = "up";
-                    if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
+                    if(Collisions.collisions(gamePanel.getPersonnages(), direction, enemy, gamePanel.getTileSize())=="ok"){
                         return "up";
-                    }else{
-                        return "none";
                     }
 
                 } else {
                     direction = "down";
-                    if(Collisions.collisions(gamePanel.personnages, direction, enemy, gamePanel.tileSize)=="ok"){
+                    if(Collisions.collisions(gamePanel.getPersonnages(), direction, enemy, gamePanel.getTileSize())=="ok"){
                         return "down";
-                    }else{
-                        return "none";
                     }
 
                 }
-            }else {
+            }
                 return "none";
-            }}
+            }
     }
 }
 
