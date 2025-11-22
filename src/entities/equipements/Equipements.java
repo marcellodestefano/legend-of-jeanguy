@@ -13,7 +13,7 @@ public abstract class Equipements {
     protected String name;
     protected int unite;
     protected List<String> spritePath;
-    public BufferedImage equipementImage;
+    protected BufferedImage equipementImage;
     protected GamePanel gp;
     protected ArrayList<Integer> position;
     protected boolean ramasser = false;
@@ -48,10 +48,6 @@ public abstract class Equipements {
         return this.ramasser;
     }
 
-    public void setisRamasser(boolean changeChunk) {
-        this.ramasser = changeChunk;
-    }
-
     public void getPlayerImage() {
         try {
             this.equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
@@ -70,8 +66,9 @@ public abstract class Equipements {
 
     public void draw(Graphics2D g) {
     }
-    public void update() {
-    }
+
+    public void update(){}
 }
+
 
 
