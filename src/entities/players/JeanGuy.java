@@ -58,14 +58,15 @@ public class JeanGuy extends Playable {
         this.spritesPaths.set(7, "/assets/redplayer/redsprite/droite2.png");
         this.spritesPaths.set(8, "/assets/redplayer/reddeath/reddeath.png");
 
-        this.defenseSprites.set(0, "/assets/redplayer/redshield/up1.png");
-        this.defenseSprites.set(1, "/assets/redplayer/redshield/up2.png");
-        this.defenseSprites.set(2, "/assets/redplayer/redshield/down1.png");
-        this.defenseSprites.set(3, "/assets/redplayer/redshield/down2.png");
-        this.defenseSprites.set(4, "/assets/redplayer/redshield/left1.png");
-        this.defenseSprites.set(5, "/assets/redplayer/redshield/left2.png");
-        this.defenseSprites.set(6, "/assets/redplayer/redshield/right1.png");
-        this.defenseSprites.set(7, "/assets/redplayer/redshield/right2.png");
+        this.defenseSprites.set(0, "/assets/redplayer/redblocking/up1.png");
+        this.defenseSprites.set(1, "/assets/redplayer/redblocking/up2.png");
+        this.defenseSprites.set(2, "/assets/redplayer/redblocking/down1.png");
+        this.defenseSprites.set(3, "/assets/redplayer/redblocking/down2.png");
+        this.defenseSprites.set(4, "/assets/redplayer/redblocking/left1.png");
+        this.defenseSprites.set(5, "/assets/redplayer/redblocking/left2.png");
+        this.defenseSprites.set(6, "/assets/redplayer/redblocking/right1.png");
+        this.defenseSprites.set(7, "/assets/redplayer/redblocking/right2.png");
+
 
         this.attackSprites.set(0, "/assets/redplayer/redattack/attackup.png");
         this.attackSprites.set(1, "/assets/redplayer/redattack/attackdown.png");
@@ -78,14 +79,15 @@ public class JeanGuy extends Playable {
     public void rammasserBouclier(){
 
         if (keyHandler.isRedJeanGuy() == true){
-            this.spritesPaths.set(0, "/assets/redplayer/redblocking/up1.png");
-            this.spritesPaths.set(1, "/assets/redplayer/redblocking/up2.png");
-            this.spritesPaths.set(2, "/assets/redplayer/redblocking/down1.png");
-            this.spritesPaths.set(3, "/assets/redplayer/redblocking/down2.png");
-            this.spritesPaths.set(4, "/assets/redplayer/redblocking/left1.png");
-            this.spritesPaths.set(5, "/assets/redplayer/redblocking/left2.png");
-            this.spritesPaths.set(6, "/assets/redplayer/redblocking/right1.png");
-            this.spritesPaths.set(7, "/assets/redplayer/redblocking/right2.png");
+
+            this.spritesPaths.set(0, "/assets/redplayer/redshield/up1.png");
+            this.spritesPaths.set(1, "/assets/redplayer/redshield/up2.png");
+            this.spritesPaths.set(2, "/assets/redplayer/redshield/down1.png");
+            this.spritesPaths.set(3, "/assets/redplayer/redshield/down2.png");
+            this.spritesPaths.set(4, "/assets/redplayer/redshield/left1.png");
+            this.spritesPaths.set(5, "/assets/redplayer/redshield/left2.png");
+            this.spritesPaths.set(6, "/assets/redplayer/redshield/right1.png");
+            this.spritesPaths.set(7, "/assets/redplayer/redshield/right2.png");
             //bouclier
             try {
                 this.defup1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.defenseSprites.get(0))));
