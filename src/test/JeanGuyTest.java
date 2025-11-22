@@ -58,7 +58,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("atkMovement avec touche up")
         void testAtkMovementUp() {
-            keyHandler.upPressed = true;
+            keyHandler.setUpPressed(true);
 
             String result = jeanGuy.atkMovement();
 
@@ -69,7 +69,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("atkMovement avec touche down")
         void testAtkMovementDown() {
-            keyHandler.downPressed = true;
+            keyHandler.setDownPressed(true);
 
             String result = jeanGuy.atkMovement();
 
@@ -79,7 +79,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("atkMovement avec touche left")
         void testAtkMovementLeft() {
-            keyHandler.leftPressed = true;
+            keyHandler.setLeftPressed(true);
 
             String result = jeanGuy.atkMovement();
 
@@ -89,7 +89,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("atkMovement avec touche right")
         void testAtkMovementRight() {
-            keyHandler.rightPressed = true;
+            keyHandler.setRightPressed(true);
 
             String result = jeanGuy.atkMovement();
 
@@ -99,8 +99,8 @@ class JeanGuyTest {
         @Test
         @DisplayName("atkMovement diagonale up-left")
         void testAtkMovementUpLeft() {
-            keyHandler.upPressed = true;
-            keyHandler.leftPressed = true;
+            keyHandler.setUpPressed(true);
+            keyHandler.setLeftPressed(true);
 
             String result = jeanGuy.atkMovement();
 
@@ -110,8 +110,8 @@ class JeanGuyTest {
         @Test
         @DisplayName("atkMovement diagonale down-right")
         void testAtkMovementDownRight() {
-            keyHandler.downPressed = true;
-            keyHandler.rightPressed = true;
+            keyHandler.setDownPressed(true);
+            keyHandler.setRightPressed(true);
 
             String result = jeanGuy.atkMovement();
 
@@ -271,7 +271,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("Déplacement vers le haut")
         void testNormalMovementUp() {
-            keyHandler.upPressed = true;
+            keyHandler.setUpPressed(true);
             int initialY = jeanGuy.getPosition().get(1);
 
             String result = jeanGuy.normalMovement();
@@ -284,7 +284,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("Déplacement vers le bas")
         void testNormalMovementDown() {
-            keyHandler.downPressed = true;
+            keyHandler.setDownPressed(true);
             int initialY = jeanGuy.getPosition().get(1);
 
             String result = jeanGuy.normalMovement();
@@ -296,7 +296,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("Déplacement vers la gauche")
         void testNormalMovementLeft() {
-            keyHandler.leftPressed = true;
+            keyHandler.setLeftPressed(true);
             int initialX = jeanGuy.getPosition().get(0);
 
             String result = jeanGuy.normalMovement();
@@ -308,7 +308,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("Déplacement vers la droite")
         void testNormalMovementRight() {
-            keyHandler.rightPressed = true;
+            keyHandler.setRightPressed(true);
             int initialX = jeanGuy.getPosition().get(0);
 
             String result = jeanGuy.normalMovement();

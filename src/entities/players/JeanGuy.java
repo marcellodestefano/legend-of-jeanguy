@@ -37,7 +37,7 @@ public class JeanGuy extends Playable {
                 "/assets/playerblocking/down1.png","/assets/playerblocking/down2.png","/assets/playerblocking/left1.png","/assets/playerblocking/left2.png",
                 "/assets/playerblocking/right1.png","/assets/playerblocking/right2.png"));
 
-        if (keyHandler.redJeanGuy){
+        if (keyHandler.isRedJeanGuy()){
             redJG();
         }
         this.getPlayerImage();
@@ -77,7 +77,7 @@ public class JeanGuy extends Playable {
 
     public void rammasserBouclier(){
 
-        if (keyHandler.redJeanGuy == true){
+        if (keyHandler.isRedJeanGuy() == true){
             this.spritesPaths.set(0, "/assets/redplayer/redblocking/up1.png");
             this.spritesPaths.set(1, "/assets/redplayer/redblocking/up2.png");
             this.spritesPaths.set(2, "/assets/redplayer/redblocking/down1.png");
