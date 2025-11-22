@@ -170,35 +170,35 @@ class JeanGuyTest {
         @Test
         @DisplayName("Défense down")
         void testDefenseDownBlocksUp() {
-            jeanGuy.direction = "defdown";
+            jeanGuy.setDirection("defdown");
             assertTrue(jeanGuy.defense("up-player"));
         }
 
         @Test
         @DisplayName("Défense up")
         void testDefenseUpBlocksDown() {
-            jeanGuy.direction = "defup";
+            jeanGuy.setDirection("defup");
             assertTrue(jeanGuy.defense("down-player"));
         }
 
         @Test
         @DisplayName("Défense right")
         void testDefenseRightBlocksLeft() {
-            jeanGuy.direction = "defright";
+            jeanGuy.setDirection("defright");
             assertTrue(jeanGuy.defense("left-player"));
         }
 
         @Test
         @DisplayName("Défense left")
         void testDefenseLeftBlocksRight() {
-            jeanGuy.direction = "defleft";
+            jeanGuy.setDirection("defleft");
             assertTrue(jeanGuy.defense("right-player"));
         }
 
         @Test
         @DisplayName("Défense incorrecte ne bloque pas")
         void testIncorrectDefenseDoesNotBlock() {
-            jeanGuy.direction = "defdown";
+            jeanGuy.setDirection("defdown");
             assertFalse(jeanGuy.defense("down-player"));
             assertFalse(jeanGuy.defense("left-player"));
             assertFalse(jeanGuy.defense("right-player"));
@@ -207,7 +207,7 @@ class JeanGuyTest {
         @Test
         @DisplayName("Sans défense active, aucun blocage")
         void testNoDefenseNoBlock() {
-            jeanGuy.direction = "up";
+            jeanGuy.setDirection("up");
             assertFalse(jeanGuy.defense("up-player"));
         }
     }
@@ -252,7 +252,7 @@ class JeanGuyTest {
         void testSuccessfulDefenseReflectsDamage() {
             int initialHP = jeanGuy.getHp();
 
-            jeanGuy.direction = "defdown";
+            jeanGuy.setDirection("defdown");
             jeanGuy.receiveDamage(enemy, 2, "up-player");
             assertEquals(initialHP, jeanGuy.getHp());
         }

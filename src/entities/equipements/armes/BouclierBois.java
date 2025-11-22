@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class BouclierBois extends Armes{
     protected int prix=10;
@@ -24,7 +25,7 @@ public class BouclierBois extends Armes{
 
     public void getSpriteImage(){
         try{
-            this.equipementImage = ImageIO.read(getClass().getResourceAsStream(this.spritePath.get(0)));
+            this.equipementImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.spritePath.get(0))));
         }catch(IOException e){
             e.printStackTrace();
         }

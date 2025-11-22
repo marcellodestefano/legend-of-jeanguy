@@ -9,7 +9,7 @@ import tile.Tile;
 import java.util.ArrayList;
 
 public class CollisionsMap {
-    public static String collisionsMap(JeanGuy jeanGuy, ArrayList<Tile> pathTiles, ArrayList<Tile> chunkTiles, int[][] mapTiles, GamePanel gp, Tile[] tiles) {
+    public static String collisionsMap(Playable jeanGuy, ArrayList<Tile> pathTiles, ArrayList<Tile> chunkTiles, int[][] mapTiles, GamePanel gp, Tile[] tiles) {
         int posX, posY, posXend, posYend;
         int col, rowEnd, colEnd;
 

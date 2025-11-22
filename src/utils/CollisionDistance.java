@@ -1,13 +1,13 @@
 package utils;
 
-import entities.players.JeanGuy;
-import entities.players.NonPlayable;
+
+import entities.players.Playable;
 import entities.players.Players;
 
 import java.util.ArrayList;
 
 public class CollisionDistance {
-    public static boolean collisionDistance(ArrayList<Players> players, JeanGuy jeanGuy, int tileSize){
+    public static boolean collisionDistance(ArrayList<Players> players, Playable jeanGuy, int tileSize){
         int posX=jeanGuy.getPosition().get(0);
         int posY=jeanGuy.getPosition().get(1);
         int posXend= posX+tileSize;

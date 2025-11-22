@@ -24,7 +24,7 @@ public abstract class Players implements Actions{
     protected boolean killable;
     protected List<String> soundPaths = new ArrayList<>();
     protected List<String> spritesPaths = new ArrayList<>();
-    public String direction = "down";
+    protected String direction = "down";
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
     protected GamePanel gamePanel;
@@ -111,6 +111,14 @@ public abstract class Players implements Actions{
 
     public List<String> getSoundPaths() {
         return this.soundPaths;
+    }
+
+    public String getDirection() {
+        return this.direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
 
