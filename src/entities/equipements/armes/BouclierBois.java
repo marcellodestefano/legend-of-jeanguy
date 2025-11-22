@@ -18,7 +18,6 @@ public class BouclierBois extends Armes{
     public BouclierBois(GamePanel gp){
         super(gp,false, "Bouclier_en_bois", 1, new ArrayList<String>(List.of("/assets/equipments/weapons/bouclierbois.png")), true, 1,  new ArrayList<Integer>(Arrays.asList(0,0,0)));
 
-
         getSpriteImage();
         startPosition();
     }
@@ -37,13 +36,7 @@ public class BouclierBois extends Armes{
 
     public void startPosition(){
         this.position.set(0,220);
-        this.position.set(1,285);
-    }
-
-    @Override
-    public void update(){
-
-    }
+        this.position.set(1,285);}
 
     @Override
     public void draw(Graphics2D g2) {

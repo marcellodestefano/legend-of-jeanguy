@@ -50,8 +50,4 @@ public class EpeeBois extends Armes{
     public ArrayList<BufferedImage> getSwordImages(){
         return this.swordImages;
     }
-
-    public int getPrix(){
-        return prix;
-    }
 }
