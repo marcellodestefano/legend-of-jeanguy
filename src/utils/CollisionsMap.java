@@ -7,8 +7,37 @@ import main.GamePanel;
 import tile.Tile;
 
 import java.util.ArrayList;
-
+/**
+ * Utility class for handling collision detection between the player and the game map.
+ * <p>
+ * This class provides a method to check what type of tile or area the player is colliding with,
+ * based on their current position, movement direction, and speed.
+ */
 public class CollisionsMap {
+    /**
+     * Determines the type of collision the player ({@link Playable}) has with the map.
+     * <p>
+     * The method calculates the bounding box of the player and determines which tiles
+     * (from {@code mapTiles} and {@code tiles}) the player is interacting with. It considers
+     * both movement input from the player and damage knockback direction.
+     * <p>
+     * Possible return values:
+     * <ul>
+     *     <li>{@code "path"}: the player is on a walkable path tile.</li>
+     *     <li>{@code "chunk"}: the player is on a chunk tile or reached the map boundaries.</li>
+     *     <li>{@code "merchant"}: the player is on a merchant tile.</li>
+     *     <li>{@code "exitmerchant"}: the player is on an exit tile of the merchant.</li>
+     *     <li>{@code "block"}: the player is blocked by a non-walkable tile.</li>
+     * </ul>
+     *
+     * @param jeanGuy the {@link Playable} player whose collision is being checked
+     * @param pathTiles the list of tiles considered as walkable paths
+     * @param chunkTiles the list of tiles considered as map chunks
+     * @param mapTiles a 2D array representing the map, where each element is an index into {@code tiles}
+     * @param gp the {@link GamePanel} containing screen and tile information
+     * @param tiles an array of {@link Tile} objects representing all possible tiles in the game
+     * @return a {@link String} indicating the type of collision ("path", "chunk", "merchant", "exitmerchant", or "block")
+     */
     public static String collisionsMap(Playable jeanGuy, ArrayList<Tile> pathTiles, ArrayList<Tile> chunkTiles, int[][] mapTiles, GamePanel gp, Tile[] tiles) {
         int posX, posY, posXend, posYend;
         int col, rowEnd, colEnd;

@@ -16,7 +16,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-
+/**
+ * Manages all the tiles in the game, including loading images,
+ * keeping track of map layout, and rendering tiles on the screen.
+ */
 public class TileManager {
 
     GamePanel gp;
@@ -30,7 +33,13 @@ public class TileManager {
     private ArrayList<Tile> chunkTiles = new ArrayList<>();
     private ArrayList<String> info = new ArrayList<>();
     private int index;
-
+    /**
+     * Initializes the TileManager with the game panel and player reference.
+     * Loads the default tiles and map chunk.
+     *
+     * @param gp the main game panel
+     * @param jeanGuy the player character
+     */
     public TileManager(GamePanel gp, JeanGuy jeanGuy) {
         this.gp = gp;
         this.jeanGuy = jeanGuy;
@@ -43,28 +52,51 @@ public class TileManager {
         getTileImage();
         loadChunk(currentZone, folderName);
     }
-
+    /**
+     * Returns the list of tiles that represent walkable paths.
+     *
+     * @return ArrayList of path tiles
+     */
     public ArrayList<Tile> getPathTiles(){
         return this.pathTiles;
     }
-
+    /**
+     * Returns the list of tiles that form the chunk (room/area) layout.
+     *
+     * @return ArrayList of chunk tiles
+     */
     public ArrayList<Tile> getChunkTiles(){
         return this.chunkTiles;
     }
-
+    /**
+     * Returns the 2D map array containing tile indices for rendering.
+     *
+     * @return 2D array of tile numbers
+     */
     public int[][] getMapTiles(){
         return this.mapTileNum;
     }
-
+    /**
+     * Returns the array of all tiles loaded in the game.
+     *
+     * @return Tile array
+     */
     public Tile[] getTiles(){
         return this.tile;
     }
-
+    /**
+     * Returns the index of the current map info entry.
+     *
+     * @return index of current map info
+     */
     public int getIndex(){
         return this.index;
     }
 
-
+    /**
+     * Loads tile images from resources and assigns them to tile objects.
+     * Populates the pathTiles and chunkTiles lists accordingly.
+     */
 
     public void getTileImage() {
 
@@ -471,7 +503,12 @@ public class TileManager {
 
     }
 
-
+    /**
+     * Changes the current map based on a given order string.
+     * Updates the currentZone, folderName, and reloads the chunk.
+     *
+     * @param order the map transition command
+     */
 
     public void changeMap(String order){
 
@@ -518,7 +555,12 @@ public class TileManager {
         }
     }
 
-
+    /**
+     * Loads a chunk of the map (a specific room/area) from a file.
+     *
+     * @param zone the current zone name
+     * @param folderName the file name of the map chunk
+     */
 
     public void loadChunk(String zone, String folderName) {
         try {
@@ -550,12 +592,18 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Clears the stored map info data.
+     */
     public void clearInfo(){
         this.info.clear();
     }
 
-
+    /**
+     * Draws all visible tiles on the screen using the Graphics2D object.
+     *
+     * @param g2 the Graphics2D object used for drawing
+     */
     public void draw(Graphics2D g2) {
         int col = 0;
         int row = 0;

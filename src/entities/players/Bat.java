@@ -8,9 +8,21 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-
+/**
+ * Class representing a Bat enemy in the game.
+ * <p>
+ * The Bat is a non-playable character (NPC) that moves around and can deal damage.
+ * It has simple movement animations and a death sprite.
+ */
 public class Bat extends NonPlayable{
+    /** First movement, second movement and death sprites */
     BufferedImage move1, move2, dead;
+
+    /**
+     * Constructs a new Bat instance.
+     *
+     * @param gamePanel Reference to the main game panel.
+     */
     public Bat(GamePanel gamePanel) {
         super(gamePanel,"Bat#", 1,new ArrayList<Integer>(Arrays.asList(0,0,0)),1,3,2,
                 false, true, 1,true, Arrays.asList("",""),Arrays.asList("/assets/ennemies/batattck/Bat1.png",
@@ -18,7 +30,12 @@ public class Bat extends NonPlayable{
 
     }
 
-
+    /**
+     * Loads the Bat's sprite images from resources.
+     * <p>
+     * This method initializes the movement and death sprites using the
+     * file paths defined in {@code spritesPaths}.
+     */
     @Override
     public void getPlayerImage() {
         try{
@@ -29,6 +46,15 @@ public class Bat extends NonPlayable{
             e.printStackTrace();
         }
     }
+    /**
+     * Draws the Bat on the screen using its current sprite.
+     * <p>
+     * If the Bat is currently taking damage (cpdmg > 0), it will display the
+     * death sprite. Otherwise, it alternates between move1 and move2 sprites
+     * to create a simple animation effect.
+     *
+     * @param g2 Graphics2D object used for drawing the Bat.
+     */
     @Override
     public void draw(Graphics2D g2) {
 

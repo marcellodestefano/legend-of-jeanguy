@@ -11,19 +11,51 @@ import utils.CollisionsNpcMap;
 import utils.CreationMonstres;
 
 import java.util.*;
-
+/**
+ * Abstract class representing a non-playable character (NPC) in the game.
+ * <p>
+ * Extends the {@link Players} class and adds behavior specific to NPCs,
+ * such as targeting a playable character, autonomous movement, handling
+ * damage, and potential item drops.
+ * </p>
+ */
 public abstract class NonPlayable extends Players{
+    /** Unique identifier for each NPC */
     protected int id;
+    /** Static counter to assign unique IDs */
     protected static int counter = 0;
+    /** Current target playable character */
     protected Playable cible;
+    /** Direction from which damage was received */
     protected String dmgdir;
+    /** Damage cooldown counter */
     protected int cpdmg = 0;
-    protected int oldspeed, maxvalue=10;
+    /** Original speed of the NPC */
+    protected int oldspeed;
+    /** Maximum gold/loot value */
+    protected int maxvalue=10;
+    /** List of possible items that can drop from this NPC */
     private List<Equipements> possibleDrops;
 
 
 
-
+    /**
+     * Constructs a non-playable character.
+     *
+     * @param panel GamePanel reference
+     * @param name NPC name
+     * @param damage Base damage of the NPC
+     * @param position Initial position [x, y]
+     * @param range Attack range
+     * @param hp Initial health points
+     * @param speed Movement speed
+     * @param isDead Initial dead state
+     * @param isMelee Whether NPC uses melee attacks
+     * @param attackSpeed Speed of attacks
+     * @param killable Whether the NPC can be killed
+     * @param soundPaths List of sound file paths
+     * @param spritePaths List of sprite image paths
+     */
     public NonPlayable(GamePanel panel , String name, int damage, List<Integer> position, int range, int hp, int speed, boolean isDead, boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritePaths) {
         super (panel, name, damage, position, range,  hp,  speed, isDead,  isMelee,  attackSpeed,  killable,  soundPaths,spritePaths);
         id = counter++;
@@ -36,7 +68,10 @@ public abstract class NonPlayable extends Players{
         this.startPosition();
     }
 
-
+    /**
+     * Randomly sets the starting position of the NPC,
+     * ensuring it does not collide with other monsters.
+     */
     public void startPosition(){
         while (!CreationMonstres.creationMonstres(this.gamePanel,this)) {
             Random r = new Random();
@@ -61,20 +96,28 @@ public abstract class NonPlayable extends Players{
     }
 
 
-
+    /**
+     * Sets the current target playable character.
+     *
+     * @param cible The playable character to target
+     */
     public void cible(Playable cible){
         this.cible = cible;
     }
-
+    /** Returns the current target playable character */
     public Playable getCible(){
         return this.cible;
     }
-
+    /** Returns the NPC's unique ID */
     public int getId() {
         return id;
     }
 
-
+    /**
+     * Returns the current speed, considering damage cooldown.
+     *
+     * @return Speed value
+     */
     public int checkSpeed(){
         if (this.cpdmg!=0){
             return this.speed = 5;
@@ -82,32 +125,50 @@ public abstract class NonPlayable extends Players{
             return this.speed=oldspeed;
         }
     }
-
+    /**
+     * Returns a random gold/loot value up to {@link #maxvalue}.
+     *
+     * @return Random value
+     */
     public int getValue(){
         Random r = new Random();
         return r.nextInt(maxvalue);
     }
-
+    /** Returns the direction of the last received damage */
     public String getDmgdir(){
 
         return this.dmgdir;
     }
+    /** Returns the current damage cooldown counter */
     public int getCpdmg(){
         return this.cpdmg;
     }
+    /** Decreases the damage cooldown counter by 1 */
     public void setCpdmg(){
         this.cpdmg--;
     }
-
+    /**
+     * Checks if the NPC can pass on a given terrain.
+     *
+     * @param respass The result from collision detection
+     * @return True if NPC can pass
+     */
     public boolean canPass(String respass){
         return respass=="path";
     }
+    /** Returns the list of possible item drops */
     public List<Equipements> getPossibleDrops(){
         return this.possibleDrops;
     }
 
 
-
+    /**
+     * Handles receiving damage from attacks.
+     * Sets damage direction, damage cooldown, and prevents immediate kill.
+     *
+     * @param damage Amount of damage received
+     * @param dir Direction from which damage was received
+     */
     @Override
     public void receiveDamage(int damage, String dir) {
         this.hp = Math.max(0, this.hp-damage);
@@ -116,6 +177,10 @@ public abstract class NonPlayable extends Players{
         this.setKillable(false);
     }
 
+    /**
+     * Updates the NPC's state each frame.
+     * Handles movement towards target, attacks, damage, and sprite animation.
+     */
     @Override
     public void update() {
         String dir = AlgorithmMovement.movements(gamePanel,this, cible);
@@ -156,6 +221,8 @@ public abstract class NonPlayable extends Players{
                 spriteCounter = 0;
             }}
     }
+
+
 
 
 

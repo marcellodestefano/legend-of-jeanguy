@@ -5,27 +5,55 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * The {@code UI} class handles all user interface elements in the game.
+ * <p>
+ * It is responsible for:
+ * <ul>
+ *     <li>Drawing the title screen, command screen, pause screen, game over screen, and victory screen</li>
+ *     <li>Displaying player information such as HP, currency, and messages</li>
+ *     <li>Managing menu selections and command navigation</li>
+ *     <li>Handling screen transitions and UI updates</li>
+ * </ul>
+ */
 public class UI {
+    /** Reference to the main game panel */
     GamePanel gp;
+    /** Graphics2D object used for drawing */
     Graphics2D g2;
+    /** Custom and standard fonts */
     Font zeldaFont, arial_40, arial_80B;
+    /** Images used for UI elements */
     BufferedImage titleImage;
     BufferedImage redJeanGuy;
     BufferedImage arrows;
     BufferedImage attackDefense;
     BufferedImage echapEnter;
     BufferedImage heartFull, heartEmpty, gems;
+    /** Message currently displayed on screen */
     protected String message = "";
+    /** Flag to indicate if a message is active */
     protected boolean messageOn = false;
+    /** Counter for message display duration */
     private int messageCounter = 0;
+    /** Current selected menu command */
     private int commandNum = 0;
+    /** Current state of the title screen (0 = main title, 1 = skin selection) */
     private int titleScreenState = 0; // 0 = Main title / 1 = Selection of character skin
+    /** Alpha transparency for game over screen */
     protected int gameOverAlpha = 0;  // Transparence (0 = invisible, 255 = opaque)
+    /** Counter for game over animation */
     protected int gameOverCounter = 0;
+    /** Alpha transparency for victory screen */
     protected int victoryAlpha = 0;
+    /** Counter for victory animation */
     protected int victoryCounter = 0;
-
+    /**
+     * Constructs a UI object associated with the given {@link GamePanel}.
+     * Loads fonts and images used in the user interface.
+     *
+     * @param gp The main game panel
+     */
     public UI(GamePanel gp){
         this.gp = gp;
 
@@ -99,13 +127,20 @@ public class UI {
     public void setTitleScreenState(int titleScreenState) {
         this.titleScreenState = titleScreenState;
     }
-
+    /**
+     * Shows a temporary message on screen.
+     *
+     * @param text The message to display
+     */
     public void showMessage(String text){
         message = text;
         messageOn = true;
         messageCounter = 0;
     }
-
+    /**
+     * Updates UI elements such as messages, game over, and victory animations.
+     * Should be called once per frame.
+     */
     public void update(){
         if(messageOn){
             messageCounter++;
@@ -138,7 +173,11 @@ public class UI {
             victoryCounter = 0;
         }
     }
-
+    /**
+     * Draws all relevant UI elements depending on the current game state.
+     *
+     * @param g2 Graphics2D object used for drawing
+     */
     public void draw(Graphics2D g2){
         this.g2 = g2;
 
@@ -163,6 +202,7 @@ public class UI {
         }
     }
 
+    /** Draw victory screen with menu */
     public void drawVictoryScreen(){
 
         g2.setColor(new Color(0, 0, 0, Math.min(200, victoryAlpha)));
@@ -195,7 +235,7 @@ public class UI {
                 g2.drawString(">", x - gp.getTileSize(), y);
             }}
     }
-
+    /** Draw title and skin selection screens */
     public void drawTitleScreen(){
 
         if(titleScreenState == 0){
@@ -285,7 +325,7 @@ public class UI {
             }
         }
     }
-
+    /** Draw controls screen */
     public void drawCommandScreen(){
 
         g2.setFont(zeldaFont.deriveFont(25f));
@@ -327,7 +367,7 @@ public class UI {
             g2.drawString(">", x-gp.getTileSize(), y);
         }
     }
-
+    /** Draw game over screen with menu */
     public void drawGameOverScreen(){
 
         g2.setColor(new Color(0, 0, 0, Math.min(200, gameOverAlpha)));
@@ -371,7 +411,9 @@ public class UI {
             }
         }
     }
-
+    /**
+     * Draws a temporary message in the center of the screen.
+     */
     public void drawMessage(){
         if (messageOn) {
             g2.setFont(zeldaFont);
@@ -391,7 +433,9 @@ public class UI {
             g2.drawString(message, x, y);
         }
     }
-
+    /**
+     * Draws the player's current HP and currency.
+     */
     public void drawPlayerLife(){
 
         int x = gp.getTileSize() / 2;
@@ -430,7 +474,7 @@ public class UI {
     }
 
 
-
+    /** Draw pause overlay and menu */
     public void drawPauseScreen(){
         g2.setColor(new Color(0, 0, 0, 150)); // RGB(0,0,0) avec alpha=150 (opacité)
         g2.fillRect(0, 0, gp.getScreenWidth(), gp.getScreenHeight());
@@ -464,7 +508,12 @@ public class UI {
             g2.drawString(">", x-gp.getTileSize(), y);
         }
     }
-
+    /**
+     * Returns the X coordinate to center text horizontally on screen.
+     *
+     * @param text Text to center
+     * @return X coordinate
+     */
     public int getXcentered(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.getScreenWidth()/2 - length/2;

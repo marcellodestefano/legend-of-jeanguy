@@ -10,26 +10,49 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
-
+/**
+ * Class representing the NPC "Odette" in the game.
+ * <p>
+ * Odette is a non-playable character that can move in the game world
+ * and has a scripted initial descent down stairs. She cannot take damage.
+ * She also triggers victory when colliding with the player.
+ */
 public class Odette extends NonPlayable {
+    /** Sprite for the first and second frame of movement */
 
     protected BufferedImage move1, move2;
+    /** Countdown for the initial stair descent */
     protected int cpDesEsc=120;
-
+    /**
+     * Constructs a new Odette NPC.
+     *
+     * @param gamePanel Reference to the main {@link GamePanel}.
+     */
     public Odette(GamePanel gamePanel) {
         super(gamePanel,"Odette", 0, new ArrayList<Integer>(Arrays.asList(10,10,0)), 0, 1,3,false,false,0,false, Arrays.asList("",""),Arrays.asList("/assets/world/pnj/odette/odettebas1.png","/assets/world/pnj/odette/odettebas2.png"));
 
     }
 
+    /**
+     * Overrides damage reception. Odette cannot take damage.
+     *
+     * @param damage Amount of damage (ignored)
+     * @param dir Direction of the attack (ignored)
+     */
     @Override
     public void receiveDamage(int damage, String dir) {
     }
-
+    /**
+     * Sets the initial fixed position of Odette in the game world.
+     */
     @Override
     public void startPosition(){
         this.position.set(0,335);
         this.position.set(1,200);
     }
+    /**
+     * Loads the movement sprites for Odette.
+     */
     @Override
     public void getPlayerImage() {
         try{
@@ -40,11 +63,19 @@ public class Odette extends NonPlayable {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Moves Odette down the stairs during the initial countdown.
+     */
     protected void descendEscaliers(){
         position.set(1, Math.min(gamePanel.getHeight() - gamePanel.getTileSize(),position.get(1) + 1));
     }
-
+    /**
+     * Updates Odette's behavior each frame.
+     * <p>
+     * Handles the stair descent for the first 120 frames, movement using
+     * {@link AlgorithmMovement} and collision detection, and triggers
+     * victory if colliding with the player.
+     */
 
     @Override
     public void update() {
@@ -94,6 +125,12 @@ public class Odette extends NonPlayable {
             spriteCounter = 0;
         }}}
     }
+
+    /**
+     * Draws Odette on the screen.
+     *
+     * @param g2 Graphics2D object used for rendering
+     */
     @Override
     public void draw(Graphics2D g2) {
 

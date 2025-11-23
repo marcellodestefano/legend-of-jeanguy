@@ -3,15 +3,28 @@ package input;
 import main.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+/**
+ * Handles keyboard input for the game.
+ * <p>
+ * This class implements {@link KeyListener} and is responsible for
+ * detecting key presses and releases. It tracks movement keys,
+ * attack/defense actions, and menu navigation, including character
+ * selection, pause, victory, and game over menus.
+ */
 public class KeyHandler implements KeyListener {
-
+    /** Reference to the main {@link GamePanel} for state management */
     private final GamePanel gp;
-
+    /** Movement key states */
     private boolean upPressed, downPressed, leftPressed, rightPressed;
+    /** Action key states */
     private boolean atkPressed, defPressed;
+    /** Whether the player selected the "Red JeanGuy" character */
     private boolean redJeanGuy = false;
-
+    /**
+     * Constructs a new KeyHandler for the given {@link GamePanel}.
+     *
+     * @param gp The main game panel
+     */
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
@@ -29,12 +42,24 @@ public class KeyHandler implements KeyListener {
     public void setDownPressed(boolean value) { this.downPressed = value; }
     public void setLeftPressed(boolean value) { this.leftPressed = value; }
     public void setRightPressed(boolean value) { this.rightPressed = value; }
-
+    /**
+     * Unused keyTyped method from {@link KeyListener}.
+     *
+     * @param e KeyEvent object
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
-
+    /**
+     * Handles key press events.
+     * <p>
+     * Detects the current game state and executes the corresponding
+     * actions for title screen, pause, command, victory, or game over.
+     * Movement and action keys are also updated.
+     *
+     * @param e KeyEvent object
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -254,7 +279,11 @@ public class KeyHandler implements KeyListener {
                 break;
         }
     }
-
+    /**
+     * Handles key release events to reset movement and action keys.
+     *
+     * @param e KeyEvent object
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
