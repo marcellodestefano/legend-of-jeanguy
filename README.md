@@ -30,44 +30,68 @@ A 2D action-adventure game built in Java, inspired by classic dungeon crawlers. 
 Java2D/
 ├── src/
 │   ├── main/
-│   │   ├── Main.java                 # Entry point
-│   │   ├── GamePanel.java            # Core game loop and rendering
-│   │   ├── CollisionChecker.java     # Collision detection
-│   │   ├── EntityHandler.java        # Entity management
-│   │   ├── EventHandler.java         # Game events
-│   │   └── UtilityTools.java         # Helper utilities
+│   │   ├── Main.java               
+│   │   ├── GamePanel.java           
+│   │   ├── UI.java           
 │   ├── entities/
-│   │   ├── bullets/                  # Projectile classes
+│   │   ├── bullets/                  
 │   │   │   ├── Bullets.java
 │   │   │   └── Octorokatk.java
-│   │   ├── players/                  # Player/enemy classes
-│   │   │   ├── Players.java
+│   │   ├── players/                 
+│   │   │   ├── Action.java
+│   │   │   ├── Bat.java
+│   │   │   ├── Gumba.java
 │   │   │   ├── JeanGuy.java
-│   │   │   └── Octorok.java
-│   │   └── Entity.java               # Base entity class
+│   │   │   ├── Marchand.java
+│   │   │   ├── NonPlayable.java
+│   │   │   ├── Octorok.java
+│   │   │   ├── Odette.java
+│   │   │   ├── Playable.java
+│   │   │   ├── Players.java
+│   │   │   └── MaskGuy.java
+│   │   └── equipements/             
+│   │       ├── armes/│
+│   │       │   ├── Armes.java
+│   │       │   ├── BouclierBois.java
+│   │       │   └── EpeeBois.java 
+│   │       ├── soins/
+│   │       │   ├── Soins.java
+│   │       │   ├── Coeur.java
+│   │       │   └── CoeurMax.java 
+│   │       └── Equipements.java         
 │   ├── input/
-│   │   └── KeyHandler.java           # Keyboard input handling
-│   ├── items/
-│   │   ├── SuperItem.java            # Base item class
-│   │   └── ItemHandler.java          # Item management
-│   ├── maps/
-│   │   ├── Maps.java                 # Map loading/rendering
-│   │   └── Tiles.java                # Tile system
-│   ├── sound/
-│   │   └── SoundHandler.java         # Audio management
-│   └── ui/
-│       └── UI.java                   # User interface
+│   │   └── KeyHandler.java    
+│   ├── utils/
+│   │   ├── AlgorthmMovement.java
+│   │   ├── AlgorithmMovementRange.java
+│   │   ├── AttackCollisions.java
+│   │   ├── BulletCollisions.java
+│   │   ├── CollisionDistance.java
+│   │   ├── CollisionEquipement.java
+│   │   ├── Collisions.java
+│   │   ├── CollisionsMap.java
+│   │   ├── CollisionNpcMap.java
+│   │   ├── CreationMonstres.java
+│   │   └── Collisions.java       
+│   ├── test/
+│   │   ├── Tile.java
+│   │   └── TileManager.java   
+│   ├── test/
+│   │   ├── BulletsTest.java
+│   │   ├── JeanGuyTest.java
+│   │   ├── NonPlayableTest.java  
+│   │   ├── GamePanelTest.java              
+│   │   └── OdetteTest.java                                
 ├── resources/
-│   ├── assets/                       # Game assets (131 PNG files)
-│   │   ├── donjon/                   # Dungeon tiles
-│   │   ├── players/                  # Character sprites
-│   │   ├── items/                    # Item graphics
-│   │   └── ui/                       # UI elements
-│   ├── maps/                         # Map data files
-│   ├── musics/                       # Background music
-│   └── sounds/                       # Sound effects
-└── src/test/                         # JUnit test files
-    └── BulletsTest.java
+    ├── assets/                       
+    │   ├── donjon/                   
+    │   ├── players/                 
+    │   ├── items/                  
+    │   └── ui/                   
+    ├── maps/                       
+    ├── musics/                  
+    └── sounds/                 
+
 ```
 
 ## 🔧 Requirements
