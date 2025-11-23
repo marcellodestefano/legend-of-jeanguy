@@ -14,27 +14,74 @@ import main.GamePanel;
 import utils.*;
 
 import javax.imageio.ImageIO;
-
+/**
+ * Abstract class representing a playable character in the game.
+ * <p>
+ * Extends the {@link Players} class and adds functionality specific to
+ * player-controlled characters, such as inventory, gold, key input handling,
+ * health management, movement, attacking, defending, and sprite animation.
+ * </p>
+ */
 public abstract class Playable extends Players{
-
+    /** Key input handler for player actions */
     protected KeyHandler keyHandler;
+    /** Maximum health points */
     protected int hpmax =5;
+    /** Amount of gold the player has */
     protected int argent;
+    /** Player inventory containing equipment and items */
     protected ArrayList<Equipements> inventaire = new ArrayList<>();
+    /** Sprites for movement animations */
     protected BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, dead;
+    /** Sprites for defense animations */
     protected BufferedImage defup1, defup2, defdown1, defdown2, defleft1, defleft2, defright1, defright2;
+    /** Sprites for attack animations */
     protected BufferedImage atkup, atkleft, atkdown, atkright;
+    /** Sprites for taking damage */
     protected BufferedImage degatup1, degatup2, degatdown1, degatdown2, degatright1, degatright2, degatleft1, degatleft2;
+    /** Current damage cooldown */
     protected int cpdmg = 0;
+    /** Secondary position for drawing attack or weapon sprites */
     protected ArrayList<Integer> positionImage2 = new ArrayList<>(Arrays.asList(0,0,0));
-    protected String lastdir = "down", lastAtk, lastDef;
+    /** Last movement direction */
+    protected String lastdir = "down";
+    /** Last attack direction */
+    protected String lastAtk;
+    /** Last defense direction */
+    protected String  lastDef;
+    /** Direction of the last received damage */
     protected String dmgdir;
-    protected int cpAtk, cpDef, defenseSpeed=30;
+    /** Attack and defense counters */
+    protected int cpAtk, cpDef;
+    /** Speed for defense actions */
+    protected int defenseSpeed=30;
+    /** List of attack animation sprite paths */
     protected ArrayList<String> attackSprites = new ArrayList<>();
+    /** List of damage animation sprite paths */
     protected ArrayList<String> damageSprites = new ArrayList<>();
+    /** List of defense animation sprite paths */
     protected ArrayList<String> defenseSprites = new ArrayList<>();
+    /** List of weapon sprites to draw during attacks */
     protected ArrayList<BufferedImage> weaponsSprites = new ArrayList<>();
 
+    /**
+     * Constructs a playable character.
+     *
+     * @param panel GamePanel reference
+     * @param name Character name
+     * @param damage Base damage of the character
+     * @param position Initial position [x, y]
+     * @param range Attack range
+     * @param hp Initial health points
+     * @param speed Movement speed
+     * @param isDead Initial dead state
+     * @param isMelee Whether character uses melee attacks
+     * @param attackSpeed Speed of attacks
+     * @param killable Whether the character can be killed
+     * @param soundPaths List of sound file paths
+     * @param spritePaths List of sprite image paths
+     * @param keyHandler KeyHandler for player input
+     */
     public Playable(GamePanel panel, String name, int damage, List<Integer> position, int range, int hp, int speed, boolean isDead, boolean isMelee, int attackSpeed, boolean killable, List<String> soundPaths, List<String> spritePaths,KeyHandler keyHandler){
         super(panel, name, damage, position, range,  hp,  speed, isDead, isMelee,  attackSpeed,  killable,  soundPaths, spritePaths);
         this.argent = 0;
@@ -46,17 +93,19 @@ public abstract class Playable extends Players{
 
 
     }
+
+    /** Increase HP by 1, up to the maximum */
     public void ramasserCoeur(){
         this.hp = Math.min(this.hp+1, this.hpmax);
     }
-
+    /** Increase maximum HP by 1 and restore health to full */
     public void ramasserCoeurMax(){
         this.hpmax += 1;
         this.hp = hpmax;
     }
 
 
-
+    /** Load movement and dead sprites */
     @Override
     public void getPlayerImage(){
         try{
@@ -75,7 +124,7 @@ public abstract class Playable extends Players{
         }
 
     }
-
+    /** Load attack sprites */
     public void getAttackImage(){
         try{
             this.atkup = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.attackSprites.get(0))));
@@ -86,7 +135,7 @@ public abstract class Playable extends Players{
             e.printStackTrace();
         }
     }
-
+    /** Load damage sprites */
     public void getDamageImage(){
         try{
             this.degatup1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(this.damageSprites.get(0))));
@@ -102,37 +151,36 @@ public abstract class Playable extends Players{
             e.printStackTrace();
         }
     }
-
+    /** Add an equipment item to the inventory */
     public void ramasser(Equipements ramasse){
 
     }
 
-
-
+    /** Returns the player's maximum health */
     public int getHpMax() {
         return hpmax;
     }
-
+    /** Loads weapon images if the first inventory item is a sword */
     public void myWeaponImages(){
         if (this.inventaire.get(0) instanceof EpeeBois epeeBois){
             weaponsSprites = (epeeBois.getSwordImages());
-    }
+        }
     }
 
-
+    /** Returns the player's inventory */
     public ArrayList<Equipements> getInventaire(){
         return this.inventaire;
     }
-
+    /** Returns the player's gold amount */
     public int getArgent(){
         return this.argent;
     }
-
+    /** Adds gold to the player */
     public void setArgent(int argent){
         this.argent += argent;
     }
 
-
+    /** Sets or replaces an equipement in the inventory */
 
     public void setInventaire(Equipements arme){
         if (inventaire.size()<2) {
@@ -142,10 +190,11 @@ public abstract class Playable extends Players{
             inventaire.add(arme);
         }
     }
+    /** Returns whether the player is currently taking damage */
     public boolean isGettingDamage(){
         return cpdmg!=0;
     }
-
+    /** Returns the opposite of a given direction */
     public String oppositeDirection(String dir){
         if (dir.contains("up")){
             return "down";
@@ -161,6 +210,7 @@ public abstract class Playable extends Players{
         }
         return dir;
     }
+    /** Checks whether the player successfully defends against an attack */
     public boolean defense(String dir){
         if (direction.equals("defdown")&&dir.equals("up-player")){
             return true;
@@ -173,7 +223,7 @@ public abstract class Playable extends Players{
         }
         return false;
     }
-
+    /** Updates movement direction based on key input */
     public void notPassing(){
         if (keyHandler.isDownPressed()){
             this.direction = "down";
@@ -190,13 +240,14 @@ public abstract class Playable extends Players{
         }
 
     }
+    /** Returns current movement speed considering damage cooldown */
     public int checkSpeed(){
         if (cpdmg!=0){
             return 5;
         }
         return speed;
     }
-
+    /** Returns the current defense movement direction based on key input */
     public String defenseMovement(){
         spriteCounter++;
         cpDef=10;
@@ -216,7 +267,7 @@ public abstract class Playable extends Players{
         return "def"+lastdir;
 
     }
-
+    /** Moves the player when taking damage */
     public void damageMovement(String dir){
         if (dir.equals("up-player")) {
             position.set(1, Math.max(0,position.get(1) - 5));
@@ -229,14 +280,15 @@ public abstract class Playable extends Players{
         }
         spriteCounter++;
     }
-
+    /** Returns whether the player is currently attacking */
     public boolean isAttacking(){
         return cpAtk!=0;
     }
+    /** Returns whether the player is currently defending */
     public boolean isDefending(){
         return cpDef!=0;
     }
-
+    /** Returns the current attack movement direction based on key input */
     public String atkMovement() {
         spriteCounter++;
         attackSpeed=30;
@@ -271,7 +323,7 @@ public abstract class Playable extends Players{
     }
 
 
-
+    /** Sends damage to a target player */
     public void sendDamage(Players receiver) {
         if (receiver!=null){
             if (receiver.isKillable()){
@@ -292,7 +344,7 @@ public abstract class Playable extends Players{
             }
         }
     }
-
+    /** Returns the direction of normal movement based on key input */
     public String normalMovement() {
 
         String going = lastdir;
@@ -318,7 +370,7 @@ public abstract class Playable extends Players{
         }
         return going;
     }
-
+    /** Checks if the player has a shield to block attacks */
     public boolean canBlock(){
         for (Equipements eq : inventaire){
             if (eq instanceof BouclierBois){
@@ -327,6 +379,7 @@ public abstract class Playable extends Players{
         }
         return false;
     }
+    /** Adjusts the player's position when crossing map boundaries */
     public String chooseDirection(){
         if ((gamePanel.getTileSize()<=position.get(0)&&position.get(0)<=gamePanel.getWidth()-gamePanel.getTileSize())){
             if (position.get(1)>gamePanel.getScreenHeight()/2){
@@ -351,33 +404,33 @@ public abstract class Playable extends Players{
         }
         return null;
     }
-
+    /** Returns the last damage direction */
     public String getDmgdir(){
         return this.dmgdir;
     }
-
+    /** Sets attack speed */
     public void setAttackSpeed(int attackSpeed){
         this.attackSpeed = attackSpeed;
     }
-
+    /** Sets attack counter */
     public void setCpAtk(int cpAtk){
         this.cpAtk = cpAtk;
     }
-
+    /** Returns whether the player can attack */
     public boolean canAttack(){
         return attackSpeed==0;
     }
-
+    /** Returns whether the player can defend */
     public boolean canDefend(){
         return defenseSpeed==0;
     }
 
-
+    /** Returns the KeyHandler used for player input */
 
     public KeyHandler getKeyHandler(){
         return this.keyHandler;
     }
-
+    /** Handles receiving damage with defense logic */
     @Override
     public void receiveDamage (Players sender, int damage, String dir){
         if(!(defense(dir))&&killable){
@@ -391,7 +444,7 @@ public abstract class Playable extends Players{
             sender.receiveDamage(0, direc);
         }
     }
-
+    /** Updates the player's state, movement, attacks, defense, and collisions */
     @Override
     public void update() {
         String respass = CollisionsMap.collisionsMap(this, gamePanel.getTileM().getPathTiles(), gamePanel.getTileM().getChunkTiles(), gamePanel.getTileM().getMapTiles(), gamePanel, gamePanel.getTileM().getTiles());
@@ -469,7 +522,7 @@ public abstract class Playable extends Players{
         }
     }
 
-
+    /** Draws the player, including movement, attack, defense, and damage animations */
     @Override
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
