@@ -11,13 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-/*
-    MaskGuy est un personnaeg non-jouable, ennemi de Jean-Guy.
 
-    son constructeur initialise ses attributs en appelant le constructeur de la classe mère NonPlayable.
-    il extend la classe NonPlayable qui a son tour extend la classe Players.
-    Il implémente une méthode afin d'acceder à sa position de départ.
- */
 public class MaskGuy extends NonPlayable{
     protected BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
 
