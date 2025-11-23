@@ -82,7 +82,7 @@ Java2D/
 │   │   ├── NonPlayableTest.java  
 │   │   ├── GamePanelTest.java              
 │   │   └── OdetteTest.java                                
-├── resources/
+└── resources/
     ├── assets/                       
     │   ├── donjon/                   
     │   ├── players/                 
