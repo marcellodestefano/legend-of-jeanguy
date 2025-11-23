@@ -83,6 +83,18 @@ public abstract class NonPlayable extends Players{
             position.set(1, y);
         }
     }
+    public int getMaxvalue() {
+        return maxvalue;
+    }
+
+    public void setDmgdir(String dmgdir){
+        this.dmgdir = dmgdir;
+    }
+
+    public void setCpdmgTest(int cpdmg){
+        this.cpdmg = cpdmg;
+    }
+
 
     /**
      * Sets the current target playable character.
