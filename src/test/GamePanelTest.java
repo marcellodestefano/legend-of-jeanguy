@@ -110,6 +110,8 @@ class GamePanelTest {
     @DisplayName("JeanGuy mort n'est pas supprimé")
     void testUpdateDoesNotRemoveDeadJeanGuy() {
 
+        gamePanel.startGame();
+
         assertEquals(1, gamePanel.getPersonnages().size());
 
         gamePanel.getPersonnages().get(0).setHp(0);
@@ -127,6 +129,8 @@ class GamePanelTest {
         gamePanel.getEquipements().add(equip);
 
         equip.setRamasser();
+
+        gamePanel.setGameState(1);
 
         gamePanel.update();
 
