@@ -15,9 +15,22 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+/**
+ * Class representing the playable character "JeanGuy".
+ * <p>
+ * This class handles player-specific properties such as sprites, attacks,
+ * defense animations, item collection, and color variations (red version).
+ * It extends the {@link Playable} class and uses a {@link KeyHandler}
+ * to respond to player input.
+ */
 
 public class JeanGuy extends Playable {
-
+    /**
+     * Constructs a new JeanGuy player.
+     *
+     * @param panel Reference to the main {@link GamePanel}.
+     * @param keyHandler {@link KeyHandler} object to handle player input.
+     */
 
     public JeanGuy(GamePanel panel, KeyHandler keyHandler) {
         super(panel,"Jean-Guy", 1, new ArrayList<Integer>(Arrays.asList(200,200,0)), 2, 5,3,
@@ -45,7 +58,11 @@ public class JeanGuy extends Playable {
         this.getAttackImage();
         this.getDamageImage();
     }
-
+    /**
+     * Changes JeanGuy's sprites to the "red" version.
+     * <p>
+     * Updates movement, attack, and defense sprites to the red-colored variant.
+     */
     public void redJG(){
 
         this.spritesPaths.set(0, "/assets/redplayer/redsprite/haut1.png");
@@ -75,7 +92,12 @@ public class JeanGuy extends Playable {
     }
 
 
-
+    /**
+     * Updates JeanGuy's sprites when picking up a wooden shield.
+     * <p>
+     * Loads shield-specific movement and defense sprites, depending on
+     * whether the player is using the red version.
+     */
     public void rammasserBouclier(){
 
         if (keyHandler.isRedJeanGuy() == true){
@@ -127,6 +149,20 @@ public class JeanGuy extends Playable {
         }
         this.getPlayerImage();
     }}
+
+    /**
+     * Handles picking up an item in the game world.
+     * <p>
+     * Supports collecting:
+     * <ul>
+     *     <li>{@link BouclierBois} if the player has enough money</li>
+     *     <li>{@link CoeurMax} to increase maximum health</li>
+     *     <li>{@link Coeur} to restore health</li>
+     * </ul>
+     * Updates sprites and inventory accordingly.
+     *
+     * @param ramasse The {@link Equipements} item to pick up.
+     */
     @Override
     public void ramasser(Equipements ramasse){
         if (ramasse instanceof BouclierBois && this.getArgent() >= ((BouclierBois) ramasse).getPrix()){

@@ -11,10 +11,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-
+/**
+ * Class representing a specific type of non-playable character (NPC) called "MaskGuy".
+ * This NPC has its own sprite images for movement in four directions and inherits
+ * behavior from the {@link NonPlayable} class.
+ */
 public class MaskGuy extends NonPlayable{
+    /** Sprite images for movement in each direction */
     protected BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-
+    /**
+     * Constructor for MaskGuy NPC.
+     * Initializes the NPC's stats, position, and sprite file paths.
+     *
+     * @param panel Reference to the GamePanel
+     */
     public MaskGuy(GamePanel panel) {
         super(panel,"MaskGuy#", 1, new ArrayList<Integer>(Arrays.asList(0,0,0)), 1, 4,1,
                 false,true,1,true, Arrays.asList("",""),Arrays.asList("/assets/ennemies/maskass/Haut1.png",
@@ -24,7 +34,10 @@ public class MaskGuy extends NonPlayable{
 
     }
 
-
+    /**
+     * Loads the sprite images for this NPC from the resources.
+     * Overrides the abstract method from {@link NonPlayable}.
+     */
     @Override
     public void getPlayerImage() {
         try{
@@ -41,6 +54,13 @@ public class MaskGuy extends NonPlayable{
         }
 
     }
+
+    /**
+     * Draws the MaskGuy NPC on the screen using the current sprite based on its direction.
+     * Overrides the abstract method from {@link NonPlayable}.
+     *
+     * @param g2 Graphics2D object used to draw the NPC
+     */
 
     @Override
     public void draw(Graphics2D g2) {
