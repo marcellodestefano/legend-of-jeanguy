@@ -73,6 +73,14 @@ public abstract class Bullets {
         this.isActive = act;
     }
 
+    public int getDamage(){
+        return this.damage;
+    }
+
+    public int getSpeed(){
+        return this.speed;
+    }
+
 
 
     public String getIsActive(){

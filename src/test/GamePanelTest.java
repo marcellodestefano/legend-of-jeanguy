@@ -141,4 +141,11 @@ class GamePanelTest {
                 "Le FPS devrait être de 60");
     }
 
+    @Test
+    @DisplayName("Test du GameState qui ne doit pas être null")
+    void testGameState() {
+
+        assertNotNull(gamePanel.getGameState());
+    }
+
 }
