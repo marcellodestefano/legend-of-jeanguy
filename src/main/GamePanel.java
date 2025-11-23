@@ -12,27 +12,57 @@ import entities.players.*;
 import entities.players.*;
 import tile.TileManager;
 
+/**
+ * The main game panel class that handles the game loop, rendering, and updates.
+ * <p>
+ * {@code GamePanel} extends {@link JPanel} and implements {@link Runnable} to
+ * manage the game thread. It handles:
+ * <ul>
+ *     <li>Game states: title, play, pause, command, game over, victory</li>
+ *     <li>Rendering of tiles, players, bullets, and equipment</li>
+ *     <li>Game updates including player, NPC, bullet, and equipment logic</li>
+ *     <li>Menu navigation and UI updates via the {@link UI} class</li>
+ * </ul>
+ */
 public class GamePanel extends JPanel implements Runnable {
 //    private Panel panel = new Panel();
+    /** Original tile size in pixels */
     private final int originalTileSize = 16;
+    /** Tile scale factor */
     private final int scale = 3; //for now
+    /** Size of each tile after scaling */
     private final int tileSize = originalTileSize * scale;
+    /** Number of columns visible on screen */
     private final int maxScreenCol = 16;
+    /** Number of rows visible on screen */
     private  final int maxScreenRow = 12;
+    /** Screen width in pixels */
     private  final int screenWidth = tileSize * maxScreenCol;
+    /** Screen height in pixels */
     private  final int screenHeight = tileSize * maxScreenRow;
+    /** List of all players and NPCs in the game */
     private  ArrayList<Players> personnages = new ArrayList<>();
+    /** Game frames per second */
     private final int FPS = 60;
+    /** Flag to indicate if NPCs should be added */
     private boolean addplayers = false;
+    /** Flag indicating if the player has won */
     private boolean victory=false;
-
+    /** Key handler for keyboard input */
     KeyHandler keyHandler = new KeyHandler(this);
+    /** The main game thread */
     Thread gameThread;
+    /** The main player character */
     private JeanGuy jeanGuy;
+    /** Manages tiles and maps */
     private TileManager tileM = new TileManager(this, jeanGuy);
+    /** List of all equipment in the game */
     private  ArrayList<Equipements> equipements = new ArrayList<>();
+    /** List of bullets in the game */
     private ArrayList<Bullets> bullets = new ArrayList<>();
+    /** Temporary information for spawning monsters */
     private ArrayList<String> info;
+    /** The game's UI handler */
     private UI UI = new UI(this);
 
     // GAME STATE
@@ -44,11 +74,18 @@ public class GamePanel extends JPanel implements Runnable {
     private final int commandState = 3;
     private final int gameOverState = 4;
     private final int victoryState = 5;
+    /** Player's X coordinate */
     private int playerX = 200;
+    /** Player's Y coordinate */
     private int playerY = 200;
 
 
-
+    /**
+     * Constructs the game panel and initializes the game.
+     * <p>
+     * Sets the preferred size, background color, focusable state,
+     * and key listener, then prepares the game.
+     */
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -100,16 +137,24 @@ public class GamePanel extends JPanel implements Runnable {
     public int getGameState() {
         return this.GameState;
     }
-
+    /**
+     * Prepares the game by setting the initial game state and title screen.
+     */
     public void prepareGame() {
         GameState = titleState;
         UI.setTitleScreenState(0);
     }
-
+    /**
+     * Sets the victory state for the game.
+     *
+     * @param victory True if the player has won, false otherwise
+     */
     public void setVictory(boolean victory) {
         this.victory = victory;
     }
-
+    /**
+     * Instantiates monsters, NPCs, and equipment based on current map info.
+     */
     public void instantiateMonsters(){
         String npcs= null;
         npcs = info.get(tileM.getIndex() + 1);
@@ -156,7 +201,9 @@ public class GamePanel extends JPanel implements Runnable {
         tileM.clearInfo();
 
     }
-
+    /**
+     * Starts the game by initializing the main player and clearing game lists.
+     */
     public void startGame() {
 
         // Recrée Jean-Guy avec le bon skin
@@ -230,7 +277,9 @@ public class GamePanel extends JPanel implements Runnable {
     public Playable getJeanGuy(){
         return this.jeanGuy;
     }
-
+    /**
+     * Resets the game to its initial state, including player, tiles, and UI.
+     */
     public void resetGame() {
 
         tileM = new TileManager(this, jeanGuy);
@@ -255,7 +304,9 @@ public class GamePanel extends JPanel implements Runnable {
     public void setAddplayers(boolean addplayers) {
         this.addplayers = addplayers;
     }
-
+    /**
+     * Starts the main game thread.
+     */
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -284,6 +335,9 @@ public class GamePanel extends JPanel implements Runnable {
         return FPS;
     }
 
+    /**
+     *  Utility methods to clear entities outside chunk
+      */
     public void noMonstersOutChunk(){
         for (Players p : personnages) {
             if(!(p instanceof Playable)){
@@ -291,13 +345,18 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+    /**
+     *  Utility methods to clear entities outside chunk
+     */
     public void noBulletsoutChunk(){
         for (Bullets b : bullets) {
             b.setChangeChunk(false);
 
         }
     }
-
+    /**
+     *  Utility methods to clear entities outside chunk
+     */
     public void noEquipementsOutChunk(){
         for (Equipements e : equipements) {
             e.setRamasser();
@@ -307,7 +366,9 @@ public class GamePanel extends JPanel implements Runnable {
     public boolean getVictory() {
         return this.victory;
     }
-
+    /**
+     * Updates all game entities depending on the current game state.
+     */
     @Override
     public void run() {
         long currentTime;
@@ -326,7 +387,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
     }
-
+    /**
+     * Updates all game entities depending on the current game state.
+     */
     public void update() {
 
    
@@ -379,6 +442,11 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Paints all components: tiles, players, bullets, equipment, and UI.
+     *
+     * @param g Graphics object
+     */
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
