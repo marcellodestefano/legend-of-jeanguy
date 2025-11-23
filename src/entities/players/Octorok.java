@@ -15,9 +15,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Class representing the "Octorok" non-playable character (NPC).
+ * <p>
+ * This NPC has ranged attack capabilities and moves according to an
+ * algorithm based on the target player's position. It inherits behavior
+ * from {@link NonPlayable} and overrides movement, attack, sprite loading,
+ * and drawing logic.
+ */
 public class Octorok extends NonPlayable{
+    /** Sprite images for movement in each direction */
     protected BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    /** Counter for attack cooldown */
     protected int cpAtk=0;
+    /**
+     * Constructor for Octorok NPC.
+     * Initializes the NPC's stats, initial position, and sprite file paths.
+     *
+     * @param panel Reference to the GamePanel
+     */
     public Octorok(GamePanel panel) {
         super(panel,"Octorok", 1, new ArrayList<Integer>(Arrays.asList(5,5,0)), 5, 1,2,false,false,200,true, Arrays.asList("",""),
                 Arrays.asList("/assets/ennemies/shootingmob/up1.png",
@@ -27,7 +43,10 @@ public class Octorok extends NonPlayable{
 
     }
 
-
+    /**
+     * Loads the sprite images for this NPC from the resource paths.
+     * Overrides the abstract method from {@link NonPlayable}.
+     */
 
     @Override
     public void getPlayerImage() {
@@ -45,7 +64,12 @@ public class Octorok extends NonPlayable{
         }
 
     }
-
+    /**
+     * Updates the Octorok NPC logic each frame.
+     * <p>
+     * Handles movement towards the target, ranged attack generation,
+     * collision detection, and sprite animation.
+     */
 
     @Override
     public void update() {
@@ -101,6 +125,12 @@ public class Octorok extends NonPlayable{
 
     }
 
+    /**
+     * Draws the Octorok NPC on the screen using the current sprite based on its direction.
+     * Overrides the abstract method from {@link NonPlayable}.
+     *
+     * @param g2 Graphics2D object used to draw the NPC
+     */
     @Override
     public void draw(Graphics2D g2) {
 
