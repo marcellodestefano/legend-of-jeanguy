@@ -505,6 +505,11 @@ public abstract class Playable extends Players{
                         position.set(1,gamePanel.getScreenHeight()-3*gamePanel.getTileSize());
                         gamePanel.getTileM().changeMap("SOUTH");
                     }
+                    if(respass.equals("echelle")){
+                        position.set(0, 5*gamePanel.getTileSize()+gamePanel.getTileSize()/4);
+                        position.set(1, 5*gamePanel.getTileSize()-gamePanel.getTileSize()/4);
+                        gamePanel.getTileM().changeMap("ECHELLE");
+                    }
                 }
                 else{
                     notPassing();

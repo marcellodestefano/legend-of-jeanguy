@@ -98,9 +98,10 @@ public class CollisionsMap {
             return "chunk";
         } else if(mapTiles[col][rowEnd]==46 && mapTiles[colEnd][rowEnd]==46){
             return "merchant";
-
         }else if(mapTiles[col][rowEnd]==339 || mapTiles[colEnd][rowEnd]==340){
             return "exitmerchant";
+        }else if(mapTiles[col][rowEnd]==619 || mapTiles[colEnd][rowEnd]==619 || mapTiles[col][rowEnd]==618 || mapTiles[colEnd][rowEnd]==618)  {
+            return "echelle";
         }
         return "block";
     }
