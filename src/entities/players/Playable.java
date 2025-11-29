@@ -382,22 +382,22 @@ public abstract class Playable extends Players{
     /** Adjusts the player's position when crossing map boundaries */
     public String chooseDirection(){
         if ((gamePanel.getTileSize()<=position.get(0)&&position.get(0)<=gamePanel.getWidth()-gamePanel.getTileSize())){
-            if (position.get(1)>gamePanel.getScreenHeight()/2){
+            if (position.get(1)>gamePanel.getScreenHeight()-gamePanel.getTileSize()){
                 position.set(1, 2*gamePanel.getTileSize());
                 return "SOUTH";
             }
-            else if(position.get(1)<gamePanel.getScreenHeight()/2){
+            else if(position.get(1)<gamePanel.getTileSize()){
                 position.set(1, gamePanel.getScreenHeight()-3*gamePanel.getTileSize());
                 return "NORTH";
             }
 
         }
         else if(gamePanel.getTileSize()<=position.get(1) && gamePanel.getHeight()-gamePanel.getTileSize()>=position.get(1)){
-            if (position.get(0)>gamePanel.getScreenWidth()/2){
+            if (position.get(0)>gamePanel.getScreenWidth()-gamePanel.getTileSize()){
                 position.set(0, gamePanel.getTileSize());
                 return "EAST";
             }
-            else if(position.get(0)<gamePanel.getScreenWidth()/2){
+            else if(position.get(0)<gamePanel.getTileSize()){
                 position.set(0, gamePanel.getScreenWidth()-gamePanel.getTileSize());
                 return "WEST";
             }

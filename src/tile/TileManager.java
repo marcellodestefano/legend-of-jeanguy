@@ -537,9 +537,6 @@ public class TileManager {
             tile[337] = new Tile();
             tile[337].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/topright.png")));
 
-            tile[338] = new Tile();
-            tile[338].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/woodfloor.png")));
-
             tile[339] = new Tile();
             tile[339].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/world/houses/interior/entrance1.png")));
 
