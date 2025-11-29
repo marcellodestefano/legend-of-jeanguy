@@ -1,0 +1,143 @@
+tile[60] = new Tile();
+tile[60].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/void.png")));
+
+tile[61] = new Tile();
+tile[61].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_connector.png")));
+
+tile[62] = new Tile();
+tile[62].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_left_brick.png")));
+
+tile[63] = new Tile();
+tile[63].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_left_connector.png")));
+
+tile[64] = new Tile();
+tile[64].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_left_connector_wall.png")));
+
+tile[65] = new Tile();
+tile[65].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_middle_wall.png")));
+
+tile[66] = new Tile();
+tile[66].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_pillar.png")));
+
+tile[67] = new Tile();
+tile[67].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_right_brick.png")));
+
+tile[68] = new Tile();
+tile[68].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_right_corner.png")));
+
+tile[69] = new Tile();
+tile[69].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/bottom_right_corner_wall.png")));
+
+tile[610] = new Tile();
+tile[610].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/brick_wall.png")));
+
+tile[611] = new Tile();
+tile[611].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjon_floor_1.png")));
+
+tile[612] = new Tile();
+tile[612].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/donjon_floor_2.png")));
+
+tile[613] = new Tile();
+tile[613].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/door_1.png")));
+
+tile[614] = new Tile();
+tile[614].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/door_2.png")));
+
+tile[615] = new Tile();
+tile[615].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/floor_final_boss.png")));
+
+tile[616] = new Tile();
+tile[616].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/floor_right.png")));
+
+tile[617] = new Tile();
+tile[617].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/floor_left.png")));
+
+tile[618] = new Tile();
+tile[618].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/going_down.png")));
+
+tile[619] = new Tile();
+tile[619].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/going_up.png")));
+
+tile[620] = new Tile();
+tile[620].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/left_connector.png")));
+
+tile[621] = new Tile();
+tile[621].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/left_side_brick.png")));
+
+tile[622] = new Tile();
+tile[622].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middle_bottom_brick.png")));
+
+tile[623] = new Tile();
+tile[623].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middle_door.png")));
+
+tile[624] = new Tile();
+tile[624].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middle_left.png")));
+
+tile[625] = new Tile();
+tile[625].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middle_pillar.png")));
+
+tile[626] = new Tile();
+tile[626].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middle_right.png")));
+
+tile[627] = new Tile();
+tile[627].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/middle_wall.png")));
+
+tile[628] = new Tile();
+tile[628].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/right_bottom_brick.png")));
+
+tile[629] = new Tile();
+tile[629].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/right_connector.png")));
+
+tile[630] = new Tile();
+tile[630].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/stairs.png")));
+
+tile[631] = new Tile();
+tile[631].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue_1.png")));
+
+tile[632] = new Tile();
+tile[632].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue_2.png")));
+
+tile[633] = new Tile();
+tile[633].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue_3.png")));
+
+tile[634] = new Tile();
+tile[634].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/statue_4.png")));
+
+tile[635] = new Tile();
+tile[635].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/straight.png")));
+
+tile[636] = new Tile();
+tile[636].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_bottom.png")));
+
+tile[637] = new Tile();
+tile[637].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_connector.png")));
+
+tile[638] = new Tile();
+tile[638].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_left_door.png")));
+
+tile[639] = new Tile();
+tile[639].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_left_corner.png")));
+
+tile[640] = new Tile();
+tile[640].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_left_corner_wall.png")));
+
+tile[641] = new Tile();
+tile[641].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_middle_door.png")));
+
+tile[642] = new Tile();
+tile[642].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_pillar.png")));
+
+tile[643] = new Tile();
+tile[643].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_right_corner.png")));
+
+tile[644] = new Tile();
+tile[644].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_right_corner_wall.png")));
+
+tile[645] = new Tile();
+tile[645].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/top_right_door.png")));
+
+tile[646] = new Tile();
+tile[646].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/end_left.png")));
+
+tile[647] = new Tile();
+tile[647].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/assets/donjon/end_right.png")));

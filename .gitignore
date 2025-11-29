@@ -1,0 +1,8 @@
+*.iml
+lib/
+.idea/
+.class/
+out/
+resources/assets/
+resources/font/
+resources/sound/
