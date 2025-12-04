@@ -10,4 +10,4 @@
 635,612,612,612,612,612,612,612,612,633,634,612,612,612,612,635
 629,636,636,636,636,636,636,636,636,636,636,636,636,636,636,620
 635,60,60,60,60,60,60,60,60,60,60,60,60,60,60,635
-EAST,max_map/donjon/level1,A3.txt,WEST,max_map/donjon/level1,A1.txt,
+EAST,max_map/donjon/level1,A3.txt,NPC,GGM,WEST,max_map/donjon/level1,A1.txt,
